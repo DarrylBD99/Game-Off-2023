@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtxdllgca58i"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/Player.gd" id="1_5i1v1"]
+[ext_resource type="Texture2D" uid="uid://y7rdl0u21hsy" path="res://icon.svg" id="2_dxfh7"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="3_ynioe"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="4_jfbxi"]
+[ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="5_8e6fa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_miyjb"]
+size = Vector2(128, 128)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ovvjl"]
+font_size = 28
+font_color = Color(0.262745, 0.65098, 1, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 2
+script = ExtResource("1_5i1v1")
+speed = 500.0
+
+[node name="HP" type="Node" parent="." node_paths=PackedStringArray("object")]
+script = ExtResource("3_ynioe")
+object = NodePath("..")
+
+[node name="ATK" type="Node" parent="."]
+script = ExtResource("4_jfbxi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_dxfh7")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_miyjb")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+offset_left = -63.0
+offset_top = -112.0
+offset_right = 65.0
+offset_bottom = -65.0
+text = "Player"
+label_settings = SubResource("LabelSettings_ovvjl")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_8e6fa")]
+offset_left = -65.0
+offset_top = 74.0
+offset_right = 63.0
+offset_bottom = 101.0
+health = NodePath("../HP")

@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://dea1wxybwdv5l"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="1_ucxjt"]
+[ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="2_5vcwe"]
+[ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="4_d1ola"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pmsiv"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puyo1"]
+size = Vector2(128, 128)
+
+[sub_resource type="Gradient" id="Gradient_hg6oj"]
+colors = PackedColorArray(0.692381, 0.486593, 0.215174, 1, 0.537255, 0.301961, 0.164706, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yf07t"]
+gradient = SubResource("Gradient_hg6oj")
+
+[sub_resource type="LabelSettings" id="LabelSettings_oc1w6"]
+font_size = 28
+font_color = Color(0.866667, 0.537255, 0.360784, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Crate" type="StaticBody2D"]
+collision_layer = 2
+
+[node name="HP" type="Node" parent="." node_paths=PackedStringArray("object")]
+script = ExtResource("1_ucxjt")
+object = NodePath("..")
+
+[node name="CollisionHitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pmsiv")
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("2_5vcwe")]
+collision_layer = 2
+collision_mask = 7
+health = NodePath("../HP")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_puyo1")
+debug_color = Color(1, 0, 0.0941176, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("GradientTexture2D_yf07t")
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+offset_left = -64.0
+offset_top = -111.0
+offset_right = 64.0
+offset_bottom = -64.0
+text = "Crate"
+label_settings = SubResource("LabelSettings_oc1w6")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_d1ola")]
+offset_top = 74.0
+offset_bottom = 101.0
+health = NodePath("../HP")
