@@ -14,6 +14,5 @@ func change_size(index : int):
 		var states : Array[State] = get_parent().size_state_manager.states
 		if not (index >= states.size() or index < 0) and not states[index] == get_parent().size_state_manager.current_state:
 			get_parent().size_state_manager.change_state(states[index])
-			print("change size")
 	else:
 		push_warning("No Size State Manager Node")

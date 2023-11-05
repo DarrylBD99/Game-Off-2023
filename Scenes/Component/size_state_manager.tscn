@@ -10,8 +10,8 @@ current_state = NodePath("Medium")
 [node name="Small" type="Node" parent="." node_paths=PackedStringArray("timer")]
 script = ExtResource("2_13j3c")
 speed_multiplier = 2.0
-health_multiplier = 0.2
-attack_multiplier = 0.2
+health_multiplier = 0.5
+attack_multiplier = 0.5
 size_multiplier = 0.5
 timer = NodePath("../Timer")
 
@@ -22,8 +22,8 @@ timer = NodePath("../Timer")
 [node name="Large" type="Node" parent="." node_paths=PackedStringArray("timer")]
 script = ExtResource("2_13j3c")
 speed_multiplier = 0.5
-health_multiplier = 3.0
-attack_multiplier = 3.0
+health_multiplier = 2.0
+attack_multiplier = 2.0
 size_multiplier = 2.0
 timer = NodePath("../Timer")
 
