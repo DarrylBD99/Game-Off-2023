@@ -9,26 +9,22 @@ class_name SizeState
 
 var speed_origin : float
 var scale_origin : Vector2
-var health_origin : Health
-var attack_origin : Attack
 
 func state_ready():
 	speed_origin = entity.speed
 	scale_origin = entity.scale
-	health_origin = entity.health
-	attack_origin = entity.attack
 
 func start():
 	timer.start()
+	
+	if entity.health:
+		entity.health.hp = entity.health.hp * health_multiplier
+		entity.health.hp_max = entity.health.hp_max * health_multiplier
+	
+	if entity.attack:
+		entity.attack.atk = entity.attack.atk * attack_multiplier
 
 func physics_process(_delta : float) -> State:
-	if health_origin:
-		entity.health.hp = health_origin.hp * health_multiplier
-		entity.health.hp_max = health_origin.hp_max * health_multiplier
-	
-	if attack_origin:
-		entity.attack.atk = attack_origin.atk * attack_multiplier
-	
 	if not timer.is_stopped():
 		var time_elapsed : float = timer.wait_time - timer.time_left
 		var time_elapsed_percent : float = time_elapsed / timer.wait_time
@@ -41,6 +37,10 @@ func physics_process(_delta : float) -> State:
 	
 	return null
 
-#func end():
-#	entity.speed = speed_origin
-#	entity.scale = scale_origin
+func end():
+	if entity.health:
+		entity.health.hp = entity.health.hp / health_multiplier
+		entity.health.hp_max = entity.health.hp_max / health_multiplier
+	
+	if entity.attack:
+		entity.attack.atk = entity.attack.atk / attack_multiplier
