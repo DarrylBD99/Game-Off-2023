@@ -1,33 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://0grrgimhe61w"]
+[gd_scene load_steps=5 format=3 uid="uid://0grrgimhe61w"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/bullet.gd" id="1_wb8op"]
+[ext_resource type="Script" path="res://Scripts/Misc/bullet.gd" id="1_lt0o3"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="2_b0q6a"]
-
-[sub_resource type="Gradient" id="Gradient_k6nxh"]
-colors = PackedColorArray(0.293554, 0.178744, 0.297421, 1, 0.324112, 0.385006, 0.877777, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_wtd2v"]
-gradient = SubResource("Gradient_k6nxh")
+[ext_resource type="Texture2D" uid="uid://bn0qc0ydaxbq2" path="res://Sprites/Obj/bullet.png" id="3_qtqmc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g7mee"]
 radius = 4.0
-height = 16.0
+height = 14.0
 
-[node name="Bullet" type="StaticBody2D" node_paths=PackedStringArray("attack", "bullet")]
+[node name="Bullet" type="StaticBody2D" node_paths=PackedStringArray("attack")]
 collision_layer = 4
 collision_mask = 0
-script = ExtResource("1_wb8op")
+script = ExtResource("1_lt0o3")
 attack = NodePath("Attack")
-bullet = NodePath(".")
 
 [node name="Attack" type="Node" parent="."]
 script = ExtResource("2_b0q6a")
 atk = 1.0
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-6.55651e-07, 0)
-scale = Vector2(0.0625, 8)
-texture = SubResource("GradientTexture1D_wtd2v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -41,5 +30,14 @@ collision_mask = 2
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_g7mee")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(5.36442e-07, 0)
+scale = Vector2(0.7, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-6.55651e-07, 0)
+texture = ExtResource("3_qtqmc")
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

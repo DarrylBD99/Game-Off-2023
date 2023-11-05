@@ -1,11 +1,11 @@
 extends StaticBody2D
 
 @export var attack : Attack
-@export var bullet : StaticBody2D
 
 var cursor_pos : Vector2
 var move_pos : Vector2
 var bullet_speed : float = 5000
+var entity_origin : Entity
 
 func _ready():
 	cursor_pos = get_global_mouse_position()
@@ -18,12 +18,8 @@ func _physics_process(delta):
 
 func _on_hitbox_area_entered(area):
 	if area is Hitbox:
-		damage(area)
+		area.damage(attack)
+		queue_free()
 
-func _on_hitbox_body_entered(body):
-	if body is Hitbox:
-		damage(body)
-
-func damage(hitbox : Hitbox):
-	hitbox.damage(attack)
-	bullet.queue_free()
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()

@@ -2,30 +2,23 @@
 
 [ext_resource type="Script" path="res://Scripts/GUI/HealthBar.gd" id="1_ti88s"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xf1n"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e2jxu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4y6j1"]
-bg_color = Color(0.870588, 0, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 0)
+bg_color = Color(1, 0.32549, 0.258824, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="HealthBar" type="ProgressBar"]
 z_index = 1
-offset_left = -64.0
-offset_top = -14.0
-offset_right = 64.0
-offset_bottom = 13.0
-theme_override_styles/background = SubResource("StyleBoxFlat_4xf1n")
+offset_left = -41.0
+offset_top = -4.0
+offset_right = 41.0
+offset_bottom = 4.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_e2jxu")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4y6j1")
-value = 100.0
+value = 50.0
 show_percentage = false
 script = ExtResource("1_ti88s")

@@ -1,28 +1,56 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtxdllgca58i"]
+[gd_scene load_steps=15 format=3 uid="uid://dtxdllgca58i"]
 
-[ext_resource type="Script" path="res://Scripts/Entity/Player.gd" id="1_5i1v1"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/Player.gd" id="1_qgvxu"]
 [ext_resource type="Texture2D" uid="uid://y7rdl0u21hsy" path="res://icon.svg" id="2_dxfh7"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="3_ynioe"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="4_jfbxi"]
 [ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="5_8e6fa"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/IDLE.gd" id="7_6eqcn"]
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="7_1472q"]
+[ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="7_kadac"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/RUN.gd" id="8_jxg16"]
+[ext_resource type="Script" path="res://Scripts/Debug/StateLabel.gd" id="9_chtr1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_miyjb"]
 size = Vector2(128, 128)
 
-[sub_resource type="LabelSettings" id="LabelSettings_ovvjl"]
-font_size = 28
-font_color = Color(0.262745, 0.65098, 1, 1)
-outline_size = 4
-outline_color = Color(0, 0, 0, 1)
+[sub_resource type="Animation" id="Animation_qx5qg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kvl2y"]
+_data = {
+"RESET": SubResource("Animation_qx5qg")
+}
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mqyfh"]
+states/End/position = Vector2(865, 61)
+states/Start/position = Vector2(205, 61)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "state_manager", "size_state_manager", "animation_tree", "health", "attack")]
 collision_mask = 2
-script = ExtResource("1_5i1v1")
+script = ExtResource("1_qgvxu")
+AimRayCast = NodePath("AimRayCast")
 speed = 500.0
+state_manager = NodePath("State Manager")
+size_state_manager = NodePath("Size State Manager")
+animation_tree = NodePath("AnimationTree")
+health = NodePath("HP")
+attack = NodePath("ATK")
 
-[node name="HP" type="Node" parent="." node_paths=PackedStringArray("object")]
+[node name="HP" type="Node" parent="."]
 script = ExtResource("3_ynioe")
-object = NodePath("..")
 
 [node name="ATK" type="Node" parent="."]
 script = ExtResource("4_jfbxi")
@@ -33,21 +61,49 @@ texture = ExtResource("2_dxfh7")
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_miyjb")
 
-[node name="Label" type="Label" parent="."]
-z_index = 1
-offset_left = -63.0
-offset_top = -112.0
-offset_right = 65.0
-offset_bottom = -65.0
-text = "Player"
-label_settings = SubResource("LabelSettings_ovvjl")
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-
 [node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_8e6fa")]
-offset_left = -65.0
-offset_top = 74.0
-offset_right = 63.0
-offset_bottom = 101.0
+offset_top = -80.0
+offset_bottom = -72.0
 health = NodePath("../HP")
+
+[node name="SizeStateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("9_chtr1")
+state_manager = NodePath("../Size State Manager")
+
+[node name="StateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("9_chtr1")
+state_manager = NodePath("../State Manager")
+
+[node name="Size State Manager" parent="." instance=ExtResource("7_kadac")]
+
+[node name="State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("7_1472q")
+current_state = NodePath("IDLE")
+
+[node name="IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("run")]
+script = ExtResource("7_6eqcn")
+run = NodePath("../RUN")
+
+[node name="RUN" type="Node" parent="State Manager" node_paths=PackedStringArray("idle")]
+script = ExtResource("8_jxg16")
+idle = NodePath("../IDLE")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kvl2y")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_mqyfh")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AimRayCast" type="RayCast2D" parent="."]
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false

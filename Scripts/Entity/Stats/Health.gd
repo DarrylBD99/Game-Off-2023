@@ -3,7 +3,6 @@ extends Node
 class_name Health
 
 @export var hp_max : float = 10.0
-@export var object : Node
 
 @onready var hp : float = hp_max
 
@@ -12,4 +11,4 @@ func damage(attack : Attack):
 
 func _process(_delta):
 	if hp <= 0:
-		object.queue_free()
+		get_parent().queue_free()

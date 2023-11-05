@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://drjc1gi1ohtja"]
+
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="1_nl1ed"]
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/SizeState.gd" id="2_13j3c"]
+
+[node name="Size State Manager" type="Node" node_paths=PackedStringArray("current_state")]
+script = ExtResource("1_nl1ed")
+current_state = NodePath("Medium")
+
+[node name="Small" type="Node" parent="." node_paths=PackedStringArray("timer")]
+script = ExtResource("2_13j3c")
+speed_multiplier = 2.0
+health_multiplier = 0.2
+attack_multiplier = 0.2
+size_multiplier = 0.5
+timer = NodePath("../Timer")
+
+[node name="Medium" type="Node" parent="." node_paths=PackedStringArray("timer")]
+script = ExtResource("2_13j3c")
+timer = NodePath("../Timer")
+
+[node name="Large" type="Node" parent="." node_paths=PackedStringArray("timer")]
+script = ExtResource("2_13j3c")
+speed_multiplier = 0.5
+health_multiplier = 3.0
+attack_multiplier = 3.0
+size_multiplier = 2.0
+timer = NodePath("../Timer")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true

@@ -1,9 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgcrh0mcsx6op"]
+[gd_scene load_steps=3 format=3 uid="uid://cgcrh0mcsx6op"]
 
 [ext_resource type="PackedScene" uid="uid://dtxdllgca58i" path="res://Scenes/Objects/Entity/player.tscn" id="1_brcdq"]
 [ext_resource type="PackedScene" uid="uid://dea1wxybwdv5l" path="res://Scenes/Objects/Entity/crate.tscn" id="2_h21tq"]
-[ext_resource type="Texture2D" uid="uid://dhrreptjq7nhm" path="res://Sprites/GUI/crosshair.png" id="3_ss5fx"]
-[ext_resource type="Script" path="res://Scripts/GUI/Cursor.gd" id="4_hqt61"]
 
 [node name="LevelTest" type="Node2D"]
 
@@ -21,9 +19,3 @@ position = Vector2(1108, 818)
 
 [node name="Crate" parent="." instance=ExtResource("2_h21tq")]
 position = Vector2(819, 298)
-
-[node name="Cursor" type="Sprite2D" parent="."]
-texture_filter = 1
-scale = Vector2(3, 3)
-texture = ExtResource("3_ss5fx")
-script = ExtResource("4_hqt61")
