@@ -14,7 +14,6 @@ func _process(_delta):
 	value = health.hp / health.hp_max * 100
 	
 	if visible_bool and $VisibleTimer.is_stopped():
-		print(visible_bool)
 		visible_bool = false
 		fade_bool = true
 		$FadeTimer.start()
@@ -26,7 +25,6 @@ func _process(_delta):
 			
 			var opacity : float = 1 - time_elapsed_fraction
 			set_modulate(Color(1,1,1,opacity))
-			print(opacity)
 		else:
 			fade_bool = false
 	
