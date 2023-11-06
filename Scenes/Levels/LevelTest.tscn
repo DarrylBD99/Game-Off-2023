@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgcrh0mcsx6op"]
 
 [ext_resource type="PackedScene" uid="uid://dtxdllgca58i" path="res://Scenes/Objects/Entity/player.tscn" id="1_brcdq"]
-[ext_resource type="PackedScene" uid="uid://bp3h47pr26lbm" path="res://Scenes/Objects/Entity/silent_npc.tscn" id="3_7vs0e"]
+[ext_resource type="PackedScene" uid="uid://dldvmlyfiolno" path="res://Scenes/Objects/Entity/silent_npc.tscn" id="3_7vs0e"]
 
 [node name="LevelTest" type="Node2D"]
 
