@@ -4,6 +4,7 @@ extends State
 @export var visuals : Sprite2D
 @export var attack_range : float
 @export var foostep_time : float
+@export var melee_attack_node : Node2D
 
 var foostep_timer = 0
 var footstep_scene : PackedScene
@@ -35,6 +36,8 @@ func physics_process(_delta : float) -> State:
 	new_velocity = new_velocity.normalized()
 	#var deltaRotation = (new_velocity.angle() - visuals.rotation)
 	#visuals.rotation = visuals.rotation + deltaRotation * _delta;
+	melee_attack_node.look_at(targetPosition)
+	
 	entity.velocity = new_velocity * entity.speed
 	entity.move_and_slide()
 	
