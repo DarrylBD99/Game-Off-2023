@@ -27,10 +27,10 @@ func start():
 func physics_process(_delta : float) -> State:
 	if not timer.is_stopped():
 		var time_elapsed : float = timer.wait_time - timer.time_left
-		var time_elapsed_percent : float = time_elapsed / timer.wait_time
+		var time_elapsed_fraction : float = time_elapsed / timer.wait_time
 		
-		entity.speed += ((speed_origin * speed_multiplier) - entity.speed) * time_elapsed_percent
-		entity.scale += ((scale_origin * size_multiplier) - entity.scale) * time_elapsed_percent
+		entity.speed += ((speed_origin * speed_multiplier) - entity.speed) * time_elapsed_fraction
+		entity.scale += ((scale_origin * size_multiplier) - entity.scale) * time_elapsed_fraction
 	else:
 		entity.speed = speed_origin * speed_multiplier
 		entity.scale = scale_origin * size_multiplier
