@@ -9,11 +9,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdxhc"]
 size = Vector2(128, 128)
 
-[sub_resource type="Gradient" id="Gradient_hg6oj"]
+[sub_resource type="Gradient" id="Gradient_8s2f6"]
 colors = PackedColorArray(0.692381, 0.486593, 0.215174, 1, 0.537255, 0.301961, 0.164706, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ehact"]
-gradient = SubResource("Gradient_hg6oj")
+gradient = SubResource("Gradient_8s2f6")
 
 [node name="Crate" type="CharacterBody2D" node_paths=PackedStringArray("size_state_manager", "size_time_limit", "health")]
 collision_layer = 2

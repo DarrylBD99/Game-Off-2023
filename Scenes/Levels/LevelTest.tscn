@@ -1,21 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgcrh0mcsx6op"]
 
 [ext_resource type="PackedScene" uid="uid://dtxdllgca58i" path="res://Scenes/Objects/Entity/player.tscn" id="1_brcdq"]
-[ext_resource type="PackedScene" uid="uid://dea1wxybwdv5l" path="res://Scenes/Objects/Entity/crate.tscn" id="2_h21tq"]
+[ext_resource type="PackedScene" uid="uid://bp3h47pr26lbm" path="res://Scenes/Objects/Entity/silent_npc.tscn" id="3_7vs0e"]
 
 [node name="LevelTest" type="Node2D"]
 
-[node name="TileMap" type="TileMap" parent="."]
-format = 2
-
 [node name="Player" parent="." instance=ExtResource("1_brcdq")]
-position = Vector2(287, 168)
+position = Vector2(956, 476)
 
-[node name="Crate3" parent="." instance=ExtResource("2_h21tq")]
-position = Vector2(1538, 505)
-
-[node name="Crate2" parent="." instance=ExtResource("2_h21tq")]
-position = Vector2(1108, 818)
-
-[node name="Crate" parent="." instance=ExtResource("2_h21tq")]
-position = Vector2(819, 298)
+[node name="silent_npc" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_7vs0e")]
+position = Vector2(611, 788)
+target = NodePath("../Player")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dtxdllgca58i"]
+[gd_scene load_steps=16 format=3 uid="uid://dtxdllgca58i"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.gd" id="1_qgvxu"]
 [ext_resource type="Texture2D" uid="uid://y7rdl0u21hsy" path="res://icon.svg" id="2_dxfh7"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="7_kadac"]
 [ext_resource type="Script" path="res://Scripts/Entity/Player/States/RUN.gd" id="8_jxg16"]
 [ext_resource type="Script" path="res://Scripts/Debug/StateLabel.gd" id="9_chtr1"]
+[ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="11_7hj3n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_miyjb"]
 size = Vector2(128, 128)
@@ -107,3 +108,11 @@ anim_player = NodePath("../AnimationPlayer")
 collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_7hj3n")]
+collision_layer = 2
+collision_mask = 7
+health = NodePath("../HP")
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_miyjb")

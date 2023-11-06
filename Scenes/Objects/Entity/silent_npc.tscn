@@ -1,0 +1,239 @@
+[gd_scene load_steps=19 format=3 uid="uid://bp3h47pr26lbm"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/silent.gd" id="1_gh8xh"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="1_ppis3"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_jjvqw"]
+[ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="3_nfm67"]
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="4_feb4x"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/SILENT_ATTACK.gd" id="5_c31c8"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/SILENT_MOVE.gd" id="6_ejeur"]
+[ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="7_m86c1"]
+
+[sub_resource type="Animation" id="Animation_70i01"]
+loop_mode = 2
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Area2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Area2D/CollisionShape2D/Sprite2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Area2D/CollisionShape2D/Sprite2D2:modulate:r")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Area2D/CollisionShape2D/Sprite2D2:modulate:g")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Area2D/CollisionShape2D/Sprite2D2:modulate:b")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Area2D/CollisionShape2D/Sprite2D2:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_sbq52"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Area2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Area2D/CollisionShape2D/Sprite2D2:modulate:r")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Area2D/CollisionShape2D/Sprite2D2:modulate:g")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Area2D/CollisionShape2D/Sprite2D2:modulate:b")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Area2D/CollisionShape2D/Sprite2D2:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v3qyf"]
+_data = {
+"RESET": SubResource("Animation_70i01"),
+"attack": SubResource("Animation_sbq52")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4x84x"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glblf"]
+size = Vector2(128, 128)
+
+[sub_resource type="Gradient" id="Gradient_hg6oj"]
+offsets = PackedFloat32Array(0, 0.968571, 1)
+colors = PackedColorArray(0.692381, 0.486593, 0.215174, 1, 0, 0.529511, 0.215468, 1, 0.537255, 0.301961, 0.164706, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2n1jh"]
+gradient = SubResource("Gradient_hg6oj")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1e6k"]
+size = Vector2(120, 124)
+
+[sub_resource type="Gradient" id="Gradient_56idl"]
+offsets = PackedFloat32Array(0, 0.942857, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ih2tr"]
+gradient = SubResource("Gradient_56idl")
+
+[node name="silent_npc" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "health", "attack")]
+script = ExtResource("1_gh8xh")
+melee_collision = NodePath("Area2D")
+state_manager = NodePath("State Manager")
+health = NodePath("HP")
+attack = NodePath("ATK")
+
+[node name="ATK" type="Node" parent="."]
+script = ExtResource("1_ppis3")
+
+[node name="HP" type="Node" parent="."]
+script = ExtResource("2_jjvqw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../State Manager")
+libraries = {
+"": SubResource("AnimationLibrary_v3qyf")
+}
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("3_nfm67")]
+collision_layer = 2
+collision_mask = 7
+health = NodePath("../HP")
+
+[node name="CollisionHitbox" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_4x84x")
+
+[node name="State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("4_feb4x")
+current_state = NodePath("SILENT_MOVE")
+
+[node name="SILENT_ATTACK" type="Node" parent="State Manager" node_paths=PackedStringArray("move", "animationPlayer")]
+script = ExtResource("5_c31c8")
+move = NodePath("../SILENT_MOVE")
+animationPlayer = NodePath("../../AnimationPlayer")
+
+[node name="SILENT_MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("attack", "visuals")]
+script = ExtResource("6_ejeur")
+attack = NodePath("../SILENT_ATTACK")
+visuals = NodePath("../../Sprite2D")
+attack_range = 250.0
+foostep_time = 1.0
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_glblf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("GradientTexture2D_2n1jh")
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("7_m86c1")]
+offset_top = -80.0
+offset_bottom = -72.0
+health = NodePath("../HP")
+metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(127, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-2, -4)
+shape = SubResource("RectangleShape2D_p1e6k")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Area2D/CollisionShape2D"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(1.00002, 1)
+scale = Vector2(0.476563, 122)
+texture = SubResource("GradientTexture1D_ih2tr")
