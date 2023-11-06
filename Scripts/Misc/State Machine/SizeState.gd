@@ -15,7 +15,8 @@ func state_ready():
 	scale_origin = entity.scale
 
 func start():
-	timer.start()
+	if not scale_origin == entity.scale * size_multiplier:
+		timer.start()
 	
 	if entity.health:
 		entity.health.hp = entity.health.hp * health_multiplier
@@ -31,6 +32,7 @@ func physics_process(_delta : float) -> State:
 		
 		entity.speed += ((speed_origin * speed_multiplier) - entity.speed) * time_elapsed_fraction
 		entity.scale += ((scale_origin * size_multiplier) - entity.scale) * time_elapsed_fraction
+		
 	else:
 		entity.speed = speed_origin * speed_multiplier
 		entity.scale = scale_origin * size_multiplier
