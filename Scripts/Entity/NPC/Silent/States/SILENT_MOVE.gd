@@ -8,7 +8,7 @@ extends State
 var foostep_timer = 0
 var footstep_scene : PackedScene
 
-func _ready():
+func state_ready():
 	footstep_scene = preload("res://Scenes/Objects/silent_footstep.tscn")
 
 func start():
