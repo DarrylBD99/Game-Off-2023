@@ -9,5 +9,5 @@
 position = Vector2(956, 476)
 
 [node name="silent_npc" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_7vs0e")]
-position = Vector2(611, 788)
+position = Vector2(609, 470)
 target = NodePath("../Player")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dldvmlyfiolno"]
+[gd_scene load_steps=22 format=3 uid="uid://dldvmlyfiolno"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/silent.gd" id="1_gh8xh"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="1_ppis3"]
@@ -7,8 +7,10 @@
 [ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="4_feb4x"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/SILENT_ATTACK.gd" id="5_c31c8"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/SILENT_MOVE.gd" id="6_ejeur"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/SILENT_IDLE.gd" id="6_jiod6"]
 [ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="7_m86c1"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="8_b603y"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/SILENT_INVISIBLE.gd" id="9_aammn"]
 
 [sub_resource type="Animation" id="Animation_70i01"]
 loop_mode = 2
@@ -170,11 +172,12 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ih2tr"]
 gradient = SubResource("Gradient_56idl")
 
-[node name="silent_npc" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "size_state_manager", "size_time_limit", "health", "attack")]
+[node name="silent_npc" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack")]
 collision_layer = 2
 script = ExtResource("1_gh8xh")
 melee_collision = NodePath("MeleeAttack/Area2D")
 state_manager = NodePath("State Manager")
+action_state_manager = NodePath("Action Manager")
 size_state_manager = NodePath("Size State Manager")
 size_time_limit = NodePath("SizeTimeLimit")
 health = NodePath("HP")
@@ -188,7 +191,7 @@ atk = 1.0
 script = ExtResource("2_jjvqw")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../State Manager")
+root_node = NodePath("../Action Manager")
 libraries = {
 "": SubResource("AnimationLibrary_v3qyf")
 }
@@ -203,20 +206,34 @@ shape = SubResource("RectangleShape2D_4x84x")
 
 [node name="State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("4_feb4x")
-current_state = NodePath("SILENT_MOVE")
+current_state = NodePath("SILENT_IDLE")
 
-[node name="SILENT_ATTACK" type="Node" parent="State Manager" node_paths=PackedStringArray("move", "animationPlayer")]
-script = ExtResource("5_c31c8")
-move = NodePath("../SILENT_MOVE")
-animationPlayer = NodePath("../../AnimationPlayer")
+[node name="SILENT_IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_jiod6")
+next_state = NodePath("../SILENT_MOVE")
+target_range = 100.0
 
-[node name="SILENT_MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("attack", "visuals", "melee_attack_node")]
+[node name="SILENT_MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("6_ejeur")
-attack = NodePath("../SILENT_ATTACK")
-visuals = NodePath("../../Sprite2D")
-attack_range = 250.0
+next_state = NodePath("../SILENT_IDLE")
+target_range = 50.0
 foostep_time = 1.0
+
+[node name="Action Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("4_feb4x")
+current_state = NodePath("SILENT_INVISIBLE")
+
+[node name="SILENT_ATTACK" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state", "animationPlayer", "melee_attack_node")]
+script = ExtResource("5_c31c8")
+next_state = NodePath("../SILENT_INVISIBLE")
+animationPlayer = NodePath("../../AnimationPlayer")
 melee_attack_node = NodePath("../../MeleeAttack")
+
+[node name="SILENT_INVISIBLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state", "visuals")]
+script = ExtResource("9_aammn")
+next_state = NodePath("../SILENT_ATTACK")
+attack_range = 250.0
+visuals = NodePath("../../Sprite2D")
 
 [node name="Size State Manager" parent="." instance=ExtResource("8_b603y")]
 
