@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bp3h47pr26lbm"]
+[gd_scene load_steps=19 format=3 uid="uid://dldvmlyfiolno"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/silent.gd" id="1_gh8xh"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="1_ppis3"]
@@ -170,6 +170,7 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
 gradient = SubResource("Gradient_56idl")
 
 [node name="silent_npc" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "health", "attack")]
+collision_layer = 2
 script = ExtResource("1_gh8xh")
 melee_collision = NodePath("Area2D")
 state_manager = NodePath("State Manager")
@@ -178,6 +179,7 @@ attack = NodePath("ATK")
 
 [node name="ATK" type="Node" parent="."]
 script = ExtResource("1_ppis3")
+atk = 1.0
 
 [node name="HP" type="Node" parent="."]
 script = ExtResource("2_jjvqw")
@@ -227,6 +229,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(127, 3)
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-2, -4)
