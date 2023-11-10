@@ -21,10 +21,11 @@ GameManager="*res://Scripts/Misc/GameManager.gd"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/window_width_override=1152
 window/size/window_height_override=648
+window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="res://Sprites/GUI/cursor.png"
 
 [dotnet]
@@ -69,3 +70,4 @@ player_ability={
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Bullet"
+2d_physics/layer_4="Wall"
