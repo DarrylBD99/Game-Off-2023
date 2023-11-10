@@ -20,7 +20,7 @@ gradient = SubResource("Gradient_8s2f6")
 
 [node name="Crate" type="CharacterBody2D" node_paths=PackedStringArray("size_state_manager", "size_time_limit", "health")]
 collision_layer = 2
-collision_mask = 7
+collision_mask = 3
 script = ExtResource("1_6dguf")
 size_state_manager = NodePath("Size State Manager")
 size_time_limit = NodePath("SizeTimeLimit")
