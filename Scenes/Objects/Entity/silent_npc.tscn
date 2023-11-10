@@ -149,11 +149,11 @@ _data = {
 "attack": SubResource("Animation_sbq52")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4x84x"]
-size = Vector2(128, 128)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_glblf"]
-size = Vector2(128, 128)
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohae8"]
+size = Vector2(32, 16)
 
 [sub_resource type="Gradient" id="Gradient_hg6oj"]
 offsets = PackedFloat32Array(0, 0.968571, 1)
@@ -163,7 +163,7 @@ colors = PackedColorArray(0.692381, 0.486593, 0.215174, 1, 0, 0.529511, 0.215468
 gradient = SubResource("Gradient_hg6oj")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1e6k"]
-size = Vector2(120, 124)
+size = Vector2(32, 32)
 
 [sub_resource type="Gradient" id="Gradient_56idl"]
 offsets = PackedFloat32Array(0, 0.942857, 1)
@@ -174,8 +174,10 @@ gradient = SubResource("Gradient_56idl")
 
 [node name="silent_npc" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack")]
 collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_gh8xh")
 melee_collision = NodePath("MeleeAttack/Area2D")
+speed = 50.0
 state_manager = NodePath("State Manager")
 action_state_manager = NodePath("Action Manager")
 size_state_manager = NodePath("Size State Manager")
@@ -201,8 +203,8 @@ collision_layer = 2
 collision_mask = 7
 health = NodePath("../HP")
 
-[node name="CollisionHitbox" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("RectangleShape2D_4x84x")
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_glblf")
 
 [node name="State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("4_feb4x")
@@ -232,21 +234,22 @@ melee_attack_node = NodePath("../../MeleeAttack")
 [node name="SILENT_INVISIBLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state", "visuals")]
 script = ExtResource("9_aammn")
 next_state = NodePath("../SILENT_ATTACK")
-attack_range = 250.0
+attack_range = 60.0
 visuals = NodePath("../../Sprite2D")
 
 [node name="Size State Manager" parent="." instance=ExtResource("8_b603y")]
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_glblf")
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_ohae8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(0.5, 0.5)
 texture = SubResource("GradientTexture2D_2n1jh")
 
 [node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("7_m86c1")]
-offset_top = -80.0
-offset_bottom = -72.0
+offset_top = -22.0
+offset_bottom = -20.0
 health = NodePath("../HP")
 metadata/_edit_use_anchors_ = true
 
@@ -257,13 +260,12 @@ position = Vector2(127, 3)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttack/Area2D"]
-position = Vector2(-2, -4)
+position = Vector2(-95, -3)
 shape = SubResource("RectangleShape2D_p1e6k")
 
 [node name="Sprite2D2" type="Sprite2D" parent="MeleeAttack/Area2D/CollisionShape2D"]
 modulate = Color(1, 1, 1, 0)
-position = Vector2(1.00002, 1)
-scale = Vector2(0.476563, 122)
+scale = Vector2(0.125, 32)
 texture = SubResource("GradientTexture1D_ih2tr")
 
 [node name="SizeTimeLimit" type="Timer" parent="."]

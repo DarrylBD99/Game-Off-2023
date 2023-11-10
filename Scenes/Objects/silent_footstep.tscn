@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://d2b8ntiqij8ns"]
 
-[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/silent_footstep.gd" id="1_hoa1a"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/silent_footstep.gd" id="1_h3cep"]
 
 [sub_resource type="Gradient" id="Gradient_5i1ae"]
 offsets = PackedFloat32Array(0, 0.00630915, 0.217666, 0.252366, 1)
@@ -111,12 +111,13 @@ _data = {
 }
 
 [node name="Silent_Footstep" type="Node2D" node_paths=PackedStringArray("animationPlayer")]
-script = ExtResource("1_hoa1a")
+script = ExtResource("1_h3cep")
 animationPlayer = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
 position = Vector2(1.90735e-06, 1.90735e-06)
-scale = Vector2(0.371094, 0.371094)
+scale = Vector2(0.12, 0.12)
 texture = SubResource("GradientTexture2D_6lmwx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

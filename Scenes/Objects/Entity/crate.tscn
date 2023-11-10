@@ -1,13 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://dea1wxybwdv5l"]
+[gd_scene load_steps=10 format=3 uid="uid://dea1wxybwdv5l"]
 
-[ext_resource type="Script" path="res://Scripts/Entity/entity.gd" id="1_pf5je"]
-[ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="1_ucxjt"]
+[ext_resource type="Script" path="res://Scripts/Entity/entity.gd" id="1_6dguf"]
 [ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="2_5vcwe"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_hw45c"]
 [ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="4_d1ola"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="4_r81lb"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f6j6v"]
+size = Vector2(32, 16)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdxhc"]
-size = Vector2(128, 128)
+size = Vector2(32, 32)
 
 [sub_resource type="Gradient" id="Gradient_8s2f6"]
 colors = PackedColorArray(0.692381, 0.486593, 0.215174, 1, 0.537255, 0.301961, 0.164706, 1)
@@ -18,16 +21,17 @@ gradient = SubResource("Gradient_8s2f6")
 [node name="Crate" type="CharacterBody2D" node_paths=PackedStringArray("size_state_manager", "size_time_limit", "health")]
 collision_layer = 2
 collision_mask = 7
-script = ExtResource("1_pf5je")
+script = ExtResource("1_6dguf")
 size_state_manager = NodePath("Size State Manager")
 size_time_limit = NodePath("SizeTimeLimit")
 health = NodePath("HP")
 
 [node name="HP" type="Node" parent="."]
-script = ExtResource("1_ucxjt")
+script = ExtResource("2_hw45c")
 
 [node name="CollisionHitbox" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_bdxhc")
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_f6j6v")
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("2_5vcwe")]
 collision_layer = 2
@@ -38,14 +42,14 @@ health = NodePath("../HP")
 shape = SubResource("RectangleShape2D_bdxhc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
+scale = Vector2(0.5, 0.5)
 texture = SubResource("GradientTexture2D_ehact")
 
 [node name="Size State Manager" parent="." instance=ExtResource("4_r81lb")]
 
 [node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_d1ola")]
-offset_top = -80.0
-offset_bottom = -72.0
+offset_top = -22.0
+offset_bottom = -20.0
 health = NodePath("../HP")
 metadata/_edit_use_anchors_ = true
 
