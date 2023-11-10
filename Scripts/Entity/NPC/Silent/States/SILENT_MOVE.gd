@@ -30,7 +30,7 @@ func physics_process(_delta : float) -> State:
 		if (footstep):
 			footstep.global_position = npc.global_position
 			footstep.global_rotation = npc.target_direction.angle()
-			add_sibling(footstep)
+			entity.add_sibling(footstep)
 			
 			footstep.play()
 			foostep_timer = 0
