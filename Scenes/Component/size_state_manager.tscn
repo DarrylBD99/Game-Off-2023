@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://drjc1gi1ohtja"]
 
-[ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="1_nl1ed"]
-[ext_resource type="Script" path="res://Scripts/Misc/State Machine/SizeState.gd" id="2_13j3c"]
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="1_awn4r"]
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/SizeState.gd" id="2_fyuoc"]
 
 [node name="Size State Manager" type="Node" node_paths=PackedStringArray("current_state")]
-script = ExtResource("1_nl1ed")
+script = ExtResource("1_awn4r")
 current_state = NodePath("Medium")
 
 [node name="Small" type="Node" parent="." node_paths=PackedStringArray("timer")]
-script = ExtResource("2_13j3c")
+script = ExtResource("2_fyuoc")
 speed_multiplier = 2.0
 health_multiplier = 0.5
 attack_multiplier = 0.5
@@ -16,11 +16,11 @@ size_multiplier = 0.5
 timer = NodePath("../Timer")
 
 [node name="Medium" type="Node" parent="." node_paths=PackedStringArray("timer")]
-script = ExtResource("2_13j3c")
+script = ExtResource("2_fyuoc")
 timer = NodePath("../Timer")
 
 [node name="Large" type="Node" parent="." node_paths=PackedStringArray("timer")]
-script = ExtResource("2_13j3c")
+script = ExtResource("2_fyuoc")
 speed_multiplier = 0.5
 health_multiplier = 2.0
 attack_multiplier = 2.0
