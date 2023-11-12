@@ -1,9 +1,11 @@
 extends Node
-
 class_name State
 
 var entity : Entity
 var move_pos : Vector2 = Vector2.ZERO
+
+func is_ready() -> bool:
+	return true
 
 func state_ready():
 	pass

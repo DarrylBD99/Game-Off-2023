@@ -1,0 +1,207 @@
+[gd_scene load_steps=23 format=3 uid="uid://00f1epn3glca"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Dasher/dasher.gd" id="1_118lk"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="2_0ntfv"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="3_dvupq"]
+[ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="4_cb87j"]
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="5_2d1y8"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_IDLE.gd" id="5_bxs6h"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_MOVE.gd" id="5_tr12v"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Dasher/States/DASHER_DASH.gd" id="8_58ksj"]
+[ext_resource type="Script" path="res://Scripts/Misc/CustomMotion.gd" id="9_f1nst"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_WAIT.gd" id="9_t7nd1"]
+[ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="11_lal17"]
+
+[sub_resource type="Animation" id="Animation_70i01"]
+loop_mode = 2
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sbq52"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v3qyf"]
+_data = {
+"RESET": SubResource("Animation_70i01"),
+"attack": SubResource("Animation_sbq52")
+}
+
+[sub_resource type="Curve" id="Curve_rq3r4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.727273, 0.181818), 3.16057, 3.16057, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+metadata/_snap_count = 11
+
+[sub_resource type="Gradient" id="Gradient_hg6oj"]
+offsets = PackedFloat32Array(0, 0.968571, 1)
+colors = PackedColorArray(0.692381, 0.486593, 0.215174, 1, 0, 0.529511, 0.215468, 1, 0.537255, 0.301961, 0.164706, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i2b74"]
+gradient = SubResource("Gradient_hg6oj")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_216d3"]
+size = Vector2(32, 32)
+
+[sub_resource type="Gradient" id="Gradient_56idl"]
+offsets = PackedFloat32Array(0, 0.491686, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ibwq8"]
+gradient = SubResource("Gradient_56idl")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oacef"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkovw"]
+size = Vector2(32, 32)
+
+[node name="dasher_npc" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "health", "attack")]
+position = Vector2(-33, 33)
+collision_mask = 12
+script = ExtResource("1_118lk")
+melee_collision = NodePath("MeleeAttack/Area2D")
+state_manager = NodePath("State Manager")
+action_state_manager = NodePath("Action Manager")
+health = NodePath("HP")
+attack = NodePath("ATK")
+
+[node name="ATK" type="Node" parent="."]
+script = ExtResource("2_0ntfv")
+atk = 1.0
+
+[node name="HP" type="Node" parent="."]
+script = ExtResource("3_dvupq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Action Manager")
+libraries = {
+"": SubResource("AnimationLibrary_v3qyf")
+}
+
+[node name="State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("5_2d1y8")
+current_state = NodePath("STATE_IDLE")
+
+[node name="STATE_IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_bxs6h")
+next_state = NodePath("../STATE_MOVE")
+
+[node name="STATE_MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_tr12v")
+next_state = NodePath("../STATE_IDLE")
+target_range = 900.0
+
+[node name="Action Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("5_2d1y8")
+current_state = NodePath("STATE_IDLE")
+
+[node name="DASHER_STATE_DASH" type="Node" parent="Action Manager" node_paths=PackedStringArray("DashMotion", "next_state", "animationPlayer", "melee_attack_node")]
+script = ExtResource("8_58ksj")
+DashMotion = NodePath("DASHER_MOTION")
+target_range = 500.0
+next_state = NodePath("../STATE_COOLDOWN")
+animationPlayer = NodePath("../../AnimationPlayer")
+melee_attack_node = NodePath("../../MeleeAttack")
+
+[node name="DASHER_MOTION" type="Node" parent="Action Manager/DASHER_STATE_DASH"]
+script = ExtResource("9_f1nst")
+curve = SubResource("Curve_rq3r4")
+distance = 300.0
+time = 1.0
+
+[node name="STATE_COOLDOWN" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_t7nd1")
+next_state = NodePath("../STATE_IDLE")
+wait_time = 2.0
+
+[node name="STATE_IDLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_bxs6h")
+next_state = NodePath("../DASHER_STATE_DASH")
+
+[node name="SizeTimeLimit" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = SubResource("GradientTexture2D_i2b74")
+
+[node name="HealthBar2" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_lal17")]
+offset_top = -22.0
+offset_bottom = -20.0
+health = NodePath("../HP")
+metadata/_edit_use_anchors_ = true
+
+[node name="MeleeAttack" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="MeleeAttack"]
+position = Vector2(127, 3)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttack/Area2D"]
+position = Vector2(-127, -3)
+shape = SubResource("RectangleShape2D_216d3")
+
+[node name="Sprite2D2" type="Sprite2D" parent="MeleeAttack/Area2D/CollisionShape2D"]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.125, 32)
+texture = SubResource("GradientTexture1D_ibwq8")
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_cb87j")]
+collision_layer = 2
+collision_mask = 7
+health = NodePath("../HP")
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_oacef")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tkovw")

@@ -18,7 +18,7 @@ var can_fire : bool = true
 var normal_size : State
 var size_bool : bool = false
 
-func _ready():
+func _ready():	
 	# Base State Machine
 	if state_manager:
 		state_manager.ready()

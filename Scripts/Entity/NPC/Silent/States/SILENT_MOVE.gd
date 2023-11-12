@@ -1,7 +1,5 @@
-extends State
+extends STATE_MOVE
 
-@export var next_state : State
-@export var target_range : float
 @export var foostep_time : float
 
 var foostep_timer = 0
@@ -17,12 +15,10 @@ func physics_process(_delta : float) -> State:
 	var npc = entity as NPC
 	if (!npc.target) :
 		return null;
-
-	if (npc.target_distance <= target_range):
-		return next_state;
-	
-	entity.velocity = npc.target_direction * entity.speed
-	entity.move_and_slide()
+		
+	var retState = super.physics_process(_delta)
+	if (retState):
+		return retState;
 	
 	foostep_timer += _delta;
 	if (foostep_timer >= foostep_time):

@@ -1,11 +1,12 @@
 extends State
+class_name STATE_ANIMATION
 
 @export var next_state : State
 @export var animationPlayer : AnimationPlayer
 @export var melee_attack_node : Node2D
+@export var animationName : StringName = "attack"
 
 var isAnimationComplete = false
-var animationName = "attack"
 
 func start():
 	if (animationPlayer && animationPlayer.has_animation(animationName)) :
@@ -23,7 +24,7 @@ func end():
 	
 func physics_process(_delta : float) -> State:
 	var npc = entity as NPC
-	if (npc.target) :
+	if (npc.target && melee_attack_node) :
 		melee_attack_node.look_at(npc.target.global_position)
 		
 	if (isAnimationComplete):

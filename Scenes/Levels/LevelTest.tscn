@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cgcrh0mcsx6op"]
+[gd_scene load_steps=11 format=3 uid="uid://cgcrh0mcsx6op"]
 
 [ext_resource type="PackedScene" uid="uid://dtxdllgca58i" path="res://Scenes/Objects/Entity/player.tscn" id="1_brcdq"]
 [ext_resource type="Texture2D" uid="uid://buuhyhwlinsof" path="res://Sprites/Tileset/tileset_x1.png" id="3_nugtr"]
 [ext_resource type="Texture2D" uid="uid://uluw4errac71" path="res://Sprites/LightDefault.png" id="4_s5u2x"]
 [ext_resource type="PackedScene" uid="uid://dea1wxybwdv5l" path="res://Scenes/Objects/Entity/crate.tscn" id="4_yakd8"]
+[ext_resource type="PackedScene" uid="uid://00f1epn3glca" path="res://Scenes/Objects/Entity/dasher_npc.tscn" id="5_y77ah"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_06p2g"]
 texture = ExtResource("3_nugtr")
@@ -1055,3 +1056,7 @@ position = Vector2(373, 329)
 
 [node name="Crate3" parent="." instance=ExtResource("4_yakd8")]
 position = Vector2(559, 128)
+
+[node name="dasher_npc" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_y77ah")]
+position = Vector2(185, 377)
+target = NodePath("../Player")

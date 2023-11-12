@@ -5,9 +5,9 @@
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_jjvqw"]
 [ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="3_nfm67"]
 [ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="4_feb4x"]
-[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/SILENT_ATTACK.gd" id="5_c31c8"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_ANIMATION.gd" id="5_c31c8"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/SILENT_MOVE.gd" id="6_ejeur"]
-[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/SILENT_IDLE.gd" id="6_jiod6"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_IDLE.gd" id="6_jiod6"]
 [ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="7_m86c1"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="8_b603y"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/SILENT_INVISIBLE.gd" id="9_aammn"]
@@ -155,24 +155,24 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ohae8"]
 size = Vector2(32, 16)
 
-[sub_resource type="Gradient" id="Gradient_hg6oj"]
+[sub_resource type="Gradient" id="Gradient_wpqgf"]
 offsets = PackedFloat32Array(0, 0.968571, 1)
 colors = PackedColorArray(0.692381, 0.486593, 0.215174, 1, 0, 0.529511, 0.215468, 1, 0.537255, 0.301961, 0.164706, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2n1jh"]
-gradient = SubResource("Gradient_hg6oj")
+gradient = SubResource("Gradient_wpqgf")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1e6k"]
 size = Vector2(32, 32)
 
-[sub_resource type="Gradient" id="Gradient_56idl"]
+[sub_resource type="Gradient" id="Gradient_fgbrv"]
 offsets = PackedFloat32Array(0, 0.942857, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ih2tr"]
-gradient = SubResource("Gradient_56idl")
+gradient = SubResource("Gradient_fgbrv")
 
-[node name="silent_npc" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack")]
+[node name="silent_npc" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "health", "attack")]
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_gh8xh")
@@ -181,7 +181,6 @@ speed = 50.0
 state_manager = NodePath("State Manager")
 action_state_manager = NodePath("Action Manager")
 size_state_manager = NodePath("Size State Manager")
-size_time_limit = NodePath("SizeTimeLimit")
 health = NodePath("HP")
 attack = NodePath("ATK")
 
@@ -198,10 +197,9 @@ libraries = {
 "": SubResource("AnimationLibrary_v3qyf")
 }
 
-[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("3_nfm67")]
+[node name="Hitbox" parent="." instance=ExtResource("3_nfm67")]
 collision_layer = 2
 collision_mask = 7
-health = NodePath("../HP")
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_glblf")
@@ -213,13 +211,12 @@ current_state = NodePath("SILENT_IDLE")
 [node name="SILENT_IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("6_jiod6")
 next_state = NodePath("../SILENT_MOVE")
-target_range = 100.0
 
 [node name="SILENT_MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("6_ejeur")
-next_state = NodePath("../SILENT_IDLE")
-target_range = 50.0
 foostep_time = 1.0
+next_state = NodePath("../SILENT_IDLE")
+target_range = 250.0
 
 [node name="Action Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("4_feb4x")

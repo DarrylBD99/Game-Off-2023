@@ -18,10 +18,17 @@ func ready():
 			child.state_ready()
 		else:
 			push_warning("Child " + child.name + " is not a State class")
-
+	
+	if (!states.has(current_state)):
+		current_state.entity = entity
+		current_state.state_ready()
+		
 	current_state.start()
 
 func physics_process(delta):
+	if (!entity):
+		return;
+		
 	var next_state : State = current_state.physics_process(delta)
 	
 	change_state(next_state)
@@ -35,7 +42,7 @@ func can_move() -> bool:
 	return current_state.can_move
 
 func change_state(new_state : State):
-	if new_state != null:
+	if new_state != null && new_state.is_ready():
 		current_state.end()
 		
 		current_state = new_state
