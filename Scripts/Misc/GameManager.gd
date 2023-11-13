@@ -11,9 +11,15 @@ var cursor_hotspot : Vector2
 var event_old : InputEvent
 var ability_bool : bool = false
 var in_game : bool = true
+var target : Entity
+
+@onready var random : RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready():
 	set_crosshair()
+
+func set_random_seed():
+	random.seed = Time.get_ticks_usec()
 
 func _process(_delta):
 	Input.set_custom_mouse_cursor(cursor, cursor_type, cursor_hotspot)
