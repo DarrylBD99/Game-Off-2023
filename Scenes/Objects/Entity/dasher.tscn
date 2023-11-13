@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://00f1epn3glca"]
+[gd_scene load_steps=24 format=3 uid="uid://00f1epn3glca"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Dasher/dasher.gd" id="1_118lk"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="2_0ntfv"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Dasher/States/DASHER_DASH.gd" id="8_58ksj"]
 [ext_resource type="Script" path="res://Scripts/Misc/CustomMotion.gd" id="9_f1nst"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_WAIT.gd" id="9_t7nd1"]
+[ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_ce0m1"]
 [ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="11_lal17"]
 
 [sub_resource type="Animation" id="Animation_70i01"]
@@ -102,7 +103,7 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tkovw"]
 size = Vector2(32, 32)
 
-[node name="dasher" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_time_limit", "health", "attack", "hitbox")]
+[node name="dasher" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack", "hitbox")]
 position = Vector2(-33, 33)
 collision_layer = 2
 collision_mask = 8
@@ -110,6 +111,7 @@ script = ExtResource("1_118lk")
 melee_collision = NodePath("MeleeAttack/Area2D")
 state_manager = NodePath("State Manager")
 action_state_manager = NodePath("Action Manager")
+size_state_manager = NodePath("Size State Manager")
 size_time_limit = NodePath("SizeTimeLimit")
 health = NodePath("HP")
 attack = NodePath("ATK")
@@ -167,6 +169,8 @@ wait_time = 2.0
 [node name="IDLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("5_bxs6h")
 next_state = NodePath("../DASH")
+
+[node name="Size State Manager" parent="." instance=ExtResource("10_ce0m1")]
 
 [node name="SizeTimeLimit" type="Timer" parent="."]
 process_callback = 0
