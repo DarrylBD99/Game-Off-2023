@@ -28,3 +28,7 @@ func _input(event : InputEvent):
 			
 	if event.is_action_released("player_attack"):
 		can_fire = true
+
+func _notification(what):
+	if what == NOTIFICATION_PREDELETE:
+		GameManager.target = null
