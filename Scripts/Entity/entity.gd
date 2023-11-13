@@ -83,3 +83,17 @@ func shoot_bullet(bullet_scene : PackedScene, pos_origin : Vector2, pos_end : Ve
 		can_fire = false
 		await get_tree().create_timer(fire_rate).timeout
 		can_fire = true
+
+
+func set_ghost_sprite(ghost : Sprite2D) -> Sprite2D:
+	ghost.global_position = global_position
+	ghost.offset = $Sprite2D.offset
+	ghost.texture = $Sprite2D.texture
+	ghost.vframes = $Sprite2D.vframes
+	ghost.hframes = $Sprite2D.hframes
+	ghost.frame = $Sprite2D.frame
+	ghost.flip_h = $Sprite2D.flip_h
+	
+	ghost.scale = $Sprite2D.scale * scale
+	
+	return ghost
