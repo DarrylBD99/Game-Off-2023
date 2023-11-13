@@ -7,5 +7,4 @@ func physics_process(_delta : float) -> State:
 	
 	if move_pos != Vector2.ZERO:
 		return run
-	
 	return null

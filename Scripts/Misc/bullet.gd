@@ -20,10 +20,8 @@ func _physics_process(delta):
 	
 	if $RayCast2D.is_colliding():
 		var collide = $RayCast2D.get_collider()
-		print(collide)
 		if collide is Hitbox and not collide == entity_origin.hitbox:
 			collide.damage(attack)
-			print("dmg raycast")
 			bullet_burst($RayCast2D.get_collision_point())
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
@@ -39,5 +37,4 @@ func bullet_burst(pos : Vector2):
 func _on_area_2d_area_entered(area):
 	if area is Hitbox and not area == entity_origin.hitbox:
 		area.damage(attack)
-		print("dmg area")
 		bullet_burst(global_position)

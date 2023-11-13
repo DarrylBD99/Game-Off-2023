@@ -47,7 +47,6 @@ collision_mask = 10
 script = ExtResource("1_hxueb")
 AimRayCast = NodePath("AimRayCast")
 speed = 150.0
-fire_rate = null
 state_manager = NodePath("State Manager")
 size_state_manager = NodePath("Size State Manager")
 animation_tree = NodePath("AnimationTree")
@@ -112,7 +111,7 @@ tree_root = SubResource("AnimationNodeStateMachine_mqyfh")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="AimRayCast" type="RayCast2D" parent="."]
-collision_mask = 2
+collision_mask = 10
 collide_with_areas = true
 collide_with_bodies = false
 
