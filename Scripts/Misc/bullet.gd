@@ -8,6 +8,7 @@ var move_pos : Vector2
 var bullet_speed : float = 2000
 var entity_origin : Entity
 var bullet_pos_old : Vector2
+var hit : bool = false
 
 func _physics_process(delta):
 	bullet_pos_old = global_position
@@ -17,11 +18,11 @@ func _physics_process(delta):
 	
 	$RayCast2D.target_position = bullet_pos_old - global_position
 	
-	
 	if $RayCast2D.is_colliding():
 		var collide = $RayCast2D.get_collider()
-		if collide is Hitbox and not collide == entity_origin.hitbox:
+		if collide is Hitbox and not collide == entity_origin.hitbox and not hit:
 			collide.damage(attack)
+			hit = true
 			bullet_burst($RayCast2D.get_collision_point())
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
@@ -35,6 +36,7 @@ func bullet_burst(pos : Vector2):
 	queue_free()
 
 func _on_area_2d_area_entered(area):
-	if area is Hitbox and not area == entity_origin.hitbox:
+	if area is Hitbox and not area == entity_origin.hitbox and not hit:
 		area.damage(attack)
+		hit = true
 		bullet_burst(global_position)
