@@ -11,11 +11,11 @@ func end():
 	visuals.show()
 	
 func physics_process(_delta : float) -> State:
-	var npc = entity as NPC
-	if (!npc.target) :
+	if (!GameManager.target):
 		return next_state;
 	
 	# if we are close do an attack
-	if (npc.target_distance <= attack_range):
+	if (entity.target_distance <= attack_range):
 		return next_state;
+	
 	return null

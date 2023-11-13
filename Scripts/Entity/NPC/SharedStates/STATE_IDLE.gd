@@ -1,4 +1,5 @@
 extends State
+class_name IDLE_State
 
 @export var next_state : State
 
