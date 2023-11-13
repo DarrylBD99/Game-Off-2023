@@ -1,0 +1,133 @@
+[gd_scene load_steps=19 format=3 uid="uid://dqsfy4abhyii8"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/turret.gd" id="1_6oxya"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="1_8a73g"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_rgwwn"]
+[ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="4_di6kx"]
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="5_ubp2a"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/States/ATTACK.gd" id="6_dl3d1"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/States/IDLE.gd" id="7_6xs1i"]
+[ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_miysp"]
+[ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="11_l428o"]
+
+[sub_resource type="Animation" id="Animation_70i01"]
+loop_mode = 2
+step = 1.0
+
+[sub_resource type="Animation" id="Animation_sbq52"]
+resource_name = "attack"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v3qyf"]
+_data = {
+"RESET": SubResource("Animation_70i01"),
+"attack": SubResource("Animation_sbq52")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glblf"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngyq7"]
+size = Vector2(32, 16)
+
+[sub_resource type="Gradient" id="Gradient_hg6oj"]
+offsets = PackedFloat32Array(0, 0.968571, 1)
+colors = PackedColorArray(0.83123, 0.37771, 0.227217, 1, 0.822975, 0, 0.146082, 1, 0.537255, 0.301961, 0.164706, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2n1jh"]
+gradient = SubResource("Gradient_hg6oj")
+
+[sub_resource type="Gradient" id="Gradient_fgbrv"]
+colors = PackedColorArray(0.125884, 0.594167, 0.96818, 1, 0, 0.626025, 0.506191, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y31fm"]
+gradient = SubResource("Gradient_fgbrv")
+
+[node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "barrel", "barrel_end", "rotate_timer", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack", "hitbox")]
+collision_layer = 2
+script = ExtResource("1_6oxya")
+AimRayCast = NodePath("AimRayCast")
+barrel = NodePath("Barrel")
+barrel_end = NodePath("Barrel/BarrelEnd")
+rotate_timer = NodePath("RotateTimer")
+fire_rate = 0.5
+action_state_manager = NodePath("Action Manager")
+size_state_manager = NodePath("Size State Manager")
+size_time_limit = NodePath("SizeTimeLimit")
+health = NodePath("HP")
+attack = NodePath("ATK")
+hitbox = NodePath("Hitbox")
+
+[node name="ATK" type="Node" parent="."]
+script = ExtResource("1_8a73g")
+atk = 1.0
+
+[node name="HP" type="Node" parent="."]
+script = ExtResource("2_rgwwn")
+hp_max = 20.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
+libraries = {
+"": SubResource("AnimationLibrary_v3qyf")
+}
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_di6kx")]
+collision_layer = 2
+collision_mask = 7
+health = NodePath("../HP")
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_glblf")
+
+[node name="Action Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("5_ubp2a")
+current_state = NodePath("IDLE")
+
+[node name="ATTACK" type="Node" parent="Action Manager" node_paths=PackedStringArray("idle")]
+script = ExtResource("6_dl3d1")
+target_range = 160.0
+idle = NodePath("../IDLE")
+
+[node name="IDLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state")]
+script = ExtResource("7_6xs1i")
+next_state = NodePath("../ATTACK")
+
+[node name="Size State Manager" parent="." instance=ExtResource("10_miysp")]
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_ngyq7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = SubResource("GradientTexture2D_2n1jh")
+
+[node name="SizeTimeLimit" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_l428o")]
+offset_top = -22.0
+offset_bottom = -20.0
+health = NodePath("../HP")
+
+[node name="Barrel" type="Node2D" parent="."]
+
+[node name="Sprite2D2" type="Sprite2D" parent="Barrel"]
+position = Vector2(16, 0)
+scale = Vector2(0.125, 4)
+texture = SubResource("GradientTexture1D_y31fm")
+
+[node name="BarrelEnd" type="Node2D" parent="Barrel"]
+position = Vector2(32, 0)
+
+[node name="AimRayCast" type="RayCast2D" parent="."]
+collision_mask = 10
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="RotateTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 3.0
+one_shot = true
