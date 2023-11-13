@@ -13,6 +13,7 @@ class_name Entity
 
 @export var health : Health
 @export var attack : Attack
+@export var hitbox : Hitbox
 
 var can_fire : bool = true
 var normal_size : State
@@ -68,11 +69,14 @@ func _input(event):
 	if size_state_manager:
 		size_state_manager.input(event)
 
-func shoot_bullet(bullet_scene : PackedScene):
+func shoot_bullet(bullet_scene : PackedScene, pos_origin : Vector2, pos_end : Vector2):
 	if can_fire:
 		var bullet : StaticBody2D = bullet_scene.instantiate()
-		bullet.global_position = global_position
+		bullet.global_position = pos_origin
+		bullet.look_at(pos_end)
+		bullet.move_pos = global_position.direction_to(pos_end)
 		bullet.entity_origin = self
+		
 		add_sibling(bullet)
 		
 		#stop rapid fire
