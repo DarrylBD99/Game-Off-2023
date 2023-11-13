@@ -10,14 +10,14 @@ func is_ready() -> bool:
 	range_bool = entity.target_distance < target_range
 	block_bool = entity.AimRayCast.is_colliding()
 	
-	return range_bool and not block_bool
+	return range_bool and not block_bool and GameManager.target
 
 func physics_process(delta : float) -> State:
 	range_bool = entity.target_distance < target_range
 	block_bool = entity.AimRayCast.is_colliding()
 	
 	if not GameManager.target:
-		return null
+		return idle
 	
 	var pos : Vector2 = GameManager.target.global_position - entity.global_position
 	var adjacent : float = pos.x
