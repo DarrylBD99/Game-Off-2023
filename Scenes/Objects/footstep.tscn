@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://d2b8ntiqij8ns"]
 
-[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/silent_footstep.gd" id="1_h3cep"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/footstep.gd" id="1_h3cep"]
 
 [sub_resource type="Gradient" id="Gradient_5i1ae"]
 offsets = PackedFloat32Array(0, 0.00630915, 0.217666, 0.252366, 1)

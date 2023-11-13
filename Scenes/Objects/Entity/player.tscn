@@ -42,16 +42,18 @@ states/Start/position = Vector2(205, 61)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_okhtf"]
 size = Vector2(32, 32)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "state_manager", "size_state_manager", "animation_tree", "health", "attack")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "state_manager", "size_state_manager", "animation_tree", "health", "attack", "hitbox")]
 collision_mask = 10
 script = ExtResource("1_hxueb")
 AimRayCast = NodePath("AimRayCast")
 speed = 150.0
+fire_rate = null
 state_manager = NodePath("State Manager")
 size_state_manager = NodePath("Size State Manager")
 animation_tree = NodePath("AnimationTree")
 health = NodePath("HP")
 attack = NodePath("ATK")
+hitbox = NodePath("Hitbox")
 
 [node name="HP" type="Node" parent="."]
 script = ExtResource("2_a01hl")

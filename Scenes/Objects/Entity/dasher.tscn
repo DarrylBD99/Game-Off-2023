@@ -102,15 +102,18 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tkovw"]
 size = Vector2(32, 32)
 
-[node name="dasher_npc" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "health", "attack")]
+[node name="dasher" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_time_limit", "health", "attack", "hitbox")]
 position = Vector2(-33, 33)
-collision_mask = 12
+collision_layer = 2
+collision_mask = 8
 script = ExtResource("1_118lk")
 melee_collision = NodePath("MeleeAttack/Area2D")
 state_manager = NodePath("State Manager")
 action_state_manager = NodePath("Action Manager")
+size_time_limit = NodePath("SizeTimeLimit")
 health = NodePath("HP")
 attack = NodePath("ATK")
+hitbox = NodePath("Hitbox")
 
 [node name="ATK" type="Node" parent="."]
 script = ExtResource("2_0ntfv")
@@ -127,43 +130,43 @@ libraries = {
 
 [node name="State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("5_2d1y8")
-current_state = NodePath("STATE_IDLE")
+current_state = NodePath("IDLE")
 
-[node name="STATE_IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
+[node name="IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("5_bxs6h")
-next_state = NodePath("../STATE_MOVE")
+next_state = NodePath("../MOVE")
 
-[node name="STATE_MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
+[node name="MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("5_tr12v")
-next_state = NodePath("../STATE_IDLE")
+next_state = NodePath("../IDLE")
 target_range = 900.0
 
 [node name="Action Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("5_2d1y8")
-current_state = NodePath("STATE_IDLE")
+current_state = NodePath("IDLE")
 
-[node name="DASHER_STATE_DASH" type="Node" parent="Action Manager" node_paths=PackedStringArray("DashMotion", "next_state", "animationPlayer", "melee_attack_node")]
+[node name="DASH" type="Node" parent="Action Manager" node_paths=PackedStringArray("DashMotion", "next_state", "animationPlayer", "melee_attack_node")]
 script = ExtResource("8_58ksj")
 DashMotion = NodePath("DASHER_MOTION")
 target_range = 500.0
-next_state = NodePath("../STATE_COOLDOWN")
+next_state = NodePath("../COOLDOWN")
 animationPlayer = NodePath("../../AnimationPlayer")
 melee_attack_node = NodePath("../../MeleeAttack")
 
-[node name="DASHER_MOTION" type="Node" parent="Action Manager/DASHER_STATE_DASH"]
+[node name="DASHER_MOTION" type="Node" parent="Action Manager/DASH"]
 script = ExtResource("9_f1nst")
 curve = SubResource("Curve_rq3r4")
 distance = 300.0
 time = 1.0
 
-[node name="STATE_COOLDOWN" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state")]
+[node name="COOLDOWN" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("9_t7nd1")
-next_state = NodePath("../STATE_IDLE")
+next_state = NodePath("../IDLE")
 wait_time = 2.0
 
-[node name="STATE_IDLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state")]
+[node name="IDLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("5_bxs6h")
-next_state = NodePath("../DASHER_STATE_DASH")
+next_state = NodePath("../DASH")
 
 [node name="SizeTimeLimit" type="Timer" parent="."]
 process_callback = 0
