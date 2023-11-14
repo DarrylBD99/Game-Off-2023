@@ -4,16 +4,25 @@ extends Entity
 
 var bullet_scene : PackedScene
 
+var attack_1_sfx : AudioStreamPlayer
+
 func _ready():
 	bullet_scene = preload("res://Scenes/Objects/bullet.tscn")
 	GameManager.target = self
+	
+	attack_1_sfx = AudioStreamPlayer.new()
+	attack_1_sfx.set_stream(GameManager.attack_1_audio)
+	attack_1_sfx.set_bus("SFX")
+	add_child(attack_1_sfx)
+	
 	super._ready()
 
 func _physics_process(delta):
 	AimRayCast.target_position = get_global_mouse_position() - global_position
 	
 	if Input.is_action_pressed("player_attack") and not GameManager.ability_bool and can_fire:
-		shoot_bullet(bullet_scene, global_position, get_global_mouse_position())
+		shoot_bullet(bullet_scene, global_position, get_global_mouse_position(), 1)
+		attack_1_sfx.play()
 	
 	super._physics_process(delta)
 

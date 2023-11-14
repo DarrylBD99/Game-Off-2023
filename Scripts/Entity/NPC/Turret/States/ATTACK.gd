@@ -9,10 +9,9 @@ var block_bool : bool
 var audio_stream_player : AudioStreamPlayer2D
 
 func state_ready():
-	var attack_1_audio : AudioStream = preload("res://Audio/SE/Attack1.wav")
 	audio_stream_player = AudioStreamPlayer2D.new()
 	
-	audio_stream_player.set_stream(attack_1_audio)
+	audio_stream_player.set_stream(GameManager.attack_1_audio)
 	audio_stream_player.set_bus("SFX")
 	entity.add_child(audio_stream_player)
 
