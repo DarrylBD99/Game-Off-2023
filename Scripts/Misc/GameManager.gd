@@ -5,13 +5,18 @@ var default_cursor : CompressedTexture2D = preload("res://Sprites/GUI/cursor.png
 var crosshair : CompressedTexture2D = preload("res://Sprites/GUI/crosshair.png")
 var ability_crosshair : CompressedTexture2D = preload("res://Sprites/GUI/crosshair_ability.png")
 
+var attack_1_audio : AudioStream = preload("res://Audio/SE/Attack1.wav")
+
 var cursor : CompressedTexture2D
 var cursor_type : int
 var cursor_hotspot : Vector2
+
 var event_old : InputEvent
 var ability_bool : bool = false
 var in_game : bool = true
+
 var target : Entity
+var camera : Camera2D
 
 @onready var random : RandomNumberGenerator = RandomNumberGenerator.new()
 
