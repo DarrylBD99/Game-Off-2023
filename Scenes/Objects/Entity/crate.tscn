@@ -19,8 +19,8 @@ colors = PackedColorArray(0.692381, 0.486593, 0.215174, 1, 0.537255, 0.301961, 0
 gradient = SubResource("Gradient_8s2f6")
 
 [node name="Crate" type="CharacterBody2D" node_paths=PackedStringArray("size_state_manager", "size_time_limit", "health", "hitbox")]
-collision_layer = 2
-collision_mask = 3
+collision_layer = 16
+collision_mask = 16
 script = ExtResource("1_6dguf")
 size_state_manager = NodePath("Size State Manager")
 size_time_limit = NodePath("SizeTimeLimit")
@@ -35,8 +35,8 @@ position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_f6j6v")
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("2_5vcwe")]
-collision_layer = 2
-collision_mask = 7
+collision_layer = 16
+collision_mask = 20
 health = NodePath("../HP")
 
 [node name="CollisionHitbox" type="CollisionShape2D" parent="Hitbox"]

@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://Scripts/Misc/GhostSprite.gd" id="1_7cx0b"]
 
 [node name="GhostSprite" type="Sprite2D"]
+z_index = -1
 script = ExtResource("1_7cx0b")

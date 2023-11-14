@@ -43,7 +43,8 @@ colors = PackedColorArray(0.125884, 0.594167, 0.96818, 1, 0, 0.626025, 0.506191,
 gradient = SubResource("Gradient_fgbrv")
 
 [node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "barrel", "barrel_end", "rotate_timer", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack", "hitbox")]
-collision_layer = 2
+collision_layer = 18
+collision_mask = 24
 script = ExtResource("1_6oxya")
 AimRayCast = NodePath("AimRayCast")
 barrel = NodePath("Barrel")
@@ -72,8 +73,8 @@ libraries = {
 }
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_di6kx")]
-collision_layer = 2
-collision_mask = 7
+collision_layer = 18
+collision_mask = 20
 health = NodePath("../HP")
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]

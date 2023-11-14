@@ -173,8 +173,8 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
 gradient = SubResource("Gradient_q3rna")
 
 [node name="silent" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack")]
-collision_layer = 2
-collision_mask = 11
+collision_layer = 18
+collision_mask = 24
 script = ExtResource("1_yuagq")
 melee_collision = NodePath("MeleeAttack/Area2D")
 speed = 50.0
@@ -199,8 +199,8 @@ libraries = {
 }
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_sgcdg")]
-collision_layer = 2
-collision_mask = 7
+collision_layer = 18
+collision_mask = 20
 health = NodePath("../HP")
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
