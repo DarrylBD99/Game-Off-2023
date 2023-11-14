@@ -18,6 +18,7 @@ class_name Entity
 var can_fire : bool = true
 var normal_size : State
 var size_bool : bool = false
+var flash_timer : Timer
 
 func _ready():	
 	# Base State Machine
@@ -32,6 +33,11 @@ func _ready():
 	if size_state_manager:
 		size_state_manager.ready()
 		normal_size = size_state_manager.current_state
+	
+	flash_timer = Timer.new()
+	flash_timer.wait_time = 0.1
+	add_child(flash_timer)
+	flash_timer.timeout.connect(_on_flash_finish)
 
 func _physics_process(delta):
 	# Base State Machine
@@ -69,8 +75,10 @@ func _input(event):
 	if size_state_manager:
 		size_state_manager.input(event)
 
-func shoot_bullet(bullet_scene : PackedScene, pos_origin : Vector2, pos_end : Vector2):
+func shoot_bullet(bullet_scene : PackedScene, pos_origin : Vector2, pos_end : Vector2, shake : float = 0):
 	if can_fire:
+		GameManager.camera.shake(shake)
+		
 		var bullet : StaticBody2D = bullet_scene.instantiate()
 		bullet.global_position = pos_origin
 		bullet.look_at(pos_end)
@@ -97,3 +105,12 @@ func set_ghost_sprite(ghost : Sprite2D) -> Sprite2D:
 	ghost.scale = $Sprite2D.scale * scale
 	
 	return ghost
+
+func flash():
+	if $Sprite2D.material and flash_timer:
+		$Sprite2D.material.set_shader_parameter("flash_alpha", 1)
+		flash_timer.start()
+
+func _on_flash_finish():
+	if $Sprite2D.material:
+		$Sprite2D.material.set_shader_parameter("flash_alpha", 0)

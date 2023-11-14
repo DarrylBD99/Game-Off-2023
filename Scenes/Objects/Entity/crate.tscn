@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dea1wxybwdv5l"]
+[gd_scene load_steps=11 format=3 uid="uid://dea1wxybwdv5l"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/entity.gd" id="1_6dguf"]
 [ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="2_5vcwe"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_hw45c"]
 [ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="4_d1ola"]
+[ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="4_ii4sq"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="4_r81lb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f6j6v"]
@@ -43,6 +44,7 @@ health = NodePath("../HP")
 shape = SubResource("RectangleShape2D_bdxhc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("4_ii4sq")
 scale = Vector2(0.5, 0.5)
 texture = SubResource("GradientTexture2D_ehact")
 

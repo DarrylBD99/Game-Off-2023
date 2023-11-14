@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dtxdllgca58i"]
+[gd_scene load_steps=18 format=3 uid="uid://dtxdllgca58i"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.gd" id="1_hxueb"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_a01hl"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/Entity/Player/States/IDLE.gd" id="9_323fe"]
 [ext_resource type="Script" path="res://Scripts/Entity/Player/States/RUN.gd" id="10_4cqtu"]
 [ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="11_7hj3n"]
+[ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_wf3w5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_miyjb"]
 size = Vector2(32, 16)
@@ -57,13 +58,10 @@ hitbox = NodePath("Hitbox")
 
 [node name="HP" type="Node" parent="."]
 script = ExtResource("2_a01hl")
+shake_screen = true
 
 [node name="ATK" type="Node" parent="."]
 script = ExtResource("3_vqmuc")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_dxfh7")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)
@@ -123,5 +121,10 @@ health = NodePath("../HP")
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_okhtf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("11_wf3w5")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_dxfh7")
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]

@@ -12,3 +12,19 @@ func _physics_process(delta):
 		AimRayCast.target_position = GameManager.target.global_position - global_position
 	
 	super._physics_process(delta)
+
+func flash():
+	var barrel_sprite : Sprite2D = barrel.get_node_or_null("Sprite2D")
+	
+	if barrel_sprite and barrel_sprite.material:
+		barrel_sprite.material.set_shader_parameter("flash_alpha", 1)
+		
+	super.flash()
+
+func _on_flash_finish():
+	var barrel_sprite : Sprite2D = barrel.get_node_or_null("Sprite2D")
+	
+	if barrel_sprite and barrel_sprite.material:
+		barrel_sprite.material.set_shader_parameter("flash_alpha", 0)
+	
+	super._on_flash_finish()

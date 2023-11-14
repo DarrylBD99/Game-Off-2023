@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dldvmlyfiolno"]
+[gd_scene load_steps=23 format=3 uid="uid://dldvmlyfiolno"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/silent.gd" id="1_yuagq"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="2_kebvl"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_ANIMATION.gd" id="8_n47q7"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/INVISIBLE.gd" id="9_j1paj"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_5d670"]
+[ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_aegsw"]
 [ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="11_msp1r"]
 
 [sub_resource type="Animation" id="Animation_70i01"]
@@ -173,6 +174,7 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
 gradient = SubResource("Gradient_q3rna")
 
 [node name="silent" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack")]
+material = ExtResource("11_aegsw")
 collision_layer = 18
 collision_mask = 24
 script = ExtResource("1_yuagq")
@@ -243,6 +245,7 @@ position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_ohae8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("11_aegsw")
 scale = Vector2(0.5, 0.5)
 texture = SubResource("GradientTexture2D_2n1jh")
 

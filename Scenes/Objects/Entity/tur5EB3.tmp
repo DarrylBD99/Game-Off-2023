@@ -124,3 +124,7 @@ collide_with_bodies = false
 process_callback = 0
 wait_time = 3.0
 one_shot = true
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true

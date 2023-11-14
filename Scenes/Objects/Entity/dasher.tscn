@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://00f1epn3glca"]
+[gd_scene load_steps=25 format=3 uid="uid://00f1epn3glca"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Dasher/dasher.gd" id="1_118lk"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="2_0ntfv"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_WAIT.gd" id="9_t7nd1"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_ce0m1"]
 [ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="11_lal17"]
+[ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_xsibn"]
 
 [sub_resource type="Animation" id="Animation_70i01"]
 loop_mode = 2
@@ -178,6 +179,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("11_xsibn")
 scale = Vector2(0.5, 0.5)
 texture = SubResource("GradientTexture2D_i2b74")
 
