@@ -43,7 +43,8 @@ states/Start/position = Vector2(205, 61)
 size = Vector2(32, 32)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "state_manager", "size_state_manager", "animation_tree", "health", "attack", "hitbox")]
-collision_mask = 10
+collision_layer = 17
+collision_mask = 24
 script = ExtResource("1_hxueb")
 AimRayCast = NodePath("AimRayCast")
 speed = 150.0
@@ -116,8 +117,11 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_7hj3n")]
-collision_mask = 6
+collision_layer = 17
+collision_mask = 20
 health = NodePath("../HP")
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_okhtf")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
