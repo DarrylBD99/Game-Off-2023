@@ -20,7 +20,7 @@ func physics_process(_delta : float) -> State:
 	if (entity.target_distance <= target_range):
 		return next_state;
 	
-	entity.velocity = entity.target_direction * entity.speed
+	entity.velocity = entity.navigation_direction * entity.speed
 	entity.move_and_slide()
 
 	return null

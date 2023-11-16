@@ -18,6 +18,8 @@ var in_game : bool = true
 var target : Entity
 var camera : Camera2D
 
+var grid_navmesh : GridNavmesh
+
 @onready var random : RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready():

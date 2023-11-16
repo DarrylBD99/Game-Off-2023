@@ -1,11 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cgcrh0mcsx6op"]
+[gd_scene load_steps=15 format=3 uid="uid://cgcrh0mcsx6op"]
 
 [ext_resource type="AudioStream" uid="uid://d2tf2eip41cug" path="res://Audio/BGM/GO23_Battle_1.mp3" id="1_8wq5s"]
 [ext_resource type="PackedScene" uid="uid://dtxdllgca58i" path="res://Scenes/Objects/Entity/player.tscn" id="1_brcdq"]
 [ext_resource type="Texture2D" uid="uid://buuhyhwlinsof" path="res://Sprites/Tileset/tileset_x1.png" id="3_nugtr"]
 [ext_resource type="Script" path="res://Scripts/Misc/Camera.gd" id="4_g2kdy"]
-[ext_resource type="PackedScene" uid="uid://dqsfy4abhyii8" path="res://Scenes/Objects/Entity/turret.tscn" id="4_gpy0i"]
 [ext_resource type="Texture2D" uid="uid://uluw4errac71" path="res://Sprites/LightDefault.png" id="4_s5u2x"]
+[ext_resource type="PackedScene" uid="uid://dldvmlyfiolno" path="res://Scenes/Objects/Entity/silent.tscn" id="7_u4bsi"]
+[ext_resource type="Script" path="res://Scripts/Misc/GridNavmesh.gd" id="8_c0w4x"]
+[ext_resource type="Shader" path="res://Materials/Shaders/entity.gdshader" id="8_r1rc6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_06p2g"]
 texture = ExtResource("3_nugtr")
@@ -1006,6 +1008,12 @@ adjustment_contrast = 1.2
 adjustment_saturation = 1.1
 adjustment_color_correction = SubResource("GradientTexture1D_n0wu8")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gtfru"]
+resource_local_to_scene = true
+shader = ExtResource("8_r1rc6")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_alpha = 0.0
+
 [node name="LevelTest" type="Node2D"]
 y_sort_enabled = true
 
@@ -1060,5 +1068,11 @@ layer_2/tile_data = PackedInt32Array(131075, 65537, 3, 131076, 327681, 1, 131077
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1wj6d")
 
-[node name="turret" parent="." instance=ExtResource("4_gpy0i")]
-position = Vector2(196, 412)
+[node name="GridNavmesh" type="Node" parent="." node_paths=PackedStringArray("tile_map")]
+script = ExtResource("8_c0w4x")
+tile_map = NodePath("../TileMap")
+layer_id = 2
+
+[node name="silent" parent="." instance=ExtResource("7_u4bsi")]
+material = SubResource("ShaderMaterial_gtfru")
+position = Vector2(143, 413)
