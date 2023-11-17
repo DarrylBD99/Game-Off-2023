@@ -10,12 +10,9 @@ func start():
 func end():
 	visuals.show()
 	
-func physics_process(_delta : float) -> State:
-	if (!GameManager.target):
-		return next_state;
-	
+func physics_process(_delta : float) -> State:	
 	# if we are close do an attack
-	if (entity.target_distance <= attack_range):
+	if (entity.target && entity.target_distance <= attack_range):
 		return next_state;
 	
 	return null

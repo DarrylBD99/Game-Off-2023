@@ -6,7 +6,7 @@ extends STATE_ANIMATION
 var ghost_scene : PackedScene = preload("res://Scenes/Objects/ghost_sprite.tscn")
 
 func is_ready() -> bool:
-	if not GameManager.target:
+	if not entity.target:
 		return false
 	
 	return entity.target_distance < target_range
@@ -14,7 +14,7 @@ func is_ready() -> bool:
 func start():
 	super.start()
 	
-	if (GameManager.target):
+	if (entity.target):
 		DashMotion.play(entity, entity.target_direction)
 
 func physics_process(delta : float) -> State:

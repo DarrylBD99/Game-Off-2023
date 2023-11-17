@@ -1,7 +1,10 @@
 extends Entity
 class_name NPC
 
+@export var aggro_range : float = 300
 @export var debug_path = false
+
+var target: Entity
 
 var target_direction : Vector2
 var target_distance : float
@@ -20,23 +23,34 @@ func _draw():
 				1)
 					
 func _physics_process(delta):
-	if GameManager.target :
-		var target_position = GameManager.target.global_position
-		var current_agent_position = global_position	
-		var difference = target_position - current_agent_position
-		target_direction = difference.normalized()
-		target_distance = difference.length()
-		
-		if (GameManager.grid_navmesh):
-			var path  = GameManager.grid_navmesh.generate_path(
-				current_agent_position, 
-				target_position)
-				
-			if (path.size() > 0):
-				current_path = path
-				navigation_position = current_path[1]
-				navigation_direction = (navigation_position - current_agent_position).normalized()
-			
+	update_sensor()
+	update_target()
+	update_navigation()
+	
 	queue_redraw()
 	super._physics_process(delta)
 
+func update_sensor():
+	target = null
+	if (GameManager.player):
+		var distance = global_position.distance_to(GameManager.player.global_position)
+		if (distance <= aggro_range):
+			target = GameManager.player
+
+func update_target():
+	if target:
+		var target_position = target.global_position
+		var difference = target_position - global_position
+		target_direction = difference.normalized()
+		target_distance = difference.length()
+
+func update_navigation():
+	if GameManager.grid_navmesh && target:
+		var path  = GameManager.grid_navmesh.generate_path(
+			global_position, 
+			target.global_position)
+				
+		if (path.size() > 0):
+			current_path = path
+			navigation_position = current_path[1]
+			navigation_direction = (navigation_position - global_position).normalized()

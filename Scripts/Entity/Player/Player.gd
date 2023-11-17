@@ -8,7 +8,7 @@ var attack_1_sfx : AudioStreamPlayer
 
 func _ready():
 	bullet_scene = preload("res://Scenes/Objects/bullet.tscn")
-	GameManager.target = self
+	GameManager.player = self
 	
 	attack_1_sfx = AudioStreamPlayer.new()
 	attack_1_sfx.set_stream(GameManager.attack_1_audio)
@@ -40,4 +40,4 @@ func _input(event : InputEvent):
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
-		GameManager.target = null
+		GameManager.player = null

@@ -1008,7 +1008,7 @@ adjustment_contrast = 1.2
 adjustment_saturation = 1.1
 adjustment_color_correction = SubResource("GradientTexture1D_n0wu8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gtfru"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehk8y"]
 resource_local_to_scene = true
 shader = ExtResource("8_r1rc6")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
@@ -1074,5 +1074,5 @@ tile_map = NodePath("../TileMap")
 layer_id = 2
 
 [node name="silent" parent="." instance=ExtResource("7_u4bsi")]
-material = SubResource("ShaderMaterial_gtfru")
+material = SubResource("ShaderMaterial_ehk8y")
 position = Vector2(143, 413)

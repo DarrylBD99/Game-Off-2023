@@ -5,7 +5,7 @@ class_name STATE_MOVE
 @export var target_range : float
 
 func is_ready() -> bool:
-	if not GameManager.target:
+	if not entity.target:
 		return false
 	
 	return entity.target_distance > target_range
@@ -14,7 +14,7 @@ func end():
 	entity.velocity = Vector2(0, 0)
 	
 func physics_process(_delta : float) -> State:
-	if not GameManager.target:
+	if not entity.target:
 		return null
 	
 	if (entity.target_distance <= target_range):

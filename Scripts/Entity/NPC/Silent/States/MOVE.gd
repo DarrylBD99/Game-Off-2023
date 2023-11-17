@@ -12,7 +12,7 @@ func start():
 	foostep_timer = 0
 	
 func physics_process(_delta : float) -> State:
-	if not GameManager.target:
+	if not entity.target:
 		return null
 	
 	foostep_timer += _delta;

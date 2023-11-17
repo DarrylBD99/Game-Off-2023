@@ -45,7 +45,6 @@ AimRayCast = NodePath("AimRayCast")
 barrel = NodePath("Barrel")
 barrel_end = NodePath("Barrel/BarrelEnd")
 rotate_timer = NodePath("RotateTimer")
-speed = null
 fire_rate = 0.5
 action_state_manager = NodePath("Action Manager")
 size_state_manager = NodePath("Size State Manager")

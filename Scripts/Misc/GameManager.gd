@@ -15,7 +15,7 @@ var event_old : InputEvent
 var ability_bool : bool = false
 var in_game : bool = true
 
-var target : Entity
+var player : Entity
 var camera : Camera2D
 
 var grid_navmesh : GridNavmesh

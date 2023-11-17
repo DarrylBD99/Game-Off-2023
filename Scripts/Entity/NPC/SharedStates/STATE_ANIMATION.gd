@@ -23,8 +23,8 @@ func end():
 			animationPlayer.animation_finished.disconnect(_on_animation_finished)
 	
 func physics_process(_delta : float) -> State:
-	if (melee_attack_node and GameManager.target):
-		melee_attack_node.look_at(GameManager.target.global_position)
+	if (melee_attack_node and entity.target):
+		melee_attack_node.look_at(entity.target.global_position)
 		
 	if (isAnimationComplete):
 		return next_state
