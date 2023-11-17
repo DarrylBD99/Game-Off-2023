@@ -1008,7 +1008,7 @@ adjustment_contrast = 1.2
 adjustment_saturation = 1.1
 adjustment_color_correction = SubResource("GradientTexture1D_n0wu8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehk8y"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fpjyg"]
 resource_local_to_scene = true
 shader = ExtResource("8_r1rc6")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
@@ -1071,8 +1071,8 @@ environment = SubResource("Environment_1wj6d")
 [node name="GridNavmesh" type="Node" parent="." node_paths=PackedStringArray("tile_map")]
 script = ExtResource("8_c0w4x")
 tile_map = NodePath("../TileMap")
-layer_id = 2
 
 [node name="silent" parent="." instance=ExtResource("7_u4bsi")]
-material = SubResource("ShaderMaterial_ehk8y")
+material = SubResource("ShaderMaterial_fpjyg")
 position = Vector2(143, 413)
+debug_path = true
