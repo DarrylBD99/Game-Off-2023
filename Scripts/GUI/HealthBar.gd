@@ -1,17 +1,20 @@
-extends ProgressBar
+extends TextureProgressBar
 
 @export var health : Health
+
 var old_value : float
 var visible_bool : bool = false
 var fade_bool : bool = false
 
 func _ready():
-	value = health.hp / health.hp_max * 100
+	max_value = health.hp_max
+	value = health.hp
 	old_value = value
+	
 	set_modulate(Color(1,1,1,0))
 
 func _process(_delta):
-	value = health.hp / health.hp_max * 100
+	value = health.hp
 	
 	if visible_bool and $VisibleTimer.is_stopped():
 		visible_bool = false
@@ -26,6 +29,7 @@ func _process(_delta):
 			var opacity : float = 1 - time_elapsed_fraction
 			set_modulate(Color(1,1,1,opacity))
 		else:
+			set_modulate(Color(1,1,1,0))
 			fade_bool = false
 	
 	if not old_value == value:

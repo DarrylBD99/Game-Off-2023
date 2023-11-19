@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.gd" id="1_hxueb"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_a01hl"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="3_vqmuc"]
-[ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="5_8e6fa"]
+[ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="5_8e6fa"]
 [ext_resource type="Script" path="res://Scripts/Debug/StateLabel.gd" id="6_idjcw"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="7_kadac"]
 [ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="8_g0hem"]
@@ -68,8 +68,8 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_miyjb")
 
 [node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_8e6fa")]
-offset_top = -22.0
-offset_bottom = -20.0
+offset_top = -38.0
+offset_bottom = -36.0
 health = NodePath("../HP")
 
 [node name="SizeStateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
