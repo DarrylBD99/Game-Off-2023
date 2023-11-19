@@ -4,6 +4,9 @@ class_name State
 var entity : Entity
 var move_pos : Vector2 = Vector2.ZERO
 
+var start_anim : String
+var end_anim : String
+
 func is_ready() -> bool:
 	return true
 

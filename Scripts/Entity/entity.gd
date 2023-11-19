@@ -8,19 +8,25 @@ class_name Entity
 @export var action_state_manager : StateManager
 @export var size_state_manager : StateManager
 
-@export var animation_tree : AnimationTree
-@export var size_time_limit : Timer
-
 @export var health : Health
 @export var attack : Attack
 @export var hitbox : Hitbox
+
+@export var animation_tree : AnimationTree
+@export var size_time_limit : Timer
+
+@onready var sprite : Sprite2D = $Sprite2D
 
 var can_fire : bool = true
 var normal_size : State
 var size_bool : bool = false
 var flash_timer : Timer
+var x_dir : int = 1
 
-func _ready():	
+func _ready():
+	if animation_tree:
+		animation_tree.active = true
+	
 	# Base State Machine
 	if state_manager:
 		state_manager.ready()
@@ -114,3 +120,8 @@ func flash():
 func _on_flash_finish():
 	if $Sprite2D.material:
 		$Sprite2D.material.set_shader_parameter("flash_alpha", 0)
+
+func update_facing_dir(move_pos):
+	if move_pos.x != 0:
+		x_dir = sign(move_pos.x)
+		sprite.flip_h = (x_dir < 0)
