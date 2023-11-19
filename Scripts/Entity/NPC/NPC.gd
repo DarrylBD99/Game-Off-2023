@@ -2,7 +2,7 @@ extends Entity
 class_name NPC
 
 @export var aggro_range : float = 300
-@export var debug_path = true
+@export var debug_path = false
 #@export var navigation_agent : NavigationAgent2D
 
 var target: Entity
