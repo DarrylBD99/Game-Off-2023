@@ -174,7 +174,7 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ih2tr"]
 gradient = SubResource("Gradient_q3rna")
 
-[node name="silent" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack", "hitbox")]
+[node name="silent" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "health", "attack", "hitbox", "size_time_limit")]
 material = ExtResource("11_aegsw")
 collision_layer = 18
 collision_mask = 24
@@ -184,10 +184,10 @@ speed = 50.0
 state_manager = NodePath("State Manager")
 action_state_manager = NodePath("Action Manager")
 size_state_manager = NodePath("Size State Manager")
-size_time_limit = NodePath("SizeTimeLimit")
 health = NodePath("HP")
 attack = NodePath("ATK")
 hitbox = NodePath("Hitbox")
+size_time_limit = NodePath("SizeTimeLimit")
 
 [node name="ATK" type="Node" parent="."]
 script = ExtResource("2_kebvl")
