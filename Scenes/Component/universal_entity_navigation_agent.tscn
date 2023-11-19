@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://wh5by8bk8qns"]
-
-[node name="UniversalEntityNavigationAgent" type="NavigationAgent2D"]
-target_desired_distance = 20.0
-path_postprocessing = 1
-avoidance_enabled = true
-radius = 32.0
