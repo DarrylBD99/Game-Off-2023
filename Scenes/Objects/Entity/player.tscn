@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.gd" id="1_hxueb"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_a01hl"]
-[ext_resource type="Texture2D" uid="uid://y7rdl0u21hsy" path="res://icon.svg" id="2_dxfh7"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="3_vqmuc"]
 [ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="5_8e6fa"]
 [ext_resource type="Script" path="res://Scripts/Debug/StateLabel.gd" id="6_idjcw"]
@@ -12,9 +11,10 @@
 [ext_resource type="Script" path="res://Scripts/Entity/Player/States/RUN.gd" id="10_4cqtu"]
 [ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="11_7hj3n"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_wf3w5"]
+[ext_resource type="Texture2D" uid="uid://c3t8sdarvjnny" path="res://Sprites/Character/Protag.png" id="12_fggjs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_miyjb"]
-size = Vector2(32, 16)
+size = Vector2(18, 30)
 
 [sub_resource type="Animation" id="Animation_qx5qg"]
 length = 0.001
@@ -41,7 +41,7 @@ states/End/position = Vector2(865, 61)
 states/Start/position = Vector2(205, 61)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_okhtf"]
-size = Vector2(32, 32)
+size = Vector2(18, 48)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "state_manager", "size_state_manager", "animation_tree", "health", "attack", "hitbox")]
 collision_layer = 17
@@ -64,7 +64,7 @@ shake_screen = true
 script = ExtResource("3_vqmuc")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_miyjb")
 
 [node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_8e6fa")]
@@ -120,11 +120,13 @@ collision_mask = 20
 health = NodePath("../HP")
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_okhtf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 material = ExtResource("11_wf3w5")
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_dxfh7")
+position = Vector2(0, -8)
+texture = ExtResource("12_fggjs")
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
