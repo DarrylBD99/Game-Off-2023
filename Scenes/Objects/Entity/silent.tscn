@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dldvmlyfiolno"]
+[gd_scene load_steps=24 format=3 uid="uid://dldvmlyfiolno"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/silent.gd" id="1_yuagq"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="2_kebvl"]
@@ -7,11 +7,12 @@
 [ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="5_22m7d"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_IDLE.gd" id="6_vmuci"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/MOVE.gd" id="7_810ap"]
-[ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_ANIMATION.gd" id="8_n47q7"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/ATTACK.gd" id="9_3eymf"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/INVISIBLE.gd" id="9_j1paj"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_5d670"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_aegsw"]
-[ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="11_msp1r"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/BASE.gd" id="11_gtiip"]
+[ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="11_msp1r"]
 
 [sub_resource type="Animation" id="Animation_70i01"]
 loop_mode = 2
@@ -173,13 +174,12 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ih2tr"]
 gradient = SubResource("Gradient_q3rna")
 
-[node name="silent" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "navigation_agent", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack", "hitbox")]
+[node name="silent" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack", "hitbox")]
 material = ExtResource("11_aegsw")
 collision_layer = 18
 collision_mask = 24
 script = ExtResource("1_yuagq")
 melee_collision = NodePath("MeleeAttack/Area2D")
-navigation_agent = NodePath("")
 speed = 50.0
 state_manager = NodePath("State Manager")
 action_state_manager = NodePath("Action Manager")
@@ -228,17 +228,25 @@ target_range = 60.0
 script = ExtResource("5_22m7d")
 current_state = NodePath("INVISIBLE")
 
-[node name="ATTACK" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state", "animationPlayer", "melee_attack_node")]
-script = ExtResource("8_n47q7")
+[node name="ATTACK" type="Node" parent="Action Manager" node_paths=PackedStringArray("base", "next_state", "animationPlayer", "melee_attack_node")]
+script = ExtResource("9_3eymf")
+base = NodePath("../BASE")
 next_state = NodePath("../INVISIBLE")
 animationPlayer = NodePath("../../AnimationPlayer")
 melee_attack_node = NodePath("../../MeleeAttack")
 
-[node name="INVISIBLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state", "visuals")]
+[node name="INVISIBLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("attack", "base", "visuals")]
 script = ExtResource("9_j1paj")
-next_state = NodePath("../ATTACK")
+attack = NodePath("../ATTACK")
+base = NodePath("../BASE")
 attack_range = 60.0
 visuals = NodePath("../../Sprite2D")
+
+[node name="BASE" type="Node" parent="Action Manager" node_paths=PackedStringArray("attack", "invis", "health_bar")]
+script = ExtResource("11_gtiip")
+attack = NodePath("../ATTACK")
+invis = NodePath("../INVISIBLE")
+health_bar = NodePath("../../HealthBar")
 
 [node name="Size State Manager" parent="." instance=ExtResource("10_5d670")]
 
@@ -251,7 +259,7 @@ scale = Vector2(0.5, 0.5)
 texture = SubResource("GradientTexture2D_2n1jh")
 
 [node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_msp1r")]
-offset_top = -22.0
+offset_top = -26.0
 offset_bottom = -20.0
 health = NodePath("../HP")
 metadata/_edit_use_anchors_ = true
