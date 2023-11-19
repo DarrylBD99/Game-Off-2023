@@ -123,7 +123,3 @@ collide_with_bodies = false
 process_callback = 0
 wait_time = 3.0
 one_shot = true
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-avoidance_enabled = true
-debug_enabled = true

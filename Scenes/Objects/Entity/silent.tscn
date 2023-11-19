@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dldvmlyfiolno"]
+[gd_scene load_steps=24 format=3 uid="uid://dldvmlyfiolno"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/silent.gd" id="1_yuagq"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="2_kebvl"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_5d670"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_aegsw"]
 [ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="11_msp1r"]
+[ext_resource type="PackedScene" uid="uid://wh5by8bk8qns" path="res://Scenes/Component/universal_entity_navigation_agent.tscn" id="13_ku5wj"]
 
 [sub_resource type="Animation" id="Animation_70i01"]
 loop_mode = 2
@@ -154,7 +155,7 @@ _data = {
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ohae8"]
-size = Vector2(32, 16)
+size = Vector2(30, 30)
 
 [sub_resource type="Gradient" id="Gradient_wpqgf"]
 offsets = PackedFloat32Array(0, 0.968571, 1)
@@ -173,12 +174,13 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ih2tr"]
 gradient = SubResource("Gradient_q3rna")
 
-[node name="silent" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack")]
+[node name="silent" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "navigation_agent", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack", "hitbox")]
 material = ExtResource("11_aegsw")
 collision_layer = 18
 collision_mask = 24
 script = ExtResource("1_yuagq")
 melee_collision = NodePath("MeleeAttack/Area2D")
+navigation_agent = NodePath("UniversalEntityNavigationAgent")
 speed = 50.0
 state_manager = NodePath("State Manager")
 action_state_manager = NodePath("Action Manager")
@@ -186,6 +188,7 @@ size_state_manager = NodePath("Size State Manager")
 size_time_limit = NodePath("SizeTimeLimit")
 health = NodePath("HP")
 attack = NodePath("ATK")
+hitbox = NodePath("Hitbox")
 
 [node name="ATK" type="Node" parent="."]
 script = ExtResource("2_kebvl")
@@ -241,7 +244,6 @@ visuals = NodePath("../../Sprite2D")
 [node name="Size State Manager" parent="." instance=ExtResource("10_5d670")]
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_ohae8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -275,5 +277,6 @@ process_callback = 0
 wait_time = 5.0
 one_shot = true
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+[node name="UniversalEntityNavigationAgent" parent="." instance=ExtResource("13_ku5wj")]
+path_desired_distance = 8.0
 debug_enabled = true
