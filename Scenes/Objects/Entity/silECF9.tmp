@@ -1,0 +1,285 @@
+[gd_scene load_steps=24 format=3 uid="uid://dldvmlyfiolno"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/silent.gd" id="1_yuagq"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="2_kebvl"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="3_12ksp"]
+[ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="4_sgcdg"]
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="5_22m7d"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_IDLE.gd" id="6_vmuci"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/MOVE.gd" id="7_810ap"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/ATTACK.gd" id="9_3eymf"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/INVISIBLE.gd" id="9_j1paj"]
+[ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_5d670"]
+[ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_aegsw"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/BASE.gd" id="11_gtiip"]
+[ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="11_msp1r"]
+
+[sub_resource type="Animation" id="Animation_70i01"]
+loop_mode = 2
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate:r")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate:g")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate:b")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_sbq52"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate:r")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate:g")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate:b")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v3qyf"]
+_data = {
+"RESET": SubResource("Animation_70i01"),
+"attack": SubResource("Animation_sbq52")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glblf"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohae8"]
+size = Vector2(30, 30)
+
+[sub_resource type="Gradient" id="Gradient_wpqgf"]
+offsets = PackedFloat32Array(0, 0.968571, 1)
+colors = PackedColorArray(0.692381, 0.486593, 0.215174, 1, 0, 0.529511, 0.215468, 1, 0.537255, 0.301961, 0.164706, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2n1jh"]
+gradient = SubResource("Gradient_wpqgf")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1e6k"]
+size = Vector2(32, 32)
+
+[sub_resource type="Gradient" id="Gradient_q3rna"]
+offsets = PackedFloat32Array(0, 0.942857, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ih2tr"]
+gradient = SubResource("Gradient_q3rna")
+
+[node name="silent" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack", "hitbox")]
+material = ExtResource("11_aegsw")
+collision_layer = 18
+collision_mask = 24
+script = ExtResource("1_yuagq")
+melee_collision = NodePath("MeleeAttack/Area2D")
+speed = 50.0
+state_manager = NodePath("State Manager")
+action_state_manager = NodePath("Action Manager")
+size_state_manager = NodePath("Size State Manager")
+size_time_limit = NodePath("SizeTimeLimit")
+health = NodePath("HP")
+attack = NodePath("ATK")
+hitbox = NodePath("Hitbox")
+
+[node name="ATK" type="Node" parent="."]
+script = ExtResource("2_kebvl")
+atk = 1.0
+
+[node name="HP" type="Node" parent="."]
+script = ExtResource("3_12ksp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Action Manager")
+libraries = {
+"": SubResource("AnimationLibrary_v3qyf")
+}
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_sgcdg")]
+collision_layer = 18
+collision_mask = 20
+health = NodePath("../HP")
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_glblf")
+
+[node name="State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("5_22m7d")
+current_state = NodePath("IDLE")
+
+[node name="IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_vmuci")
+next_state = NodePath("../MOVE")
+
+[node name="MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
+script = ExtResource("7_810ap")
+foostep_time = 1.0
+next_state = NodePath("../IDLE")
+target_range = 60.0
+
+[node name="Action Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("5_22m7d")
+current_state = NodePath("INVISIBLE")
+
+[node name="ATTACK" type="Node" parent="Action Manager" node_paths=PackedStringArray("base", "next_state", "animationPlayer", "melee_attack_node")]
+script = ExtResource("9_3eymf")
+base = NodePath("../BASE")
+next_state = NodePath("../INVISIBLE")
+animationPlayer = NodePath("../../AnimationPlayer")
+melee_attack_node = NodePath("../../MeleeAttack")
+
+[node name="INVISIBLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("attack", "base", "visuals")]
+script = ExtResource("9_j1paj")
+attack = NodePath("../ATTACK")
+base = NodePath("../BASE")
+attack_range = 60.0
+visuals = NodePath("../../Sprite2D")
+
+[node name="BASE" type="Node" parent="Action Manager" node_paths=PackedStringArray("attack", "invis")]
+script = ExtResource("11_gtiip")
+wait_time = 2.0
+attack = NodePath("../ATTACK")
+invis = NodePath("../INVISIBLE")
+
+[node name="Size State Manager" parent="." instance=ExtResource("10_5d670")]
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ohae8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("11_aegsw")
+scale = Vector2(0.5, 0.5)
+texture = SubResource("GradientTexture2D_2n1jh")
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_msp1r")]
+offset_top = -22.0
+offset_bottom = -20.0
+health = NodePath("../HP")
+metadata/_edit_use_anchors_ = true
+
+[node name="MeleeAttack" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="MeleeAttack"]
+position = Vector2(127, 3)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttack/Area2D"]
+position = Vector2(-95, -3)
+shape = SubResource("RectangleShape2D_p1e6k")
+
+[node name="Sprite2D2" type="Sprite2D" parent="MeleeAttack/Area2D/CollisionShape2D"]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.125, 32)
+texture = SubResource("GradientTexture1D_ih2tr")
+
+[node name="SizeTimeLimit" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
