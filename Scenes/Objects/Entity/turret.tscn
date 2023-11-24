@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/turret.gd" id="1_6oxya"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="1_8a73g"]
-[ext_resource type="Shader" path="res://Materials/Shaders/entity.gdshader" id="1_haffl"]
+[ext_resource type="Shader" path="res://Materials/Shaders/flash.gdshader" id="1_haffl"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_rgwwn"]
 [ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="4_di6kx"]
 [ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="5_ubp2a"]
@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/States/IDLE.gd" id="7_6xs1i"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="10_er5s1"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_miysp"]
-[ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="11_l428o"]
+[ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="11_l428o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wna73"]
 shader = ExtResource("1_haffl")
