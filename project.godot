@@ -23,6 +23,7 @@ GameManager="*res://Scripts/Misc/GameManager.gd"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/mode=4
 window/size/window_width_override=1152
 window/size/window_height_override=648
 window/stretch/mode="canvas_items"
@@ -31,6 +32,11 @@ mouse_cursor/custom_image="res://Sprites/GUI/cursor.png"
 [dotnet]
 
 project/assembly_name="Project Scale"
+
+[gui]
+
+theme/custom_font="res://MinimalPixel v2.ttf"
+theme/default_font_antialiasing=0
 
 [input]
 
