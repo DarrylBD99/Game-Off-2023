@@ -16,33 +16,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_miyjb"]
 size = Vector2(18, 30)
 
-[sub_resource type="Animation" id="Animation_qx5qg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="Animation" id="Animation_vw44p"]
 resource_name = "IDLE"
 length = 0.1
@@ -75,6 +48,33 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [8, 9, 10, 11, 12, 13, 14, 15, 15]
+}
+
+[sub_resource type="Animation" id="Animation_qx5qg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kvl2y"]
@@ -116,7 +116,7 @@ transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransi
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_okhtf"]
 size = Vector2(18, 43)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "state_manager", "size_state_manager", "animation_tree", "health", "attack", "hitbox")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "state_manager", "size_state_manager", "health", "attack", "hitbox", "animation_tree")]
 collision_layer = 17
 collision_mask = 24
 script = ExtResource("1_hxueb")
@@ -124,10 +124,10 @@ AimRayCast = NodePath("AimRayCast")
 speed = 150.0
 state_manager = NodePath("State Manager")
 size_state_manager = NodePath("Size State Manager")
-animation_tree = NodePath("AnimationTree")
 health = NodePath("HP")
 attack = NodePath("ATK")
 hitbox = NodePath("Hitbox")
+animation_tree = NodePath("AnimationTree")
 
 [node name="HP" type="Node" parent="."]
 script = ExtResource("2_a01hl")
@@ -141,6 +141,7 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_miyjb")
 
 [node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_8e6fa")]
+visible = false
 offset_top = -38.0
 offset_bottom = -36.0
 health = NodePath("../HP")
