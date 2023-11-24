@@ -19,8 +19,9 @@ texture_progress_offset = Vector2(2, 1)
 script = ExtResource("1_imu2r")
 
 [node name="VisibleTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 2.0
 one_shot = true
 
 [node name="FadeTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
