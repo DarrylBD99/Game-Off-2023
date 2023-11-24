@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cgcrh0mcsx6op"]
+[gd_scene load_steps=23 format=3 uid="uid://cgcrh0mcsx6op"]
 
 [ext_resource type="AudioStream" uid="uid://d2tf2eip41cug" path="res://Audio/BGM/GO23_Battle_1.mp3" id="1_8wq5s"]
 [ext_resource type="PackedScene" uid="uid://dtxdllgca58i" path="res://Scenes/Objects/Entity/player.tscn" id="1_brcdq"]
@@ -9,9 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://dldvmlyfiolno" path="res://Scenes/Objects/Entity/silent.tscn" id="7_07umn"]
 [ext_resource type="Script" path="res://Scripts/Misc/GridNavmesh.gd" id="8_j3hma"]
 [ext_resource type="Texture2D" uid="uid://1gw1v4p46eft" path="res://Sprites/GUI/HUD/Bars/Base.png" id="9_smdoo"]
-[ext_resource type="Texture2D" uid="uid://dwi7hieuxc4ms" path="res://Sprites/GUI/HUD/Health.png" id="10_yb0af"]
 [ext_resource type="Script" path="res://Scripts/GUI/HUD/HealthBar.gd" id="11_dhdox"]
+[ext_resource type="Texture2D" uid="uid://dwi7hieuxc4ms" path="res://Sprites/GUI/HUD/Bars/Health.png" id="11_k4gn4"]
 [ext_resource type="Texture2D" uid="uid://dlrcklbtm7v47" path="res://Sprites/GUI/HUD/Bars/Energy.png" id="11_ri8p5"]
+[ext_resource type="Texture2D" uid="uid://csnkes5wkhetm" path="res://Sprites/GUI/HUD/Bars/Overlay.png" id="13_ivoeb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_06p2g"]
 texture = ExtResource("3_nugtr")
@@ -1017,19 +1018,26 @@ adjustment_contrast = 1.2
 adjustment_saturation = 1.1
 adjustment_color_correction = SubResource("GradientTexture1D_n0wu8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_22ngx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4fwlx"]
 resource_local_to_scene = true
 shader = ExtResource("7_6jir1")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_alpha = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_us2f1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmmhh"]
 shader = ExtResource("7_6jir1")
 shader_parameter/flash_color = Color(1, 0, 0, 1)
 shader_parameter/flash_alpha = 0.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3m0ev"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1k2ic"]
+texture = ExtResource("11_k4gn4")
+texture_margin_right = 13.0
+
 [node name="LevelTest" type="Node2D"]
 y_sort_enabled = true
+texture_filter = 1
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_8wq5s")
@@ -1084,7 +1092,7 @@ layer_2/tile_data = PackedInt32Array(131075, 65537, 3, 131076, 327681, 1, 131077
 environment = SubResource("Environment_1wj6d")
 
 [node name="silent" parent="." instance=ExtResource("7_07umn")]
-material = SubResource("ShaderMaterial_22ngx")
+material = SubResource("ShaderMaterial_4fwlx")
 position = Vector2(184, 143)
 
 [node name="GridNavmesh" type="Node" parent="." node_paths=PackedStringArray("tile_map")]
@@ -1112,19 +1120,6 @@ offset_bottom = 54.0
 texture = ExtResource("9_smdoo")
 stretch_mode = 4
 
-[node name="Health" type="TextureProgressBar" parent="GUI/HUD/Bars"]
-material = SubResource("ShaderMaterial_us2f1")
-layout_mode = 0
-offset_left = 34.0
-offset_top = 6.0
-offset_right = 187.0
-offset_bottom = 20.0
-max_value = 153.0
-value = 153.0
-texture_progress = ExtResource("10_yb0af")
-script = ExtResource("11_dhdox")
-lerp_weight = 60.0
-
 [node name="Energy" type="TextureProgressBar" parent="GUI/HUD/Bars"]
 layout_mode = 0
 offset_left = 80.0
@@ -1132,3 +1127,26 @@ offset_top = 37.0
 offset_right = 180.0
 offset_bottom = 44.0
 texture_over = ExtResource("11_ri8p5")
+
+[node name="Health" type="ProgressBar" parent="GUI/HUD/Bars"]
+material = SubResource("ShaderMaterial_lmmhh")
+layout_mode = 0
+offset_left = 29.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 20.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_3m0ev")
+theme_override_styles/fill = SubResource("StyleBoxTexture_1k2ic")
+max_value = 6.0
+value = 6.0
+show_percentage = false
+script = ExtResource("11_dhdox")
+
+[node name="Overlay" type="TextureRect" parent="GUI/HUD/Bars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_ivoeb")

@@ -1,11 +1,10 @@
-extends TextureProgressBar
+extends ProgressBar
 
-@export var lerp_weight : float = 50
+@export var lerp_weight : float = 60
 var current_hp : float
 var health_max : float
 var old_hp : float
 var flash_timer : Timer
-var value_temp : float
 
 func _ready():
 	flash_timer = Timer.new()
@@ -19,24 +18,22 @@ func _ready():
 		health_max = GameManager.player.health.hp_max
 		
 		old_hp = current_hp
-		
-		value = roundi(current_hp / health_max * max_value)
 
-func _process(delta):
+func flash(a : float):
+	if material:
+		material.set_shader_parameter("flash_alpha", a)
+
+func _process(_delta):
+	value = roundi(current_hp / health_max * max_value)
+	
 	if GameManager.player:
 		old_hp = GameManager.player.health.hp
 		
 		if current_hp != old_hp:
 			current_hp = old_hp
-			material.set_shader_parameter("flash_alpha", 0.7)
-			value_temp = value
+			
+			flash(0.7)
 			flash_timer.start()
-	
-	if not flash_timer.is_stopped():
-		value = lerpf(value, roundi(current_hp / health_max * max_value), lerp_weight * delta)
-	else:
-		value =  roundi(current_hp / health_max * max_value)
 
 func _on_flash_finish():
-	material.set_shader_parameter("flash_alpha", 0)
-	value = roundi(current_hp / health_max * max_value)
+	flash(0)
