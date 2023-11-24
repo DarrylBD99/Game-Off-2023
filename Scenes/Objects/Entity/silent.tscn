@@ -1,15 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://dldvmlyfiolno"]
+[gd_scene load_steps=25 format=3 uid="uid://dldvmlyfiolno"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/silent.gd" id="1_yuagq"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="2_kebvl"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="3_12ksp"]
 [ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="4_sgcdg"]
 [ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="5_22m7d"]
+[ext_resource type="Script" path="res://Scripts/Debug/StateLabel.gd" id="6_b7qgl"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_IDLE.gd" id="6_vmuci"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/MOVE.gd" id="7_810ap"]
-[ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/ATTACK.gd" id="9_3eymf"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/INVISIBLE.gd" id="9_j1paj"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_5d670"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_ANIMATION.gd" id="10_b2wfm"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_aegsw"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Silent/States/BASE.gd" id="11_gtiip"]
 [ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="11_msp1r"]
@@ -180,7 +181,7 @@ collision_layer = 18
 collision_mask = 24
 script = ExtResource("1_yuagq")
 melee_collision = NodePath("MeleeAttack/Area2D")
-speed = 50.0
+speed = 60.0
 state_manager = NodePath("State Manager")
 action_state_manager = NodePath("Action Manager")
 size_state_manager = NodePath("Size State Manager")
@@ -210,6 +211,12 @@ health = NodePath("../HP")
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_glblf")
 
+[node name="StateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("6_b7qgl")
+state_manager = NodePath("../Action Manager")
+
 [node name="State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("5_22m7d")
 current_state = NodePath("IDLE")
@@ -220,20 +227,19 @@ next_state = NodePath("../MOVE")
 
 [node name="MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("7_810ap")
-foostep_time = 1.0
+foostep_time = 0.8
 next_state = NodePath("../IDLE")
 target_range = 60.0
 
 [node name="Action Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("5_22m7d")
-current_state = NodePath("INVISIBLE")
+current_state = NodePath("BASE")
 
-[node name="ATTACK" type="Node" parent="Action Manager" node_paths=PackedStringArray("base", "next_state", "animationPlayer", "melee_attack_node")]
-script = ExtResource("9_3eymf")
-base = NodePath("../BASE")
-next_state = NodePath("../INVISIBLE")
+[node name="ATTACK" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state", "animationPlayer", "melee_attack_node")]
+script = ExtResource("10_b2wfm")
+next_state = NodePath("../BASE")
 animationPlayer = NodePath("../../AnimationPlayer")
-melee_attack_node = NodePath("../../MeleeAttack")
+melee_attack_node = NodePath("../../Hitbox")
 
 [node name="INVISIBLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("attack", "base", "visuals")]
 script = ExtResource("9_j1paj")
