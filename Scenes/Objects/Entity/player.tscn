@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://500a2am16u13"]
+[gd_scene load_steps=35 format=3 uid="uid://500a2am16u13"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.gd" id="1_hxueb"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_a01hl"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/Entity/Player/States/IDLE.gd" id="9_323fe"]
 [ext_resource type="Script" path="res://Scripts/Entity/Player/States/ABILITY.gd" id="9_fpblv"]
 [ext_resource type="Script" path="res://Scripts/Entity/Player/States/RUN.gd" id="10_4cqtu"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/DASH.gd" id="10_4pgay"]
 [ext_resource type="Script" path="res://Scripts/Entity/Player/States/BASE.gd" id="10_omvbm"]
 [ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="11_7hj3n"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_wf3w5"]
@@ -70,12 +71,32 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_11f5v"]
+resource_name = "DASH"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kvl2y"]
 _data = {
+"DASH": SubResource("Animation_11f5v"),
 "IDLE": SubResource("Animation_vw44p"),
 "MOVE": SubResource("Animation_urury"),
 "RESET": SubResource("Animation_qx5qg")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_js0bn"]
+animation = &"DASH"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rng5r"]
 animation = &"IDLE"
@@ -99,12 +120,22 @@ sync = true
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qbp38"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pcy4u"]
+advance_mode = 2
+advance_condition = &"dash_bool"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kkere"]
+advance_mode = 2
+advance_condition = &"normal bool"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mqyfh"]
+states/DASH/node = SubResource("AnimationNodeAnimation_js0bn")
+states/DASH/position = Vector2(522, 135)
 states/End/position = Vector2(865, 61)
 states/Movement/node = SubResource("AnimationNodeBlendSpace1D_i81tf")
 states/Movement/position = Vector2(522, 61)
 states/Start/position = Vector2(205, 61)
-transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_qbp38")]
+transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_qbp38"), "Movement", "DASH", SubResource("AnimationNodeStateMachineTransition_pcy4u"), "DASH", "Movement", SubResource("AnimationNodeStateMachineTransition_kkere")]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_okhtf"]
 size = Vector2(18, 43)
@@ -173,13 +204,24 @@ state_manager = NodePath("../State Manager")
 script = ExtResource("8_g0hem")
 current_state = NodePath("IDLE")
 
-[node name="IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("run")]
+[node name="IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("run", "dash")]
 script = ExtResource("9_323fe")
 run = NodePath("../RUN")
+dash = NodePath("../DASH")
 
-[node name="RUN" type="Node" parent="State Manager" node_paths=PackedStringArray("idle")]
+[node name="RUN" type="Node" parent="State Manager" node_paths=PackedStringArray("idle", "dash")]
 script = ExtResource("10_4cqtu")
 idle = NodePath("../IDLE")
+dash = NodePath("../DASH")
+
+[node name="DASH" type="Node" parent="State Manager" node_paths=PackedStringArray("IDLE", "dash_timer")]
+script = ExtResource("10_4pgay")
+IDLE = NodePath("../IDLE")
+dash_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="State Manager/DASH"]
+wait_time = 0.2
+one_shot = true
 
 [node name="Action State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("8_g0hem")
@@ -239,6 +281,9 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_mqyfh")
 anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/conditions/dash_bool = false
+"parameters/conditions/normal bool" = true
 parameters/Movement/blend_position = 0.0
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_7hj3n")]
