@@ -1,6 +1,5 @@
 extends ProgressBar
 
-@export var lerp_weight : float = 60
 var current_hp : float
 var health_max : float
 var old_hp : float
@@ -15,8 +14,6 @@ func _ready():
 	
 	if GameManager.player:
 		current_hp = GameManager.player.health.hp
-		health_max = GameManager.player.health.hp_max
-		
 		old_hp = current_hp
 
 func flash(a : float):
@@ -28,6 +25,7 @@ func _process(_delta):
 	
 	if GameManager.player:
 		old_hp = GameManager.player.health.hp
+		health_max = GameManager.player.health.hp_max
 		
 		if current_hp != old_hp:
 			current_hp = old_hp
