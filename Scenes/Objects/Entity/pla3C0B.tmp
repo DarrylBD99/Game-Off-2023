@@ -1,0 +1,242 @@
+[gd_scene load_steps=28 format=3 uid="uid://500a2am16u13"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/Player/Player.gd" id="1_hxueb"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_a01hl"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="3_vqmuc"]
+[ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="5_8e6fa"]
+[ext_resource type="Script" path="res://Scripts/Debug/StateLabel.gd" id="6_idjcw"]
+[ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="7_kadac"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/ATTACK.gd" id="8_d5ssq"]
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="8_g0hem"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/IDLE.gd" id="9_323fe"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/ABILITY.gd" id="9_fpblv"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/RUN.gd" id="10_4cqtu"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/BASE.gd" id="10_omvbm"]
+[ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="11_7hj3n"]
+[ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_wf3w5"]
+[ext_resource type="Texture2D" uid="uid://ccqm8rp8lgoa5" path="res://Sprites/Character/Protag.png" id="12_fggjs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_miyjb"]
+size = Vector2(18, 30)
+
+[sub_resource type="Animation" id="Animation_vw44p"]
+resource_name = "IDLE"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_urury"]
+resource_name = "MOVE"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13, 14, 15, 15]
+}
+
+[sub_resource type="Animation" id="Animation_qx5qg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kvl2y"]
+_data = {
+"IDLE": SubResource("Animation_vw44p"),
+"MOVE": SubResource("Animation_urury"),
+"RESET": SubResource("Animation_qx5qg")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m35e1"]
+animation = &"IDLE"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fg1pi"]
+animation = &"MOVE"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oarj6"]
+animation = &"MOVE"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_i81tf"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_m35e1")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_fg1pi")
+blend_point_1/pos = -1.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_oarj6")
+blend_point_2/pos = 1.0
+blend_mode = 1
+sync = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qbp38"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mqyfh"]
+states/End/position = Vector2(865, 61)
+states/Movement/node = SubResource("AnimationNodeBlendSpace1D_i81tf")
+states/Movement/position = Vector2(522, 61)
+states/Start/position = Vector2(205, 61)
+transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_qbp38")]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_okhtf"]
+size = Vector2(18, 43)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "state_manager", "action_state_manager", "size_state_manager", "health", "attack", "hitbox", "animation_tree")]
+collision_layer = 17
+collision_mask = 24
+script = ExtResource("1_hxueb")
+AimRayCast = NodePath("Hitbox/AimRayCast")
+speed = 200.0
+state_manager = NodePath("State Manager")
+action_state_manager = NodePath("Action State Manager")
+size_state_manager = NodePath("Size State Manager")
+health = NodePath("HP")
+attack = NodePath("ATK")
+hitbox = NodePath("Hitbox")
+animation_tree = NodePath("AnimationTree")
+
+[node name="HP" type="Node" parent="."]
+script = ExtResource("2_a01hl")
+hp_max = 6.0
+shake_screen = true
+
+[node name="ATK" type="Node" parent="."]
+script = ExtResource("3_vqmuc")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_miyjb")
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_8e6fa")]
+visible = false
+offset_top = -38.0
+offset_bottom = -36.0
+health = NodePath("../HP")
+
+[node name="SizeStateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("6_idjcw")
+state_manager = NodePath("../Size State Manager")
+
+[node name="ActionStateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
+offset_left = -20.0
+offset_top = -51.0
+offset_right = 20.0
+offset_bottom = -28.0
+script = ExtResource("6_idjcw")
+state_manager = NodePath("../Action State Manager")
+
+[node name="StateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("6_idjcw")
+state_manager = NodePath("../State Manager")
+
+[node name="Size State Manager" parent="." instance=ExtResource("7_kadac")]
+
+[node name="Action State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("8_g0hem")
+current_state = NodePath("BASE")
+
+[node name="ATTACK" type="Node" parent="Action State Manager" node_paths=PackedStringArray("ability", "base")]
+script = ExtResource("8_d5ssq")
+ability = NodePath("../ABILITY")
+base = NodePath("../BASE")
+
+[node name="ABILITY" type="Node" parent="Action State Manager" node_paths=PackedStringArray("attack", "base")]
+script = ExtResource("9_fpblv")
+attack = NodePath("../ATTACK")
+base = NodePath("../BASE")
+
+[node name="BASE" type="Node" parent="Action State Manager" node_paths=PackedStringArray("ability", "attack")]
+script = ExtResource("10_omvbm")
+ability = NodePath("../ABILITY")
+attack = NodePath("../ATTACK")
+
+[node name="State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("8_g0hem")
+current_state = NodePath("IDLE")
+
+[node name="IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("run")]
+script = ExtResource("9_323fe")
+run = NodePath("../RUN")
+
+[node name="RUN" type="Node" parent="State Manager" node_paths=PackedStringArray("idle")]
+script = ExtResource("10_4cqtu")
+idle = NodePath("../IDLE")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kvl2y")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_mqyfh")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Movement/blend_position = 0.0
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_7hj3n")]
+collision_layer = 17
+collision_mask = 20
+health = NodePath("../HP")
+
+[node name="AimRayCast" type="RayCast2D" parent="Hitbox"]
+collision_mask = 24
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_okhtf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+material = ExtResource("11_wf3w5")
+position = Vector2(0, -8)
+texture = ExtResource("12_fggjs")
+hframes = 8
+vframes = 2
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
