@@ -1,17 +1,22 @@
-[gd_scene load_steps=25 format=3 uid="uid://dtxdllgca58i"]
+[gd_scene load_steps=30 format=3 uid="uid://500a2am16u13"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/Player/Player.gd" id="1_hxueb"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_a01hl"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="3_vqmuc"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Energy.gd" id="4_3ltgy"]
 [ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="5_8e6fa"]
 [ext_resource type="Script" path="res://Scripts/Debug/StateLabel.gd" id="6_idjcw"]
-[ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="7_kadac"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/ATTACK.gd" id="8_d5ssq"]
 [ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="8_g0hem"]
 [ext_resource type="Script" path="res://Scripts/Entity/Player/States/IDLE.gd" id="9_323fe"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/ABILITY.gd" id="9_fpblv"]
 [ext_resource type="Script" path="res://Scripts/Entity/Player/States/RUN.gd" id="10_4cqtu"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/BASE.gd" id="10_omvbm"]
 [ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="11_7hj3n"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_wf3w5"]
 [ext_resource type="Texture2D" uid="uid://ccqm8rp8lgoa5" path="res://Sprites/Character/Protag.png" id="12_fggjs"]
+[ext_resource type="Script" path="res://Scripts/Entity/Player/States/SIZE_STATE.gd" id="13_urae2"]
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/SizeState.gd" id="14_apc2g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_miyjb"]
 size = Vector2(18, 30)
@@ -55,22 +60,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -84,21 +77,21 @@ _data = {
 "RESET": SubResource("Animation_qx5qg")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m35e1"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rng5r"]
 animation = &"IDLE"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fg1pi"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w1oys"]
 animation = &"MOVE"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oarj6"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7pmka"]
 animation = &"MOVE"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_i81tf"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_m35e1")
+blend_point_0/node = SubResource("AnimationNodeAnimation_rng5r")
 blend_point_0/pos = 0.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_fg1pi")
+blend_point_1/node = SubResource("AnimationNodeAnimation_w1oys")
 blend_point_1/pos = -1.0
-blend_point_2/node = SubResource("AnimationNodeAnimation_oarj6")
+blend_point_2/node = SubResource("AnimationNodeAnimation_7pmka")
 blend_point_2/pos = 1.0
 blend_mode = 1
 sync = true
@@ -116,13 +109,16 @@ transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransi
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_okhtf"]
 size = Vector2(18, 43)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "state_manager", "size_state_manager", "health", "attack", "hitbox", "animation_tree")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "energy", "state_manager", "action_state_manager", "size_state_manager", "health", "attack", "hitbox", "animation_tree")]
+position = Vector2(100, 100)
 collision_layer = 17
 collision_mask = 24
 script = ExtResource("1_hxueb")
-AimRayCast = NodePath("AimRayCast")
+AimRayCast = NodePath("Hitbox/AimRayCast")
+energy = NodePath("Energy")
 speed = 200.0
 state_manager = NodePath("State Manager")
+action_state_manager = NodePath("Action State Manager")
 size_state_manager = NodePath("Size State Manager")
 health = NodePath("HP")
 attack = NodePath("ATK")
@@ -136,6 +132,10 @@ shake_screen = true
 
 [node name="ATK" type="Node" parent="."]
 script = ExtResource("3_vqmuc")
+
+[node name="Energy" type="Node" parent="."]
+script = ExtResource("4_3ltgy")
+passive_rate = 0.005
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
@@ -152,7 +152,16 @@ visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("6_idjcw")
-state_manager = NodePath("../Size State Manager")
+state_manager = NodePath("")
+
+[node name="ActionStateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
+visible = false
+offset_left = -20.0
+offset_top = -51.0
+offset_right = 20.0
+offset_bottom = -28.0
+script = ExtResource("6_idjcw")
+state_manager = NodePath("../Action State Manager")
 
 [node name="StateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
 visible = false
@@ -160,8 +169,6 @@ offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("6_idjcw")
 state_manager = NodePath("../State Manager")
-
-[node name="Size State Manager" parent="." instance=ExtResource("7_kadac")]
 
 [node name="State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("8_g0hem")
@@ -175,6 +182,56 @@ run = NodePath("../RUN")
 script = ExtResource("10_4cqtu")
 idle = NodePath("../IDLE")
 
+[node name="Action State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("8_g0hem")
+current_state = NodePath("BASE")
+
+[node name="ATTACK" type="Node" parent="Action State Manager" node_paths=PackedStringArray("ability", "base")]
+script = ExtResource("8_d5ssq")
+ability = NodePath("../ABILITY")
+base = NodePath("../BASE")
+
+[node name="ABILITY" type="Node" parent="Action State Manager" node_paths=PackedStringArray("attack", "base")]
+script = ExtResource("9_fpblv")
+attack = NodePath("../ATTACK")
+base = NodePath("../BASE")
+
+[node name="BASE" type="Node" parent="Action State Manager" node_paths=PackedStringArray("ability", "attack")]
+script = ExtResource("10_omvbm")
+ability = NodePath("../ABILITY")
+attack = NodePath("../ATTACK")
+
+[node name="Size State Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("8_g0hem")
+current_state = NodePath("Medium")
+
+[node name="Small" type="Node" parent="Size State Manager" node_paths=PackedStringArray("medium", "timer")]
+script = ExtResource("13_urae2")
+medium = NodePath("../Medium")
+deplete_rate = 2.0
+speed_multiplier = 2.0
+health_multiplier = 0.5
+attack_multiplier = 0.5
+size_multiplier = 0.5
+timer = NodePath("../SizeTransitionTimer")
+
+[node name="Medium" type="Node" parent="Size State Manager" node_paths=PackedStringArray("timer")]
+script = ExtResource("14_apc2g")
+timer = NodePath("../SizeTransitionTimer")
+
+[node name="Large" type="Node" parent="Size State Manager" node_paths=PackedStringArray("medium", "timer")]
+script = ExtResource("13_urae2")
+medium = NodePath("../Medium")
+speed_multiplier = 0.5
+health_multiplier = 2.0
+attack_multiplier = 2.0
+size_multiplier = 2.0
+timer = NodePath("../SizeTransitionTimer")
+
+[node name="SizeTransitionTimer" type="Timer" parent="Size State Manager"]
+wait_time = 0.2
+one_shot = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_kvl2y")
@@ -185,15 +242,16 @@ tree_root = SubResource("AnimationNodeStateMachine_mqyfh")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Movement/blend_position = 0.0
 
-[node name="AimRayCast" type="RayCast2D" parent="."]
-collision_mask = 10
-collide_with_areas = true
-collide_with_bodies = false
-
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_7hj3n")]
 collision_layer = 17
 collision_mask = 20
 health = NodePath("../HP")
+
+[node name="AimRayCast" type="RayCast2D" parent="Hitbox"]
+collision_mask = 24
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, -5.5)
