@@ -46,6 +46,7 @@ func _ready():
 	flash_timer.timeout.connect(_on_flash_finish)
 
 func _physics_process(delta):
+	
 	# Base State Machine
 	if state_manager:
 		state_manager.physics_process(delta)
@@ -61,7 +62,6 @@ func _physics_process(delta):
 		if size_time_limit and size_state_manager.current_state != normal_size and not size_bool:
 			size_time_limit.start()
 			size_bool = true
-			size_time_limit.start()
 	
 	if size_bool and size_time_limit.is_stopped():
 		var states : Array[State] = size_state_manager.states

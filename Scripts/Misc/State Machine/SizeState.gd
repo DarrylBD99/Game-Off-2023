@@ -15,7 +15,7 @@ func state_ready():
 	scale_origin = entity.scale
 
 func start():
-	if not scale_origin == entity.scale * size_multiplier:
+	if not entity.scale == scale_origin * size_multiplier:
 		timer.start()
 	
 	if entity.health:
