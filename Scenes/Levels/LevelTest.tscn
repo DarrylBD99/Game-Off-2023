@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://cgcrh0mcsx6op"]
+[gd_scene load_steps=24 format=3 uid="uid://cgcrh0mcsx6op"]
 
 [ext_resource type="AudioStream" uid="uid://d2tf2eip41cug" path="res://Audio/BGM/GO23_Battle_1.mp3" id="1_8wq5s"]
 [ext_resource type="PackedScene" uid="uid://dtxdllgca58i" path="res://Scenes/Objects/Entity/player.tscn" id="1_brcdq"]
 [ext_resource type="Texture2D" uid="uid://buuhyhwlinsof" path="res://Sprites/Tileset/tileset_x1.png" id="3_nugtr"]
 [ext_resource type="Script" path="res://Scripts/Misc/Camera.gd" id="4_g2kdy"]
 [ext_resource type="Texture2D" uid="uid://uluw4errac71" path="res://Sprites/LightDefault.png" id="4_s5u2x"]
+[ext_resource type="PackedScene" uid="uid://dqsfy4abhyii8" path="res://Scenes/Objects/Entity/turret.tscn" id="6_l1voa"]
 [ext_resource type="Shader" path="res://Materials/Shaders/flash.gdshader" id="7_6jir1"]
 [ext_resource type="PackedScene" uid="uid://dldvmlyfiolno" path="res://Scenes/Objects/Entity/silent.tscn" id="7_07umn"]
 [ext_resource type="Script" path="res://Scripts/Misc/GridNavmesh.gd" id="8_j3hma"]
@@ -1018,7 +1019,7 @@ adjustment_contrast = 1.2
 adjustment_saturation = 1.1
 adjustment_color_correction = SubResource("GradientTexture1D_n0wu8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4fwlx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rtf4e"]
 resource_local_to_scene = true
 shader = ExtResource("7_6jir1")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
@@ -1091,8 +1092,11 @@ layer_2/tile_data = PackedInt32Array(131075, 65537, 3, 131076, 327681, 1, 131077
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1wj6d")
 
+[node name="turret" parent="." instance=ExtResource("6_l1voa")]
+position = Vector2(262, 395)
+
 [node name="silent" parent="." instance=ExtResource("7_07umn")]
-material = SubResource("ShaderMaterial_4fwlx")
+material = SubResource("ShaderMaterial_rtf4e")
 position = Vector2(184, 143)
 
 [node name="GridNavmesh" type="Node" parent="." node_paths=PackedStringArray("tile_map")]
