@@ -6,6 +6,7 @@ class_name Player
 @export var energy : Energy
 
 var bullet_scene : PackedScene
+var dash_bool : bool = false
 
 var attack_1_sfx : AudioStreamPlayer
 
@@ -42,8 +43,12 @@ func get_current_ability() -> Ability:
 	return ability_list[ability_select]
 
 func _ready():
+	# unlock all abilities
+	add_ability(EmSmallen.new())
 	add_ability(Maximize.new())
 	add_ability(Minimize.new())
+	add_ability(Dash_ability.new())
+	
 	bullet_scene = preload("res://Scenes/Objects/bullet.tscn")
 	GameManager.player = self
 	
