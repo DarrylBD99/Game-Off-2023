@@ -5,8 +5,6 @@ class_name ChangeOppSize
 var size_index : int = 0
 
 func _init():
-	UI_desel = preload("res://Sprites/GUI/HUD/Ability/minimize_desel.png")
-	UI_sel = preload("res://Sprites/GUI/HUD/Ability/minimize_sel.png")
 	energy_cost = 10.0
 
 func use_ability() -> bool:
