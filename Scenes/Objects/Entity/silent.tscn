@@ -212,6 +212,7 @@ health = NodePath("../HP")
 shape = SubResource("RectangleShape2D_glblf")
 
 [node name="StateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("6_b7qgl")
@@ -239,7 +240,7 @@ current_state = NodePath("BASE")
 script = ExtResource("10_b2wfm")
 next_state = NodePath("../BASE")
 animationPlayer = NodePath("../../AnimationPlayer")
-melee_attack_node = NodePath("../../Hitbox")
+melee_attack_node = NodePath("../../MeleeAttack")
 
 [node name="INVISIBLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("attack", "base", "visuals")]
 script = ExtResource("9_j1paj")
