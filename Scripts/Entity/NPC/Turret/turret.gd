@@ -8,7 +8,7 @@ extends NPC
 @onready var bullet_scene : PackedScene = preload("res://Scenes/Objects/bullet.tscn")
 
 func _physics_process(delta):
-	if target:
+	if not weakref(target):
 		AimRayCast.target_position = target.global_position - global_position
 	
 	super._physics_process(delta)

@@ -36,7 +36,7 @@ colors = PackedColorArray(0.125884, 0.594167, 0.96818, 1, 0, 0.626025, 0.506191,
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_y31fm"]
 gradient = SubResource("Gradient_fgbrv")
 
-[node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "barrel", "barrel_end", "rotate_timer", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack", "hitbox")]
+[node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "barrel", "barrel_end", "rotate_timer", "action_state_manager", "size_state_manager", "health", "attack", "hitbox", "size_time_limit")]
 material = SubResource("ShaderMaterial_wna73")
 collision_layer = 18
 collision_mask = 24
@@ -48,10 +48,10 @@ rotate_timer = NodePath("RotateTimer")
 fire_rate = 0.5
 action_state_manager = NodePath("Action Manager")
 size_state_manager = NodePath("Size State Manager")
-size_time_limit = NodePath("SizeTimeLimit")
 health = NodePath("HP")
 attack = NodePath("ATK")
 hitbox = NodePath("Hitbox")
+size_time_limit = NodePath("SizeTimeLimit")
 
 [node name="ATK" type="Node" parent="."]
 script = ExtResource("1_8a73g")
