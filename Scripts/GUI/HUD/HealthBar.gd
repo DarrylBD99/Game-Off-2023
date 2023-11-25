@@ -1,8 +1,8 @@
 extends ProgressBar
 
-var current_hp : float
-var health_max : float
-var old_hp : float
+var hp : float
+var hp_max : float
+var old_value : float
 var flash_timer : Timer
 
 func _ready():
@@ -13,23 +13,25 @@ func _ready():
 	flash_timer.timeout.connect(_on_flash_finish)
 	
 	if GameManager.player:
-		current_hp = GameManager.player.health.hp
-		old_hp = current_hp
+		hp = GameManager.player.health.hp
+		hp_max = GameManager.player.health.hp_max
+		
+		value = hp / hp_max * max_value
+		old_value = value
 
 func flash(a : float):
 	if material:
 		material.set_shader_parameter("flash_alpha", a)
 
 func _process(_delta):
-	value = roundi(current_hp / health_max * max_value)
+	old_value = value
 	
 	if GameManager.player:
-		old_hp = GameManager.player.health.hp
-		health_max = GameManager.player.health.hp_max
+		hp = GameManager.player.health.hp
+		hp_max = GameManager.player.health.hp_max
+		value = hp / hp_max * max_value
 		
-		if current_hp != old_hp:
-			current_hp = old_hp
-			
+		if value != old_value:
 			flash(0.7)
 			flash_timer.start()
 
