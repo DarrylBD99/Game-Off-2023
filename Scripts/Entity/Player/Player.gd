@@ -34,7 +34,7 @@ func _input(event : InputEvent):
 				hitbox_opp.change_size(0)
 				GameManager.ability_bool = false
 				can_fire = false
-			
+	
 	if event.is_action_released("player_attack"):
 		can_fire = true
 
