@@ -147,12 +147,11 @@ offset_top = -38.0
 offset_bottom = -36.0
 health = NodePath("../HP")
 
-[node name="SizeStateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
+[node name="SizeStateLabel" type="Label" parent="."]
 visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("6_idjcw")
-state_manager = NodePath("")
 
 [node name="ActionStateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
 visible = false
@@ -209,7 +208,7 @@ current_state = NodePath("Medium")
 script = ExtResource("13_urae2")
 medium = NodePath("../Medium")
 deplete_rate = 2.0
-speed_multiplier = 2.0
+speed_multiplier = 1.5
 health_multiplier = 0.5
 attack_multiplier = 0.5
 size_multiplier = 0.5

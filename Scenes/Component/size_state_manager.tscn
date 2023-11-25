@@ -9,7 +9,7 @@ current_state = NodePath("Medium")
 
 [node name="Small" type="Node" parent="." node_paths=PackedStringArray("timer")]
 script = ExtResource("2_fyuoc")
-speed_multiplier = 2.0
+speed_multiplier = 1.5
 health_multiplier = 0.5
 attack_multiplier = 0.5
 size_multiplier = 0.5
