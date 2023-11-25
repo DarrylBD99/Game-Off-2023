@@ -1,12 +1,49 @@
 extends Entity
 
+class_name Player
+
 @export var AimRayCast : RayCast2D
+@export var energy : Energy
 
 var bullet_scene : PackedScene
 
 var attack_1_sfx : AudioStreamPlayer
 
+var inventory : Array[Weapon]
+var inventory_slot : int = 0
+
+var ability_list : Array[Ability]
+var ability_select : int = 0
+
+func add_weapon(new_weapon : Weapon): 
+	inventory.push_back(new_weapon)
+
+func change_slot(delta : int):
+	inventory_slot += delta
+	inventory_slot = inventory_slot % inventory.size()
+
+func get_current_weapon() -> Weapon:
+	if inventory.size() <= inventory_slot:
+		return null
+
+	return inventory[inventory_slot]
+
+func add_ability(new_ability : Ability): 
+	ability_list.push_back(new_ability)
+
+func change_ability(delta : int):
+	ability_select += delta
+	ability_select = ability_select % ability_list.size()
+
+func get_current_ability() -> Ability:
+	if ability_list.size() <= ability_select:
+		return null
+	
+	return ability_list[ability_select]
+
 func _ready():
+	add_ability(Maximize.new())
+	add_ability(Minimize.new())
 	bullet_scene = preload("res://Scenes/Objects/bullet.tscn")
 	GameManager.player = self
 	
@@ -20,23 +57,13 @@ func _ready():
 func _physics_process(delta):
 	AimRayCast.target_position = get_global_mouse_position() - global_position
 	
-	if Input.is_action_pressed("player_attack") and not GameManager.ability_bool and can_fire:
-		shoot_bullet(bullet_scene, global_position, get_global_mouse_position(), 1)
-		attack_1_sfx.play()
-	
 	super._physics_process(delta)
 
 func _input(event : InputEvent):
-	if event.is_action_pressed("player_attack"):
-		if GameManager.ability_bool:
-			if AimRayCast.is_colliding() and AimRayCast.get_collider() is Hitbox:
-				var hitbox_opp : Hitbox = AimRayCast.get_collider()
-				hitbox_opp.change_size(0)
-				GameManager.ability_bool = false
-				can_fire = false
-	
 	if event.is_action_released("player_attack"):
 		can_fire = true
+	
+	super._input(event)
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
