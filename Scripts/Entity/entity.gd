@@ -2,7 +2,6 @@ extends CharacterBody2D
 class_name Entity
 
 @export var speed : float = 100.0
-@export var fire_rate : float = 0.2
 
 @export var state_manager : StateManager
 @export var action_state_manager : StateManager
@@ -17,7 +16,6 @@ class_name Entity
 
 @onready var sprite : Sprite2D = $Sprite2D
 
-var can_fire : bool = true
 var normal_size : State
 var size_bool : bool = false
 var flash_timer : Timer
@@ -82,21 +80,15 @@ func _input(event):
 		size_state_manager.input(event)
 
 func shoot_bullet(bullet_scene : PackedScene, pos_origin : Vector2, pos_end : Vector2, shake : float = 0):
-	if can_fire:
-		GameManager.camera.shake(shake)
-		
-		var bullet : StaticBody2D = bullet_scene.instantiate()
-		bullet.global_position = pos_origin
-		bullet.look_at(pos_end)
-		bullet.move_pos = global_position.direction_to(pos_end)
-		bullet.entity_origin = self
-		
-		add_sibling(bullet)
-		
-		#stop rapid fire
-		can_fire = false
-		await get_tree().create_timer(fire_rate).timeout
-		can_fire = true
+	GameManager.camera.shake(shake)
+	
+	var bullet : StaticBody2D = bullet_scene.instantiate()
+	bullet.global_position = pos_origin
+	bullet.look_at(pos_end)
+	bullet.move_pos = global_position.direction_to(pos_end)
+	bullet.entity_origin = self
+	
+	add_sibling(bullet)
 
 
 func set_ghost_sprite(ghost : Sprite2D) -> Sprite2D:

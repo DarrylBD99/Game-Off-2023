@@ -5,10 +5,7 @@ class_name Player
 @export var AimRayCast : RayCast2D
 @export var energy : Energy
 
-var bullet_scene : PackedScene
 var dash_bool : bool = false
-
-var attack_1_sfx : AudioStreamPlayer
 
 var inventory : Array[Weapon]
 var inventory_slot : int = 0
@@ -43,19 +40,15 @@ func get_current_ability() -> Ability:
 	return ability_list[ability_select]
 
 func _ready():
+	GameManager.player = self
+	
 	# unlock all abilities
 	add_ability(EmSmallen.new())
 	add_ability(Maximize.new())
 	add_ability(Minimize.new())
 	add_ability(Dash_ability.new())
 	
-	bullet_scene = preload("res://Scenes/Objects/bullet.tscn")
-	GameManager.player = self
-	
-	attack_1_sfx = AudioStreamPlayer.new()
-	attack_1_sfx.set_stream(GameManager.attack_1_audio)
-	attack_1_sfx.set_bus("SFX")
-	add_child(attack_1_sfx)
+	add_weapon(Shotgun.new())
 	
 	super._ready()
 
@@ -63,12 +56,6 @@ func _physics_process(delta):
 	AimRayCast.target_position = get_global_mouse_position() - global_position
 	
 	super._physics_process(delta)
-
-func _input(event : InputEvent):
-	if event.is_action_released("player_attack"):
-		can_fire = true
-	
-	super._input(event)
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:

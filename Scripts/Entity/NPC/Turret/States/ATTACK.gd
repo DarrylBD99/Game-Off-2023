@@ -2,7 +2,9 @@ extends State
 
 @export var target_range : float
 @export var idle : State
+@export var fire_rate : float = 0.5
 
+var can_fire : bool = true
 var range_bool : bool
 var block_bool : bool
 
@@ -36,8 +38,13 @@ func physics_process(delta : float) -> State:
 	
 	entity.barrel.rotation = lerp_angle(entity.barrel.rotation, rotate_to, delta * 10)
 	
-	if entity.can_fire:
+	if can_fire:
 		entity.shoot_bullet(entity.bullet_scene, entity.barrel_end.global_position, entity.target.global_position)
+		
+		#stop rapid fire
+		can_fire = false
+		await get_tree().create_timer(fire_rate).timeout
+		can_fire = true
 		
 		audio_stream_player.play()
 	
