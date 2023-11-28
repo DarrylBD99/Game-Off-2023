@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cgcrh0mcsx6op"]
+[gd_scene load_steps=44 format=3 uid="uid://cgcrh0mcsx6op"]
 
 [ext_resource type="AudioStream" uid="uid://d2tf2eip41cug" path="res://Audio/BGM/GO23_Battle_1.mp3" id="1_8f1fr"]
 [ext_resource type="PackedScene" uid="uid://500a2am16u13" path="res://Scenes/Objects/Entity/player.tscn" id="1_brcdq"]
@@ -14,7 +14,26 @@
 [ext_resource type="Texture2D" uid="uid://dwi7hieuxc4ms" path="res://Sprites/GUI/HUD/Bars/Health.png" id="11_k4gn4"]
 [ext_resource type="Texture2D" uid="uid://dlrcklbtm7v47" path="res://Sprites/GUI/HUD/Bars/Energy.png" id="11_ri8p5"]
 [ext_resource type="Texture2D" uid="uid://csnkes5wkhetm" path="res://Sprites/GUI/HUD/Bars/Overlay.png" id="13_ivoeb"]
+[ext_resource type="Texture2D" uid="uid://dd4lip6x3cn83" path="res://Sprites/GUI/HUD/Weapon/gun.png" id="15_30g3t"]
+[ext_resource type="Texture2D" uid="uid://q50cfe6itgh4" path="res://Sprites/GUI/HUD/Torch/Battery/0.png" id="15_drpa0"]
 [ext_resource type="Script" path="res://Scripts/GUI/HUD/AbilityIcon.gd" id="15_xis8k"]
+[ext_resource type="Script" path="res://Scripts/GUI/HUD/Battery.gd" id="16_c5w61"]
+[ext_resource type="Texture2D" uid="uid://22j2yg0vwp4x" path="res://Sprites/GUI/HUD/Torch/Battery/1.png" id="17_3pv5k"]
+[ext_resource type="Texture2D" uid="uid://dbw1hetdqj3p3" path="res://Sprites/GUI/HUD/Torch/Battery/2.png" id="18_lft3t"]
+[ext_resource type="Script" path="res://Scripts/GUI/HUD/AbilityHBox.gd" id="18_u5ft1"]
+[ext_resource type="Texture2D" uid="uid://ck6qccrqjs8yb" path="res://Sprites/GUI/HUD/Ability/maximize.png" id="19_372k8"]
+[ext_resource type="Texture2D" uid="uid://bgqwrpba78vpb" path="res://Sprites/GUI/HUD/Torch/Battery/3.png" id="19_ly7d0"]
+[ext_resource type="Texture2D" uid="uid://bmjydr7suj460" path="res://Sprites/GUI/HUD/Torch/Battery/4.png" id="20_f1e03"]
+[ext_resource type="Texture2D" uid="uid://csuik2o3waw8a" path="res://Sprites/GUI/HUD/Torch/Battery/5.png" id="21_qafj3"]
+[ext_resource type="Texture2D" uid="uid://bd3xna1yeeufg" path="res://Sprites/GUI/HUD/Torch/Battery/6.png" id="22_scrf8"]
+[ext_resource type="Texture2D" uid="uid://d367c61xt5b3j" path="res://Sprites/GUI/HUD/Torch/Battery/0_desel.png" id="23_sew5t"]
+[ext_resource type="Texture2D" uid="uid://bvryi5stttquv" path="res://Sprites/GUI/HUD/Torch/Battery/1_desel.png" id="24_enspt"]
+[ext_resource type="Texture2D" uid="uid://ck1q42msfifqp" path="res://Sprites/GUI/HUD/Torch/Battery/2_desel.png" id="25_xdhll"]
+[ext_resource type="Texture2D" uid="uid://dorm8gnkxwitw" path="res://Sprites/GUI/HUD/Torch/Battery/3_desel.png" id="26_oyujp"]
+[ext_resource type="Texture2D" uid="uid://dh1gadbkgf0fd" path="res://Sprites/GUI/HUD/Torch/Battery/4_desel.png" id="27_c33bs"]
+[ext_resource type="Texture2D" uid="uid://dnvgibnde81uo" path="res://Sprites/GUI/HUD/Torch/Battery/5_desel.png" id="28_w7itt"]
+[ext_resource type="Texture2D" uid="uid://37dsgf625icl" path="res://Sprites/GUI/HUD/Torch/Battery/6_desel.png" id="29_arrbr"]
+[ext_resource type="Texture2D" uid="uid://da7l26pja5gpq" path="res://Sprites/GUI/HUD/Torch/torch_desel.png" id="31_orum8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_06p2g"]
 texture = ExtResource("3_nugtr")
@@ -1110,17 +1129,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Bars" type="TextureRect" parent="GUI/HUD"]
-clip_contents = true
+[node name="MarginContainer" type="MarginContainer" parent="GUI/HUD"]
 layout_mode = 1
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 196.0
-offset_bottom = 54.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxLeft" type="VBoxContainer" parent="GUI/HUD/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Bars" type="TextureRect" parent="GUI/HUD/MarginContainer/VBoxLeft"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture = ExtResource("9_smdoo")
 stretch_mode = 4
 
-[node name="Energy" type="TextureProgressBar" parent="GUI/HUD/Bars"]
+[node name="Energy" type="TextureProgressBar" parent="GUI/HUD/MarginContainer/VBoxLeft/Bars"]
 material = SubResource("ShaderMaterial_h7hyg")
 layout_mode = 0
 offset_left = 80.0
@@ -1131,7 +1164,7 @@ value = 100.0
 texture_progress = ExtResource("11_ri8p5")
 script = ExtResource("10_b10fg")
 
-[node name="Health" type="ProgressBar" parent="GUI/HUD/Bars"]
+[node name="Health" type="ProgressBar" parent="GUI/HUD/MarginContainer/VBoxLeft/Bars"]
 material = SubResource("ShaderMaterial_lmmhh")
 layout_mode = 0
 offset_left = 29.0
@@ -1145,7 +1178,7 @@ value = 171.0
 show_percentage = false
 script = ExtResource("11_dhdox")
 
-[node name="Overlay" type="TextureRect" parent="GUI/HUD/Bars"]
+[node name="Overlay" type="TextureRect" parent="GUI/HUD/MarginContainer/VBoxLeft/Bars"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1154,15 +1187,56 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_ivoeb")
 
-[node name="Ability" type="TextureRect" parent="GUI/HUD"]
+[node name="Weapon" type="TextureRect" parent="GUI/HUD/MarginContainer/VBoxLeft"]
+layout_mode = 2
+texture = ExtResource("15_30g3t")
+stretch_mode = 4
+
+[node name="VBoxRight" type="VBoxContainer" parent="GUI/HUD/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Torch" type="HBoxContainer" parent="GUI/HUD/MarginContainer/VBoxRight"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="GUI/HUD/MarginContainer/VBoxRight/Torch"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "T"
+vertical_alignment = 1
+
+[node name="Battery" type="TextureRect" parent="GUI/HUD/MarginContainer/VBoxRight/Torch"]
 layout_direction = 1
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -44.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = 44.0
-grow_horizontal = 0
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("15_drpa0")
+stretch_mode = 4
+script = ExtResource("16_c5w61")
+graphics = Array[CompressedTexture2D]([ExtResource("15_drpa0"), ExtResource("17_3pv5k"), ExtResource("18_lft3t"), ExtResource("19_ly7d0"), ExtResource("20_f1e03"), ExtResource("21_qafj3"), ExtResource("22_scrf8")])
+graphics_desel = Array[CompressedTexture2D]([ExtResource("23_sew5t"), ExtResource("24_enspt"), ExtResource("25_xdhll"), ExtResource("26_oyujp"), ExtResource("27_c33bs"), ExtResource("28_w7itt"), ExtResource("29_arrbr")])
+
+[node name="Icon" type="TextureRect" parent="GUI/HUD/MarginContainer/VBoxRight/Torch"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("31_orum8")
+stretch_mode = 4
+
+[node name="Ability" type="HBoxContainer" parent="GUI/HUD/MarginContainer/VBoxRight"]
+layout_mode = 2
+size_flags_horizontal = 8
+script = ExtResource("18_u5ft1")
+
+[node name="Label" type="Label" parent="GUI/HUD/MarginContainer/VBoxRight/Ability"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Q"
+
+[node name="Icon" type="TextureRect" parent="GUI/HUD/MarginContainer/VBoxRight/Ability"]
+layout_direction = 1
+layout_mode = 2
+texture = ExtResource("19_372k8")
+stretch_mode = 4
 script = ExtResource("15_xis8k")

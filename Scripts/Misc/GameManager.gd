@@ -25,7 +25,7 @@ var changing_size : bool = false
 @onready var random : RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready():
-	set_crosshair()
+	set_default()
 
 func set_random_seed():
 	random.seed = Time.get_ticks_usec()
