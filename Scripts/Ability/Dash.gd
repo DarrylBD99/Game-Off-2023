@@ -6,7 +6,7 @@ func _init():
 	energy_cost = 10.0
 	
 	UI_desel = preload("res://Sprites/GUI/HUD/Ability/dash_desel.png")
-	UI_sel = preload("res://Sprites/GUI/HUD/Ability/dash_sel.png")
+	UI_sel = preload("res://Sprites/GUI/HUD/Ability/dash.png")
 
 func use_ability() -> bool:
 	var player : Entity = GameManager.player
