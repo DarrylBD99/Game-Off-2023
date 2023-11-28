@@ -4,6 +4,7 @@ class_name Player
 
 @export var AimRayCast : RayCast2D
 @export var energy : Energy
+@export var torch : Torch
 
 var dash_bool : bool = false
 
