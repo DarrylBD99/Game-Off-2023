@@ -122,6 +122,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="Torch" type="HBoxContainer" parent="MarginContainer/VBoxRight"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 

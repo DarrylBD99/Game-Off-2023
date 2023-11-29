@@ -37,7 +37,6 @@ func input(event : InputEvent) -> State:
 		weapon.on_press()
 		
 	if event.is_action_released("player_attack"):
-		can_attack = true
 		weapon.on_release()
 
 	return null

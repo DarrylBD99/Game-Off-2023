@@ -8,6 +8,7 @@ func _ready():
 	torch = GameManager.player.torch
 
 func _process(_delta):
-	var level : int = roundi(torch.power / torch.power_max * (graphics.size() - 1))
+	if GameManager.player:
+		var level : int = roundi(torch.power / torch.power_max * (graphics.size() - 1))
 	
-	texture = graphics_desel[level]
+		texture = graphics_desel[level]

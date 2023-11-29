@@ -170,6 +170,8 @@ script = ExtResource("3_vqmuc")
 script = ExtResource("4_3ltgy")
 passive_rate = 0.005
 
+[node name="Weapon" type="Node2D" parent="."]
+
 [node name="Torch" type="Node2D" parent="."]
 position = Vector2(-100, -100)
 script = ExtResource("5_1kd4m")

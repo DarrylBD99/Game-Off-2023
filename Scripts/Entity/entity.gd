@@ -90,7 +90,6 @@ func shoot_bullet(bullet_scene : PackedScene, pos_origin : Vector2, pos_end : Ve
 	
 	add_sibling(bullet)
 
-
 func set_ghost_sprite(ghost : Sprite2D) -> Sprite2D:
 	ghost.global_position = global_position
 	ghost.offset = $Sprite2D.offset

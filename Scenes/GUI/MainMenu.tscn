@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cut2j7yqbjxwk"]
+[gd_scene load_steps=15 format=3 uid="uid://cut2j7yqbjxwk"]
 
 [ext_resource type="Theme" uid="uid://bykrtyls412vb" path="res://Theme.tres" id="1_3k5vl"]
 [ext_resource type="Script" path="res://Scripts/GUI/MainMenu.gd" id="1_15mux"]
@@ -7,16 +7,11 @@
 [ext_resource type="AudioStream" uid="uid://corrlpfkrmsud" path="res://Audio/SE/Hover.wav" id="4_1ckvq"]
 [ext_resource type="Texture2D" uid="uid://bvwl4v002pkb2" path="res://Godot Screenshot 2023.11.29 - 17.25.45.83.png" id="4_n76f7"]
 [ext_resource type="AudioStream" uid="uid://dvtvkthdfikvb" path="res://Audio/SE/Select.wav" id="4_tdyo5"]
-[ext_resource type="Shader" path="res://Materials/Shaders/BlurBG.gdshader" id="5_otbtt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5epfw"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_50yop"]
-shader = ExtResource("5_otbtt")
-shader_parameter/size_x = 0.008
-shader_parameter/size_y = 0.008
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_eblyf"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe7ww"]
+bg_color = Color(0, 0, 0, 0.505882)
 
 [sub_resource type="Animation" id="Animation_tbtdu"]
 length = 0.001
@@ -109,7 +104,13 @@ tracks/1/keys = {
 "values": [Vector2(0.8, 0.8), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_8btt1"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dnsyi"]
+_data = {
+"RESET": SubResource("Animation_tbtdu"),
+"credits": SubResource("Animation_r12ct")
+}
+
+[sub_resource type="Animation" id="Animation_li4ur"]
 resource_name = "main_menu"
 length = 45.0
 loop_mode = 1
@@ -138,14 +139,12 @@ tracks/1/keys = {
 "values": [true, false, false, true]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dnsyi"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ruyfg"]
 _data = {
-"RESET": SubResource("Animation_tbtdu"),
-"credits": SubResource("Animation_r12ct"),
-"main_menu": SubResource("Animation_8btt1")
+"main_menu": SubResource("Animation_li4ur")
 }
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button", "credit_button", "animation_player", "quit_button")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button", "help_button", "credit_button", "quit_button", "animation_player", "help_panel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -155,9 +154,11 @@ grow_vertical = 2
 theme = ExtResource("1_3k5vl")
 script = ExtResource("1_15mux")
 play_button = NodePath("Title/MarginContainer/Buttons/Play")
+help_button = NodePath("Title/MarginContainer/Buttons/Help")
 credit_button = NodePath("Title/MarginContainer/Buttons/Credits")
-animation_player = NodePath("AnimationPlayer")
 quit_button = NodePath("Title/MarginContainer/Buttons/Quit")
+animation_player = NodePath("AnimationPlayer")
+help_panel = NodePath("Help")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ufdgs")
@@ -191,17 +192,6 @@ offset_bottom = 1054.0
 rotation = -0.219911
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_n76f7")
-
-[node name="Blur" type="TextureRect" parent="Title"]
-modulate = Color(1, 1, 1, 0.588235)
-material = SubResource("ShaderMaterial_50yop")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CanvasTexture_eblyf")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title"]
 layout_mode = 1
@@ -238,6 +228,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Play"
 
+[node name="Help" type="Button" parent="Title/MarginContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Help"
+
 [node name="Credits" type="Button" parent="Title/MarginContainer/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -249,6 +244,7 @@ size_flags_horizontal = 4
 text = "Quit"
 
 [node name="Credits" type="Panel" parent="."]
+visible = false
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -260,6 +256,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
 pivot_offset = Vector2(320, 180)
+theme_override_styles/panel = SubResource("StyleBoxFlat_oe7ww")
 script = ExtResource("2_m1n24")
 
 [node name="MarginContainer" type="MarginContainer" parent="Credits"]
@@ -322,7 +319,7 @@ bbcode_enabled = true
 text = "[left]Mapper and Lead Developer
 Lead Coder
 Coder
-Music Composer and Spriter
+GUI and Tileset Artist
 Music Composer
 Music Composer
 Spriter"
@@ -365,8 +362,28 @@ Tech Dungeon Roguelite Tileset
 Weapon Pack"
 fit_content = true
 
+[node name="Help" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -312.0
+offset_top = -172.0
+offset_right = 312.0
+offset_bottom = 172.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "main_menu"
 libraries = {
 "": SubResource("AnimationLibrary_dnsyi")
+}
+
+[node name="MainMenu" type="AnimationPlayer" parent="."]
+autoplay = "main_menu"
+libraries = {
+"": SubResource("AnimationLibrary_ruyfg")
 }
