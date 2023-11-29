@@ -1,10 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://cut2j7yqbjxwk"]
+[gd_scene load_steps=16 format=3 uid="uid://cut2j7yqbjxwk"]
 
+[ext_resource type="Theme" uid="uid://bykrtyls412vb" path="res://Theme.tres" id="1_3k5vl"]
 [ext_resource type="Script" path="res://Scripts/GUI/MainMenu.gd" id="1_15mux"]
 [ext_resource type="Script" path="res://Scripts/GUI/Credits.gd" id="2_m1n24"]
 [ext_resource type="AudioStream" uid="uid://bej0vtv33046f" path="res://Audio/BGM/GO23_Menu_1.mp3" id="2_ufdgs"]
+[ext_resource type="AudioStream" uid="uid://corrlpfkrmsud" path="res://Audio/SE/Hover.wav" id="4_1ckvq"]
+[ext_resource type="Texture2D" uid="uid://bvwl4v002pkb2" path="res://Godot Screenshot 2023.11.29 - 17.25.45.83.png" id="4_n76f7"]
+[ext_resource type="AudioStream" uid="uid://dvtvkthdfikvb" path="res://Audio/SE/Select.wav" id="4_tdyo5"]
+[ext_resource type="Shader" path="res://Materials/Shaders/BlurBG.gdshader" id="5_otbtt"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r7jql"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5epfw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_50yop"]
+shader = ExtResource("5_otbtt")
+shader_parameter/size_x = 0.008
+shader_parameter/size_y = 0.008
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_eblyf"]
 
 [sub_resource type="Animation" id="Animation_tbtdu"]
 length = 0.001
@@ -32,36 +44,45 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0.8, 0.8)]
 }
-
-[sub_resource type="Animation" id="Animation_cocru"]
-resource_name = "hide_credits"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Credits:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.2, 1),
-"transitions": PackedFloat32Array(0.3, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 360)]
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Credits:anchors_preset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Credits:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1.5, 1),
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Title/TextureRect:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.8, 0.8)]
+"values": [Vector2(-858, -26)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Title/TextureRect:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_r12ct"]
-resource_name = "show_credits"
+resource_name = "credits"
 length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -88,11 +109,40 @@ tracks/1/keys = {
 "values": [Vector2(0.8, 0.8), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_8btt1"]
+resource_name = "main_menu"
+length = 45.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title/TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 20, 21),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-858, -26), Vector2(-539, 466), Vector2(-1643, 267)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title/TextureRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(19.9, 20, 21, 21.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dnsyi"]
 _data = {
 "RESET": SubResource("Animation_tbtdu"),
-"hide_credits": SubResource("Animation_cocru"),
-"show_credits": SubResource("Animation_r12ct")
+"credits": SubResource("Animation_r12ct"),
+"main_menu": SubResource("Animation_8btt1")
 }
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("play_button", "credit_button", "animation_player", "quit_button")]
@@ -102,6 +152,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_3k5vl")
 script = ExtResource("1_15mux")
 play_button = NodePath("Title/MarginContainer/Buttons/Play")
 credit_button = NodePath("Title/MarginContainer/Buttons/Credits")
@@ -113,6 +164,14 @@ stream = ExtResource("2_ufdgs")
 autoplay = true
 bus = &"BGM"
 
+[node name="Hover" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(48, 472)
+stream = ExtResource("4_1ckvq")
+
+[node name="Select" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(24, 236)
+stream = ExtResource("4_tdyo5")
+
 [node name="Title" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -120,7 +179,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r7jql")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5epfw")
+
+[node name="TextureRect" type="TextureRect" parent="Title"]
+texture_filter = 2
+layout_mode = 2
+offset_left = -858.0
+offset_top = -26.0
+offset_right = 1062.0
+offset_bottom = 1054.0
+rotation = -0.219911
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_n76f7")
+
+[node name="Blur" type="TextureRect" parent="Title"]
+modulate = Color(1, 1, 1, 0.588235)
+material = SubResource("ShaderMaterial_50yop")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_eblyf")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title"]
 layout_mode = 1
@@ -137,9 +218,14 @@ theme_override_constants/margin_bottom = 48
 [node name="Title" type="RichTextLabel" parent="Title/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/default_color = Color(0.196078, 0.321569, 0.560784, 1)
+theme_override_colors/font_shadow_color = Color(0.0313726, 0.137255, 0.529412, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
-text = "[center]Insert Title Here[/center]"
+text = "[center]Scalar[/center]"
 fit_content = true
 text_direction = 1
 
@@ -149,14 +235,17 @@ size_flags_vertical = 8
 
 [node name="Play" type="Button" parent="Title/MarginContainer/Buttons"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Play"
 
 [node name="Credits" type="Button" parent="Title/MarginContainer/Buttons"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Credits"
 
 [node name="Quit" type="Button" parent="Title/MarginContainer/Buttons"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Quit"
 
 [node name="Credits" type="Panel" parent="."]
@@ -166,8 +255,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 360.0
-offset_right = 640.0
-offset_bottom = 720.0
+offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
@@ -188,7 +276,6 @@ theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Credits/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 24
 
 [node name="Title" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -197,34 +284,89 @@ bbcode_enabled = true
 text = "[center][b]Credits"
 fit_content = true
 
-[node name="Credits" type="HBoxContainer" parent="Credits/MarginContainer/VBoxContainer"]
+[node name="Developers" type="VBoxContainer" parent="Credits/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_horizontal = 3
 
-[node name="Developers" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Credits"]
+[node name="Title" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Developers"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "[b]Developers[/b]
+text = "[center][b]Developers"
+fit_content = true
 
+[node name="HBoxContainer" type="HBoxContainer" parent="Credits/MarginContainer/VBoxContainer/Developers"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="Names" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Developers/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[right]Nehal
 DarrylBD99
-LolHank
-The Cool Treecko
 Oncur
-Nehal
+LolHank
+Eduardo Arantes
+The Cool Treecko
 TrashBot"
 fit_content = true
 
-[node name="Asset" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Credits"]
+[node name="Job" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Developers/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[left]Mapper and Lead Developer
+Lead Coder
+Coder
+Music Composer and Spriter
+Music Composer
+Music Composer
+Spriter"
+fit_content = true
+
+[node name="Assets" type="VBoxContainer" parent="Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Assets"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "[b]Assets[/b]
-
+text = "[center][b]Assets/Plugins
 "
 fit_content = true
 
+[node name="HBoxContainer" type="HBoxContainer" parent="Credits/MarginContainer/VBoxContainer/Assets"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="Names" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Assets/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[right]	Mounir Tohami
+Pupkin
+VladPenn"
+fit_content = true
+
+[node name="Job" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Assets/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[left]MinimalPixel Font
+Tech Dungeon Roguelite Tileset
+Weapon Pack"
+fit_content = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "main_menu"
 libraries = {
 "": SubResource("AnimationLibrary_dnsyi")
 }
