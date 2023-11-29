@@ -18,5 +18,11 @@ func _init():
 func on_hold():
 	var player : Player = GameManager.player
 	
-	player.shoot_bullet(bullet_scene, player.global_position, player.get_global_mouse_position(), 1)
+	var bullet1 : Vector2 = player.get_global_mouse_position()
+	var bullet2 : Vector2 = bullet1.rotated(deg_to_rad(5))
+	var bullet3 : Vector2 = bullet1.rotated(deg_to_rad(-5))
+	
+	player.shoot_bullet(bullet_scene, player.global_position, bullet1, 1)
+	player.shoot_bullet(bullet_scene, player.global_position, bullet2, 1)
+	player.shoot_bullet(bullet_scene, player.global_position, bullet3, 1)
 	attack_1_sfx.play()
