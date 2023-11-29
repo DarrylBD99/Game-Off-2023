@@ -4,6 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://jt8hffe14a34" path="res://Stars.png" id="2_gq7mw"]
 [ext_resource type="Texture2D" uid="uid://b4slyupmshepp" path="res://lunar_eclipse_logo.png" id="3_kqddx"]
 
+[sub_resource type="Gradient" id="Gradient_h6c1r"]
+colors = PackedColorArray(0, 0, 0, 1, 0.235294, 0, 0.827451, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ejigo"]
+gradient = SubResource("Gradient_h6c1r")
+fill_to = Vector2(0, 1)
+
 [sub_resource type="Animation" id="Animation_hjynu"]
 length = 0.001
 tracks/0/type = "value"
@@ -79,13 +86,6 @@ _data = {
 "load_animation": SubResource("Animation_7eaen")
 }
 
-[sub_resource type="Gradient" id="Gradient_h6c1r"]
-colors = PackedColorArray(0, 0, 0, 1, 0.235294, 0, 0.827451, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ejigo"]
-gradient = SubResource("Gradient_h6c1r")
-fill_to = Vector2(0, 1)
-
 [node name="SplashScreen" type="Control"]
 modulate = Color(0, 0, 0, 1)
 texture_filter = 1
@@ -96,12 +96,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cwjld")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "load_animation"
-libraries = {
-"": SubResource("AnimationLibrary_7kl5w")
-}
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -142,3 +136,9 @@ grow_vertical = 2
 pivot_offset = Vector2(237, 75)
 texture = ExtResource("3_kqddx")
 stretch_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "load_animation"
+libraries = {
+"": SubResource("AnimationLibrary_7kl5w")
+}
