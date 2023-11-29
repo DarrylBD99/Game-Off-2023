@@ -1,9 +1,12 @@
 extends Control
 
 @export var play_button : Button
+@export var help_button : Button
 @export var credit_button : Button
-@export var animation_player : AnimationPlayer
 @export var quit_button : Button
+
+@export var animation_player : AnimationPlayer
+@export var help_panel : Control
 
 var credit_roll : bool = false
 var hovering : bool = false
@@ -13,9 +16,16 @@ var buttons : Array[Button]
 func _ready():
 	GameManager.set_default()
 	
+	if help_panel:
+		help_panel.hide()
+	
 	if play_button:
 		buttons.append(play_button)
 		play_button.pressed.connect(play_game)
+		
+	if help_button:
+		buttons.append(help_button)
+		help_button.pressed.connect(help_menu)
 	
 	if credit_button:
 		buttons.append(credit_button)
@@ -40,6 +50,10 @@ func _process(_delta):
 func play_game():
 	$Select.play()
 	Transition.change_scene("res://Scenes/Levels/LevelTest.tscn")
+
+func help_menu():
+	if help_panel:
+		help_panel.show()
 
 func open_credits():
 	$Select.play()
