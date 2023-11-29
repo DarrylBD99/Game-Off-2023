@@ -5,7 +5,7 @@ extends NPC
 @export var barrel_end : Node
 @export var rotate_timer : Timer
 
-@onready var bullet_scene : PackedScene = preload("res://Scenes/Objects/bullet.tscn")
+@onready var bullet_scene : PackedScene = preload("res://Scenes/Objects/bullet_enemy.tscn")
 
 func _physics_process(delta):
 	if not weakref(target):

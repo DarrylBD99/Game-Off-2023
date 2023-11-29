@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dqsfy4abhyii8"]
+[gd_scene load_steps=20 format=3 uid="uid://dqsfy4abhyii8"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/turret.gd" id="1_6oxya"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="1_8a73g"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="5_ubp2a"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/States/ATTACK.gd" id="6_dl3d1"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/States/IDLE.gd" id="7_6xs1i"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/States/COOLDOWN.gd" id="9_uuwv6"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="10_er5s1"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_miysp"]
 [ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="11_l428o"]
@@ -45,7 +46,6 @@ AimRayCast = NodePath("AimRayCast")
 barrel = NodePath("Barrel")
 barrel_end = NodePath("Barrel/BarrelEnd")
 rotate_timer = NodePath("RotateTimer")
-fire_rate = 0.5
 action_state_manager = NodePath("Action Manager")
 size_state_manager = NodePath("Size State Manager")
 health = NodePath("HP")
@@ -75,12 +75,18 @@ current_state = NodePath("IDLE")
 
 [node name="ATTACK" type="Node" parent="Action Manager" node_paths=PackedStringArray("idle")]
 script = ExtResource("6_dl3d1")
-target_range = 160.0
+target_range = 200.0
 idle = NodePath("../IDLE")
 
 [node name="IDLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("7_6xs1i")
 next_state = NodePath("../ATTACK")
+
+[node name="COOLDOWN" type="Node" parent="Action Manager" node_paths=PackedStringArray("idle", "attack")]
+script = ExtResource("9_uuwv6")
+cooldown = 2.0
+idle = NodePath("../IDLE")
+attack = NodePath("../ATTACK")
 
 [node name="Size State Manager" parent="." instance=ExtResource("10_miysp")]
 
