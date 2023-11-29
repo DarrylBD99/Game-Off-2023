@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-func _process(delta):
+func _process(_delta):
 	if GameManager.player:
 		var ability : Ability = GameManager.player.get_current_ability()
 		
