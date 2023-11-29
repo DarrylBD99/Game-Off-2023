@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*res://Scripts/Misc/GameManager.gd"
+Transition="*res://Scenes/GUI/transition.tscn"
 
 [display]
 
