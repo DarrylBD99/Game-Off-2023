@@ -5,6 +5,7 @@ class_name Player
 @export var AimRayCast : RayCast2D
 @export var energy : Energy
 @export var torch : Torch
+@export var weapon : Node2D
 
 var dash_bool : bool = false
 
@@ -49,6 +50,7 @@ func _ready():
 	add_ability(Minimize.new())
 	add_ability(Dash_ability.new())
 	
+	add_weapon(Pistol.new())
 	add_weapon(Shotgun.new())
 	
 	super._ready()
