@@ -4,16 +4,16 @@ class_name Pistol
 
 var bullet_scene = preload("res://Scenes/Objects/bullet.tscn")
 
-var attack_1_sfx : AudioStreamPlayer
+var bullet_sfx : AudioStreamPlayer
 
 func _init():
-	attack_1_sfx = AudioStreamPlayer.new()
-	attack_1_sfx.set_stream(GameManager.attack_1_audio)
-	attack_1_sfx.set_bus("SFX")
+	bullet_sfx = AudioStreamPlayer.new()
+	bullet_sfx.set_stream(GameManager.bullet_sfx)
+	bullet_sfx.set_bus("SFX")
 	
 	rate = .2
 	
-	GameManager.player.add_child(attack_1_sfx)
+	GameManager.player.add_child(bullet_sfx)
 
 func on_hold():
 	var player : Player = GameManager.player

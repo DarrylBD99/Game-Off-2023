@@ -13,7 +13,7 @@ var audio_stream_player : AudioStreamPlayer2D
 func state_ready():
 	audio_stream_player = AudioStreamPlayer2D.new()
 	
-	audio_stream_player.set_stream(GameManager.attack_1_audio)
+	audio_stream_player.set_stream(GameManager.bullet_sfx)
 	audio_stream_player.set_bus("SFX")
 	entity.add_child(audio_stream_player)
 
