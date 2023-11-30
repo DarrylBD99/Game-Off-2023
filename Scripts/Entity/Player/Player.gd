@@ -49,7 +49,7 @@ func _ready():
 	add_ability(Minimize.new())
 	add_ability(Dash_ability.new())
 	
-	add_weapon(Pistol.new())
+	add_weapon(Shotgun.new())
 	
 	super._ready()
 
