@@ -31,4 +31,4 @@ func on_hold():
 	player.shoot_bullet(bullet_scene, player.global_position, bullet1, 3)
 	player.shoot_bullet(bullet_scene, player.global_position, bullet2)
 	player.shoot_bullet(bullet_scene, player.global_position, bullet3)
-	attack_1_sfx.play()
+	bullet_sfx.play()

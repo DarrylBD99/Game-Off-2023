@@ -19,4 +19,4 @@ func on_hold():
 	var player : Player = GameManager.player
 	
 	player.shoot_bullet(bullet_scene, player.global_position, player.get_global_mouse_position(), 1)
-	attack_1_sfx.play()
+	bullet_sfx.play()
