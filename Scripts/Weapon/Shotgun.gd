@@ -4,31 +4,29 @@ class_name Shotgun
 
 var bullet_scene = preload("res://Scenes/Objects/bullet.tscn")
 
-var bullet_sfx : AudioStreamPlayer
-
 func _init():
-	bullet_sfx = AudioStreamPlayer.new()
-	bullet_sfx.set_stream(GameManager.bullet_sfx)
-	bullet_sfx.set_bus("SFX")
+	attack.atk = 3
+	rate = .6
 	
-	rate = 1.0
-	
-	GameManager.player.add_child(bullet_sfx)
+	sprite = preload("res://Scenes/Weapons/Shotgun.tscn").instantiate()
+	UI_sel = preload("res://Sprites/GUI/HUD/Weapon/shotgun.png")
+	UI_desel = preload("res://Sprites/GUI/HUD/Weapon/shotgun_desel.png")
 
 func on_hold():
 	var player : Player = GameManager.player
 	
-	var diff : float = deg_to_rad(5)
-	var bullet1 : Vector2 = player.get_global_mouse_position()
+	var diff : float = deg_to_rad(10)
+	var bullet1 : Vector2 = player.get_local_mouse_position()
 	
 	var angle1 : float = atan2(bullet1.y, bullet1.x)
 	var angle2 : float = angle1 - diff
 	var angle3 : float = angle1 + diff
 	
-	var bullet2 : Vector2 = player.to_global(Vector2(cos(angle2), sin(angle2)))
-	var bullet3 : Vector2 = player.toa_global(Vector2(cos(angle3), sin(angle3)))
+	var bullet2 : Vector2 = Vector2(cos(angle2), sin(angle2))
+	var bullet3 : Vector2 = Vector2(cos(angle3), sin(angle3))
 	
-	player.shoot_bullet(bullet_scene, player.global_position, bullet1, 3)
-	player.shoot_bullet(bullet_scene, player.global_position, bullet2)
-	player.shoot_bullet(bullet_scene, player.global_position, bullet3)
-	bullet_sfx.play()
+	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.to_global(bullet1), 1, attack)
+	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.to_global(bullet2), 1, attack)
+	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.to_global(bullet3), 1, attack)
+	player.audio_player.set_stream(GameManager.bullet_sfx)
+	player.audio_player.play()
