@@ -6,7 +6,9 @@ var crosshair : CompressedTexture2D = preload("res://Sprites/GUI/crosshair.png")
 var ability_crosshair : CompressedTexture2D = preload("res://Sprites/GUI/crosshair_ability.png")
 var x_crosshair : CompressedTexture2D = preload("res://Sprites/GUI/X.png")
 
+var attack_sfx : AudioStream = preload("res://Audio/SE/Bullet.wav")
 var bullet_sfx : AudioStream = preload("res://Audio/SE/Bullet.wav")
+var bullet_2_sfx : AudioStream = preload("res://Audio/SE/Bullet_2.wav")
 var dash_sfx : AudioStream = preload("res://Audio/SE/Dash.wav")
 
 var cursor : CompressedTexture2D
