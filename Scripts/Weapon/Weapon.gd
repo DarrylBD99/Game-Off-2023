@@ -2,8 +2,11 @@ extends Node
 class_name Weapon
 
 var rate : float
-var sprite : Sprite2D
-var icon : CompressedTexture2D
+var sprite : WeaponSprite
+var attack : Attack = Attack.new()
+
+var UI_sel : CompressedTexture2D
+var UI_desel : CompressedTexture2D
 
 func _init():
 	pass
