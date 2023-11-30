@@ -6,7 +6,7 @@ extends State
 
 var cooldown_bool : bool
 
-func physics_process(delta : float) -> State:
+func physics_process(_delta : float) -> State:
 	if not cooldown_bool:
 		if attack.is_ready():
 			return attack
