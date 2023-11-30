@@ -4,19 +4,18 @@ class_name Pistol
 
 var bullet_scene = preload("res://Scenes/Objects/bullet.tscn")
 
-var bullet_sfx : AudioStreamPlayer
-
 func _init():
-	bullet_sfx = AudioStreamPlayer.new()
-	bullet_sfx.set_stream(GameManager.bullet_sfx)
-	bullet_sfx.set_bus("SFX")
-	
+	attack.atk = 2
 	rate = .2
 	
-	GameManager.player.add_child(bullet_sfx)
+	sprite = preload("res://Scenes/Weapons/Pistol.tscn").instantiate()
+	UI_sel = preload("res://Sprites/GUI/HUD/Weapon/pistol.png")
+	UI_desel = preload("res://Sprites/GUI/HUD/Weapon/pistol_desel.png")
+
 
 func on_hold():
 	var player : Player = GameManager.player
 	
-	player.shoot_bullet(bullet_scene, player.global_position, player.get_global_mouse_position(), 1)
-	bullet_sfx.play()
+	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.get_global_mouse_position(), 1, attack)
+	player.audio_player.set_stream(GameManager.bullet_2_sfx)
+	player.audio_player.play()

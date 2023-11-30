@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://7maskd7d6hby"]
+
+[ext_resource type="Texture2D" uid="uid://0ua0f7hc06bt" path="res://Sprites/Weapons/Pistol.png" id="1_af2is"]
+[ext_resource type="Script" path="res://Scenes/Weapons/WeaponSprite.gd" id="2_0pcqw"]
+
+[node name="Pistol" type="Sprite2D" node_paths=PackedStringArray("end_point", "hold_point")]
+z_index = 1
+texture_filter = 1
+texture = ExtResource("1_af2is")
+script = ExtResource("2_0pcqw")
+end_point = NodePath("EndPoint")
+hold_point = NodePath("HoldPoint")
+
+[node name="EndPoint" type="Node2D" parent="."]
+position = Vector2(7, -2)
+
+[node name="HoldPoint" type="Node2D" parent="."]
+position = Vector2(-2, 1)
