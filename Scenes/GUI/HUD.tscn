@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://c30vtkk6xyalv"]
+[gd_scene load_steps=33 format=3 uid="uid://c30vtkk6xyalv"]
 
 [ext_resource type="Texture2D" uid="uid://1gw1v4p46eft" path="res://Sprites/GUI/HUD/Bars/Base.png" id="1_123bs"]
 [ext_resource type="Shader" path="res://Materials/Shaders/flash.gdshader" id="2_gvl1u"]
@@ -7,8 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dwi7hieuxc4ms" path="res://Sprites/GUI/HUD/Bars/Health.png" id="5_qsdgr"]
 [ext_resource type="Script" path="res://Scripts/GUI/HUD/HealthBar.gd" id="6_88xhc"]
 [ext_resource type="Texture2D" uid="uid://csnkes5wkhetm" path="res://Sprites/GUI/HUD/Bars/Overlay.png" id="7_2gyav"]
-[ext_resource type="Texture2D" uid="uid://dd4lip6x3cn83" path="res://Sprites/GUI/HUD/Weapon/gun.png" id="8_3n2jc"]
+[ext_resource type="Texture2D" uid="uid://dd4lip6x3cn83" path="res://Sprites/GUI/HUD/Weapon/shotgun.png" id="8_dfjhb"]
 [ext_resource type="Texture2D" uid="uid://q50cfe6itgh4" path="res://Sprites/GUI/HUD/Torch/Battery/0.png" id="9_i8gpm"]
+[ext_resource type="Script" path="res://Scripts/GUI/HUD/WeaponIcon.gd" id="9_s4rw7"]
 [ext_resource type="Script" path="res://Scripts/GUI/HUD/Battery.gd" id="10_4cr0v"]
 [ext_resource type="Texture2D" uid="uid://22j2yg0vwp4x" path="res://Sprites/GUI/HUD/Torch/Battery/1.png" id="11_fpruw"]
 [ext_resource type="Texture2D" uid="uid://dbw1hetdqj3p3" path="res://Sprites/GUI/HUD/Torch/Battery/2.png" id="12_1cxec"]
@@ -114,8 +115,9 @@ texture = ExtResource("7_2gyav")
 
 [node name="Weapon" type="TextureRect" parent="MarginContainer/VBoxLeft"]
 layout_mode = 2
-texture = ExtResource("8_3n2jc")
+texture = ExtResource("8_dfjhb")
 stretch_mode = 4
+script = ExtResource("9_s4rw7")
 
 [node name="VBoxRight" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2

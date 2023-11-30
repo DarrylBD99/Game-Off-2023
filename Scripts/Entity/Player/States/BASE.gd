@@ -3,6 +3,9 @@ extends State
 @export var ability : State
 @export var attack : State
 
+var scroll_cooldown : bool
+var scroll_rate : float = 0.2
+
 func physics_process(_delta):
 	if GameManager.ability_bool:
 		return ability
@@ -18,4 +21,9 @@ func input(event : InputEvent) -> State:
 	return null
 
 func start():
+	scroll_cooldown = false
 	GameManager.set_x_crosshair()
+
+
+func scroll_timeout():
+	scroll_cooldown = false
