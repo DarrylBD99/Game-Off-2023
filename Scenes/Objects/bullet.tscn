@@ -46,27 +46,24 @@ _data = {
 }
 
 [node name="Bullet" type="StaticBody2D"]
+modulate = Color(1.5, 4, 10, 1)
+self_modulate = Color(20, 20, 20, 1)
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_xxp4u")
 hit_particle_scene = ExtResource("2_35pkk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_g7mee")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 scale = Vector2(0.5, 0.25)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(2, 2, 2, 1)
-texture_filter = 1
-position = Vector2(0, 0.5)
-texture = ExtResource("4_fkgc2")
-hframes = 3
-vframes = 2
-
 [node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false
 target_position = Vector2(-32, 0)
 collision_mask = 16
 hit_from_inside = true
@@ -74,12 +71,21 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_g7mee")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 0.5)
+texture = ExtResource("4_fkgc2")
+hframes = 3
+vframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 process_mode = 3
