@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://cut2j7yqbjxwk"]
+[gd_scene load_steps=16 format=3 uid="uid://cut2j7yqbjxwk"]
 
 [ext_resource type="Theme" uid="uid://bykrtyls412vb" path="res://Theme.tres" id="1_3k5vl"]
 [ext_resource type="Script" path="res://Scripts/GUI/MainMenu.gd" id="1_15mux"]
 [ext_resource type="Script" path="res://Scripts/GUI/Credits.gd" id="2_m1n24"]
 [ext_resource type="AudioStream" uid="uid://bej0vtv33046f" path="res://Audio/BGM/GO23_Menu_1.mp3" id="2_ufdgs"]
+[ext_resource type="Script" path="res://Scripts/Misc/LoopBGM.gd" id="3_yyrf3"]
 [ext_resource type="AudioStream" uid="uid://corrlpfkrmsud" path="res://Audio/SE/Hover.wav" id="4_1ckvq"]
 [ext_resource type="Texture2D" uid="uid://bvwl4v002pkb2" path="res://Godot Screenshot 2023.11.29 - 17.25.45.83.png" id="4_n76f7"]
 [ext_resource type="AudioStream" uid="uid://dvtvkthdfikvb" path="res://Audio/SE/Select.wav" id="4_tdyo5"]
@@ -161,9 +162,9 @@ animation_player = NodePath("AnimationPlayer")
 help_panel = NodePath("Help")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_ufdgs")
-autoplay = true
 bus = &"BGM"
+script = ExtResource("3_yyrf3")
+loop = ExtResource("2_ufdgs")
 
 [node name="Hover" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(48, 472)
