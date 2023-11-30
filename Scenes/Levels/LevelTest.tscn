@@ -1,7 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://cgcrh0mcsx6op"]
+[gd_scene load_steps=27 format=3 uid="uid://cgcrh0mcsx6op"]
 
-[ext_resource type="AudioStream" uid="uid://d2tf2eip41cug" path="res://Audio/BGM/GO23_Battle_1.mp3" id="1_8f1fr"]
 [ext_resource type="PackedScene" uid="uid://500a2am16u13" path="res://Scenes/Objects/Entity/player.tscn" id="1_brcdq"]
+[ext_resource type="Script" path="res://Scripts/Misc/LoopBGM.gd" id="2_65ous"]
+[ext_resource type="AudioStream" uid="uid://c4eyqib0vyysf" path="res://Audio/BGM/Level_Intro.mp3" id="2_ytrdg"]
+[ext_resource type="AudioStream" uid="uid://dm0d4jjnj4h7i" path="res://Audio/BGM/Level_Loop.mp3" id="3_7hv8r"]
 [ext_resource type="Texture2D" uid="uid://buuhyhwlinsof" path="res://Sprites/Tileset/tileset_x1.png" id="3_nugtr"]
 [ext_resource type="Script" path="res://Scripts/Misc/Camera.gd" id="4_g2kdy"]
 [ext_resource type="Texture2D" uid="uid://uluw4errac71" path="res://Sprites/LightDefault.png" id="4_s5u2x"]
@@ -1177,9 +1179,10 @@ process_mode = 3
 texture_filter = 1
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("1_8f1fr")
-autoplay = true
 bus = &"BGM"
+script = ExtResource("2_65ous")
+loop_strat = ExtResource("2_ytrdg")
+loop = ExtResource("3_7hv8r")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1wj6d")
@@ -1275,3 +1278,5 @@ libraries = {
 
 [node name="turret" parent="." instance=ExtResource("14_5m0nx")]
 position = Vector2(574, 222)
+
+[connection signal="finished" from="BGM" to="BGM" method="_on_finished"]
