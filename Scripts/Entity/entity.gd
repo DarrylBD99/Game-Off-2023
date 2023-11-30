@@ -13,6 +13,7 @@ class_name Entity
 
 @export var animation_tree : AnimationTree
 @export var size_time_limit : Timer
+@export var audio_player : AudioStreamPlayer2D
 
 @onready var sprite : Sprite2D = $Sprite2D
 
@@ -79,10 +80,14 @@ func _input(event):
 	if size_state_manager:
 		size_state_manager.input(event)
 
-func shoot_bullet(bullet_scene : PackedScene, pos_origin : Vector2, pos_end : Vector2, shake : float = 0):
+func shoot_bullet(bullet_scene : PackedScene, pos_origin : Vector2, pos_end : Vector2, shake : float = 0, atk : Attack = null):
 	GameManager.camera.shake(shake)
 	
+	if atk == null:
+		atk = Attack.new()
+	
 	var bullet : StaticBody2D = bullet_scene.instantiate()
+	bullet.attack = atk
 	bullet.global_position = pos_origin
 	bullet.look_at(pos_end)
 	bullet.move_pos = global_position.direction_to(pos_end)

@@ -8,15 +8,6 @@ var can_fire : bool = true
 var range_bool : bool
 var block_bool : bool
 
-var audio_stream_player : AudioStreamPlayer2D
-
-func state_ready():
-	audio_stream_player = AudioStreamPlayer2D.new()
-	
-	audio_stream_player.set_stream(GameManager.bullet_sfx)
-	audio_stream_player.set_bus("SFX")
-	entity.add_child(audio_stream_player)
-
 func is_ready() -> bool:
 	range_bool = entity.target_distance < target_range
 	block_bool = entity.AimRayCast.is_colliding()
@@ -48,7 +39,8 @@ func physics_process(delta : float) -> State:
 		can_fire = false
 		get_tree().create_timer(fire_rate).timeout.connect(reset_fire)
 		
-		audio_stream_player.play()
+		entity.audio_player.set_stream(GameManager.bullet_2_sfx)
+		entity.audio_player.play()
 	
 	var pos : Vector2 = entity.target.global_position - entity.global_position
 	var rotate_to : float = atan2(pos.y, pos.x)

@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/Misc/CustomMotion.gd" id="9_f1nst"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/STATE_WAIT.gd" id="9_t7nd1"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_ce0m1"]
-[ext_resource type="PackedScene" uid="uid://chej3fpp47ckd" path="res://Scenes/GUI/HealthBar.tscn" id="11_lal17"]
+[ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="11_lal17"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_xsibn"]
 
 [sub_resource type="Animation" id="Animation_70i01"]
@@ -104,8 +104,7 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tkovw"]
 size = Vector2(32, 32)
 
-[node name="dasher" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "size_time_limit", "health", "attack", "hitbox")]
-position = Vector2(-33, 33)
+[node name="dasher" type="CharacterBody2D" node_paths=PackedStringArray("melee_collision", "state_manager", "action_state_manager", "size_state_manager", "health", "attack", "hitbox", "size_time_limit", "audio_player")]
 collision_layer = 18
 collision_mask = 8
 script = ExtResource("1_118lk")
@@ -113,14 +112,14 @@ melee_collision = NodePath("MeleeAttack/Area2D")
 state_manager = NodePath("State Manager")
 action_state_manager = NodePath("Action Manager")
 size_state_manager = NodePath("Size State Manager")
-size_time_limit = NodePath("SizeTimeLimit")
 health = NodePath("HP")
 attack = NodePath("ATK")
 hitbox = NodePath("Hitbox")
+size_time_limit = NodePath("SizeTimeLimit")
+audio_player = NodePath("AudioStreamPlayer2D")
 
 [node name="ATK" type="Node" parent="."]
 script = ExtResource("2_0ntfv")
-atk = 1.0
 
 [node name="HP" type="Node" parent="."]
 script = ExtResource("3_dvupq")
@@ -214,3 +213,6 @@ shape = SubResource("RectangleShape2D_oacef")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tkovw")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
