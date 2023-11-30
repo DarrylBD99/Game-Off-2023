@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://kvt717p5nokn"]
+[gd_scene load_steps=8 format=3 uid="uid://kvt717p5nokn"]
 
 [ext_resource type="Script" path="res://Scripts/Misc/bullet.gd" id="1_rh3jk"]
-[ext_resource type="PackedScene" uid="uid://by0as34qxqu5d" path="res://Scenes/Particles/BulletExplosion.tscn" id="2_ye83l"]
-[ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="3_cfqte"]
+[ext_resource type="PackedScene" uid="uid://d3b4t8usxghqu" path="res://Scenes/Particles/BulletExplosionEnemy.tscn" id="2_3h27c"]
 [ext_resource type="Texture2D" uid="uid://dskj2akwr614j" path="res://Sprites/bullet.png" id="4_6ujcu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g7mee"]
@@ -46,16 +45,11 @@ _data = {
 "bullet": SubResource("Animation_biba4")
 }
 
-[node name="Bullet" type="StaticBody2D" node_paths=PackedStringArray("attack")]
+[node name="Bullet" type="StaticBody2D"]
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_rh3jk")
-attack = NodePath("Attack")
-hit_particle_scene = ExtResource("2_ye83l")
-
-[node name="Attack" type="Node" parent="."]
-script = ExtResource("3_cfqte")
-atk = 1.0
+hit_particle_scene = ExtResource("2_3h27c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708

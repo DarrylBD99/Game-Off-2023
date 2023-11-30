@@ -3,12 +3,13 @@
 [ext_resource type="Script" path="res://Scripts/Misc/ParticleDispose.gd" id="1_oye7o"]
 
 [sub_resource type="Gradient" id="Gradient_obgsw"]
-colors = PackedColorArray(0.601223, 0.601223, 0.601223, 1, 0.6, 0.6, 0.6, 0)
+colors = PackedColorArray(0.133333, 0.564706, 0.882353, 1, 0.133333, 0.564706, 0.882353, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_21sm4"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0easa"]
 gradient = SubResource("Gradient_obgsw")
+use_hdr = true
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6g51b"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_loqi3"]
 particle_flag_disable_z = true
 spread = 180.0
 gravity = Vector3(0, 0, 0)
@@ -16,11 +17,13 @@ initial_velocity_min = 50.0
 initial_velocity_max = 50.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
-color_ramp = SubResource("GradientTexture1D_21sm4")
+color = Color(0.133333, 0.564706, 0.882353, 1)
+color_ramp = SubResource("GradientTexture1D_0easa")
 
 [node name="BulletExplosion" type="GPUParticles2D"]
+modulate = Color(2, 2, 2, 1)
 emitting = false
-process_material = SubResource("ParticleProcessMaterial_6g51b")
+process_material = SubResource("ParticleProcessMaterial_loqi3")
 lifetime = 0.3
 one_shot = true
 speed_scale = 0.8
