@@ -1,6 +1,5 @@
 extends StaticBody2D
 
-@export var attack : Attack
 @export var hit_particle_scene : PackedScene
 
 var cursor_pos : Vector2
@@ -9,6 +8,7 @@ var bullet_speed : float = 2000
 var entity_origin : Entity
 var bullet_pos_old : Vector2
 var hit : bool = false
+var attack : Attack
 
 func _physics_process(delta):
 	bullet_pos_old = global_position
