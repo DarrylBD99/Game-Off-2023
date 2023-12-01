@@ -17,8 +17,8 @@ func damage(attack : Attack):
 		GameManager.camera.shake(2.0)
 	
 
-func _process(_delta):
-	hp += passive_rate
+func _process(delta):
+	hp += passive_rate * delta
 	
 	if hp > hp_max:
 		hp = hp_max
