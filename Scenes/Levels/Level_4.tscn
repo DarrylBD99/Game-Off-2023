@@ -1,6 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://r0cm81rsyoym"]
+[gd_scene load_steps=12 format=3 uid="uid://r0cm81rsyoym"]
 
 [ext_resource type="TileSet" uid="uid://01bb37wy2tb" path="res://tileset_1.tres" id="1_ok4sk"]
+[ext_resource type="PackedScene" uid="uid://bu8v8w1dppnnn" path="res://Scenes/Objects/Entity/crate_tall.tscn" id="2_jx047"]
+[ext_resource type="PackedScene" uid="uid://dea1wxybwdv5l" path="res://Scenes/Objects/Entity/crate.tscn" id="3_mi2rv"]
+[ext_resource type="PackedScene" uid="uid://00f1epn3glca" path="res://Scenes/Objects/Entity/dasher.tscn" id="4_ffqmq"]
+[ext_resource type="PackedScene" uid="uid://dqsfy4abhyii8" path="res://Scenes/Objects/Entity/turret.tscn" id="5_hx8y2"]
+[ext_resource type="PackedScene" uid="uid://dldvmlyfiolno" path="res://Scenes/Objects/Entity/silent.tscn" id="6_ub5yo"]
+[ext_resource type="Shader" path="res://Materials/Shaders/flash.gdshader" id="7_40qtn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a0ym8"]
+resource_local_to_scene = true
+shader = ExtResource("7_40qtn")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_alpha = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rhgvv"]
+resource_local_to_scene = true
+shader = ExtResource("7_40qtn")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_alpha = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v5fbw"]
+resource_local_to_scene = true
+shader = ExtResource("7_40qtn")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_alpha = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dei76"]
+resource_local_to_scene = true
+shader = ExtResource("7_40qtn")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_alpha = 0.0
 
 [node name="Level_4" type="Node2D"]
 
@@ -16,3 +46,66 @@ layer_2/name = "Decoration"
 layer_2/tile_data = PackedInt32Array()
 layer_3/name = "Camera"
 layer_3/tile_data = PackedInt32Array(-393216, 2031618, 13, -327680, 2031618, 14, -393215, 2097154, 13, -327679, 2097154, 14, -393214, 589826, 268435464, -327678, 589826, 268435464, -262142, 589826, 268435464, -196606, 589826, 268435464, -131070, 589826, 268435464, -65534, 131074, 10)
+
+[node name="Crate" parent="." instance=ExtResource("2_jx047")]
+position = Vector2(2443, 229)
+
+[node name="Crate2" parent="." instance=ExtResource("2_jx047")]
+position = Vector2(2415, 270)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Crate3" parent="." instance=ExtResource("3_mi2rv")]
+position = Vector2(3433, 167)
+
+[node name="Crate4" parent="." instance=ExtResource("2_jx047")]
+position = Vector2(3434, 211)
+
+[node name="Crate5" parent="." instance=ExtResource("2_jx047")]
+position = Vector2(3441, 273)
+
+[node name="Crate6" parent="." instance=ExtResource("2_jx047")]
+position = Vector2(3408, 228)
+
+[node name="Crate7" parent="." instance=ExtResource("3_mi2rv")]
+position = Vector2(2382, 222)
+
+[node name="dasher" parent="." instance=ExtResource("4_ffqmq")]
+position = Vector2(2604, -86)
+
+[node name="dasher2" parent="." instance=ExtResource("4_ffqmq")]
+position = Vector2(3293, -100)
+
+[node name="dasher3" parent="." instance=ExtResource("4_ffqmq")]
+position = Vector2(2556, 604)
+
+[node name="dasher4" parent="." instance=ExtResource("4_ffqmq")]
+position = Vector2(3306, 615)
+
+[node name="turret" parent="." instance=ExtResource("5_hx8y2")]
+position = Vector2(2952, 241)
+
+[node name="turret2" parent="." instance=ExtResource("5_hx8y2")]
+position = Vector2(3290, 60)
+
+[node name="turret3" parent="." instance=ExtResource("5_hx8y2")]
+position = Vector2(3297, 456)
+
+[node name="silent" parent="." instance=ExtResource("6_ub5yo")]
+material = SubResource("ShaderMaterial_a0ym8")
+position = Vector2(2698, 88)
+
+[node name="silent2" parent="." instance=ExtResource("6_ub5yo")]
+material = SubResource("ShaderMaterial_rhgvv")
+position = Vector2(2798, 409)
+
+[node name="silent3" parent="." instance=ExtResource("6_ub5yo")]
+material = SubResource("ShaderMaterial_v5fbw")
+position = Vector2(3142, 98)
+
+[node name="dasher5" parent="." instance=ExtResource("4_ffqmq")]
+position = Vector2(2858, 249)
+
+[node name="silent4" parent="." instance=ExtResource("6_ub5yo")]
+material = SubResource("ShaderMaterial_dei76")
+position = Vector2(3178, 296)
