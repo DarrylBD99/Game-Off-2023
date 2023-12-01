@@ -5,7 +5,8 @@ var torch : Torch
 @export var graphics_desel : Array[CompressedTexture2D]
 
 func _ready():
-	torch = GameManager.player.torch
+	if GameManager.player:
+		torch = GameManager.player.torch
 
 func _process(_delta):
 	if GameManager.player:
