@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dlmthso8fe5ks"]
+[gd_scene load_steps=35 format=3 uid="uid://dlmthso8fe5ks"]
 
 [ext_resource type="Script" path="res://Scripts/Misc/LoopBGM.gd" id="1_uarr2"]
 [ext_resource type="TileSet" uid="uid://d0hqjdyv35r24" path="res://tileset_1.tres" id="1_yia21"]
@@ -9,7 +9,9 @@
 [ext_resource type="AudioStream" uid="uid://dm0d4jjnj4h7i" path="res://Audio/BGM/Level_Loop.mp3" id="3_w81hb"]
 [ext_resource type="PackedScene" uid="uid://00f1epn3glca" path="res://Scenes/Objects/Entity/dasher.tscn" id="4_mq3e0"]
 [ext_resource type="Script" path="res://Scripts/Misc/Camera.gd" id="4_o4wfk"]
+[ext_resource type="PackedScene" uid="uid://dqsfy4abhyii8" path="res://Scenes/Objects/Entity/turret.tscn" id="10_bv42g"]
 [ext_resource type="Script" path="res://Scripts/GUI/GameUI.gd" id="10_iojhr"]
+[ext_resource type="PackedScene" uid="uid://bu8v8w1dppnnn" path="res://Scenes/Objects/Entity/crate_tall.tscn" id="11_3t0ae"]
 [ext_resource type="PackedScene" uid="uid://c30vtkk6xyalv" path="res://Scenes/GUI/HUD.tscn" id="11_gftps"]
 [ext_resource type="Shader" path="res://Materials/Shaders/BlurBG.gdshader" id="12_aki6x"]
 [ext_resource type="PackedScene" uid="uid://c4h845ug0k7fc" path="res://Scenes/GUI/black_bars.tscn" id="13_jne1g"]
@@ -58,6 +60,12 @@ shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_alpha = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_llxi6"]
+resource_local_to_scene = true
+shader = ExtResource("3_eoq4o")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_alpha = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mkvca"]
 resource_local_to_scene = true
 shader = ExtResource("3_eoq4o")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
@@ -114,6 +122,18 @@ _data = {
 "PauseMenuAnim": ExtResource("17_n80l2"),
 "RESET": SubResource("Animation_g1gf6")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8abbh"]
+resource_local_to_scene = true
+shader = ExtResource("3_eoq4o")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_alpha = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_51d10"]
+resource_local_to_scene = true
+shader = ExtResource("3_eoq4o")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_alpha = 0.0
 
 [node name="Level_4" type="Node2D"]
 process_mode = 3
@@ -184,6 +204,52 @@ position = Vector2(3139, 65)
 [node name="dasher4" parent="Pausable" instance=ExtResource("4_mq3e0")]
 position = Vector2(3123, 435)
 
+[node name="dasher5" parent="Pausable" instance=ExtResource("4_mq3e0")]
+position = Vector2(2628, 443)
+
+[node name="silent5" parent="Pausable" instance=ExtResource("2_ojoef")]
+material = SubResource("ShaderMaterial_mkvca")
+position = Vector2(3219, 226)
+
+[node name="turret" parent="Pausable" instance=ExtResource("10_bv42g")]
+position = Vector2(2987, 226)
+
+[node name="turret2" parent="Pausable" instance=ExtResource("10_bv42g")]
+position = Vector2(3387, 178)
+
+[node name="turret3" parent="Pausable" instance=ExtResource("10_bv42g")]
+position = Vector2(3382, 264)
+
+[node name="Crate3" parent="Pausable" instance=ExtResource("11_3t0ae")]
+position = Vector2(3457, 237)
+
+[node name="Crate" parent="Pausable" instance=ExtResource("11_3t0ae")]
+position = Vector2(3445, 182)
+
+[node name="Crate2" parent="Pausable" instance=ExtResource("11_3t0ae")]
+position = Vector2(3438, 212)
+
+[node name="Crate4" parent="Pausable" instance=ExtResource("11_3t0ae")]
+position = Vector2(3429, 268)
+
+[node name="Crate5" parent="Pausable" instance=ExtResource("11_3t0ae")]
+position = Vector2(2411, 216)
+
+[node name="Crate6" parent="Pausable" instance=ExtResource("11_3t0ae")]
+position = Vector2(2385, 237)
+
+[node name="Crate7" parent="Pausable" instance=ExtResource("11_3t0ae")]
+position = Vector2(2413, 270)
+
+[node name="dasher6" parent="Pausable" instance=ExtResource("4_mq3e0")]
+position = Vector2(1843, 192)
+
+[node name="turret5" parent="Pausable" instance=ExtResource("10_bv42g")]
+position = Vector2(1340, 368)
+
+[node name="turret4" parent="Pausable" instance=ExtResource("10_bv42g")]
+position = Vector2(1352, 96)
+
 [node name="GUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("pause_menu", "animation_player")]
 script = ExtResource("10_iojhr")
 pause_menu = NodePath("PauseMenu")
@@ -207,8 +273,8 @@ texture = SubResource("CanvasTexture_1trsq")
 [node name="PauseMenu" parent="GUI" node_paths=PackedStringArray("hover", "select") instance=ExtResource("14_ubv7r")]
 modulate = Color(1, 1, 1, 0)
 offset_left = -240.0
-offset_right = 400.0
-offset_bottom = 360.0
+offset_right = 1040.0
+offset_bottom = 720.0
 hover = NodePath("../Hover")
 select = NodePath("../Select")
 
@@ -224,5 +290,16 @@ stream = ExtResource("16_nn0ry")
 libraries = {
 "": SubResource("AnimationLibrary_e80li")
 }
+
+[node name="silent" parent="." instance=ExtResource("2_ojoef")]
+material = SubResource("ShaderMaterial_8abbh")
+position = Vector2(751, 141)
+
+[node name="silent2" parent="." instance=ExtResource("2_ojoef")]
+material = SubResource("ShaderMaterial_51d10")
+position = Vector2(674, 342)
+
+[node name="dasher" parent="." instance=ExtResource("4_mq3e0")]
+position = Vector2(675, 71)
 
 [connection signal="finished" from="BGM" to="BGM" method="_on_finished"]
