@@ -48,7 +48,7 @@ func _ready():
 		level = save_data.get_level()
 		weapon_slot = save_data.get_weapon_slot()
 		ability_slot = save_data.get_ability_slot()
-		game_beaten = save_data.get_game_beaten()
+		game_beaten = save_data.get_beaten_bool()
 		
 	set_default()
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -108,5 +108,5 @@ func save_progress():
 	save_data.set_level(level)
 	save_data.set_weapon_slot(weapon_slot)
 	save_data.set_ability_slot(ability_slot)
-	save_data.set_game_beaten(game_beaten)
+	save_data.set_beaten_bool(game_beaten)
 	ResourceSaver.save(save_data, save_file_path + save_file_name)
