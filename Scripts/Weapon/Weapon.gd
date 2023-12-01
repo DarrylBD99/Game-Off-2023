@@ -1,4 +1,3 @@
-extends Node
 class_name Weapon
 
 var rate : float
