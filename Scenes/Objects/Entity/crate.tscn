@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://dea1wxybwdv5l"]
+[gd_scene load_steps=10 format=3 uid="uid://dea1wxybwdv5l"]
 
-[ext_resource type="Script" path="res://Scripts/Entity/entity.gd" id="1_6dguf"]
+[ext_resource type="Script" path="res://Scripts/Entity/Crates.gd" id="1_j8x8s"]
 [ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="2_5vcwe"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_hw45c"]
 [ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="4_d1ola"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="4_ii4sq"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="4_r81lb"]
+[ext_resource type="Texture2D" uid="uid://b7nemsa3pcu82" path="res://Sprites/Character/Crates.png" id="5_tfp6q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f6j6v"]
 size = Vector2(32, 16)
@@ -13,17 +14,11 @@ size = Vector2(32, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdxhc"]
 size = Vector2(32, 32)
 
-[sub_resource type="Gradient" id="Gradient_8s2f6"]
-colors = PackedColorArray(0.692381, 0.486593, 0.215174, 1, 0.537255, 0.301961, 0.164706, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ehact"]
-gradient = SubResource("Gradient_8s2f6")
-
-[node name="Crate" type="CharacterBody2D" node_paths=PackedStringArray("size_state_manager", "health", "hitbox", "size_time_limit", "audio_player")]
+[node name="Crate" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "size_time_limit", "audio_player")]
 collision_layer = 16
 collision_mask = 16
-script = ExtResource("1_6dguf")
-size_state_manager = NodePath("Size State Manager")
+script = ExtResource("1_j8x8s")
+speed = 0.0
 health = NodePath("HP")
 hitbox = NodePath("Hitbox")
 size_time_limit = NodePath("SizeTimeLimit")
@@ -32,7 +27,7 @@ audio_player = NodePath("AudioStreamPlayer2D")
 [node name="HP" type="Node" parent="."]
 script = ExtResource("2_hw45c")
 
-[node name="CollisionHitbox" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_f6j6v")
 
@@ -45,9 +40,11 @@ health = NodePath("../HP")
 shape = SubResource("RectangleShape2D_bdxhc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 material = ExtResource("4_ii4sq")
-scale = Vector2(0.5, 0.5)
-texture = SubResource("GradientTexture2D_ehact")
+position = Vector2(0, -16)
+texture = ExtResource("5_tfp6q")
+hframes = 4
 
 [node name="Size State Manager" parent="." instance=ExtResource("4_r81lb")]
 

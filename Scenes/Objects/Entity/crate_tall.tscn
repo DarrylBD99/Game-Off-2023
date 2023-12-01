@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://bu8v8w1dppnnn"]
+
+[ext_resource type="Script" path="res://Scripts/Entity/Crates.gd" id="1_oqkki"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="2_e5ie4"]
+[ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="3_vdqw1"]
+[ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="4_uxhoq"]
+[ext_resource type="Texture2D" uid="uid://b7nemsa3pcu82" path="res://Sprites/Character/Crates.png" id="5_mrhje"]
+[ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="6_3o26v"]
+[ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="7_dmbdi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f6j6v"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bdxhc"]
+size = Vector2(32, 64)
+
+[node name="Crate" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "size_time_limit", "audio_player")]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_oqkki")
+sprite_var = 2
+speed = 0.0
+health = NodePath("HP")
+hitbox = NodePath("Hitbox")
+size_time_limit = NodePath("SizeTimeLimit")
+audio_player = NodePath("AudioStreamPlayer2D")
+
+[node name="HP" type="Node" parent="."]
+script = ExtResource("2_e5ie4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f6j6v")
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("3_vdqw1")]
+collision_layer = 16
+collision_mask = 20
+health = NodePath("../HP")
+
+[node name="CollisionHitbox" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_bdxhc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+material = ExtResource("4_uxhoq")
+position = Vector2(0, -16)
+texture = ExtResource("5_mrhje")
+hframes = 4
+frame = 2
+
+[node name="Size State Manager" parent="." instance=ExtResource("6_3o26v")]
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("7_dmbdi")]
+offset_top = -58.0
+offset_bottom = -52.0
+health = NodePath("../HP")
+metadata/_edit_use_anchors_ = true
+
+[node name="SizeTimeLimit" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
