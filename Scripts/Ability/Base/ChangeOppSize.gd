@@ -12,7 +12,7 @@ func use_ability() -> bool:
 	
 	if super.use_ability():
 		if player.AimRayCast.is_colliding():
-			var hitbox_opp : Hitbox = player.AimRayCast.get_collider()
+			var hitbox_opp : Area2D = player.AimRayCast.get_collider()
 			if hitbox_opp is Hitbox:
 				hitbox_opp.change_size(size_index)
 				player.energy.deplete_energy(energy_cost)
