@@ -31,7 +31,7 @@ func _process(_delta):
 		hp_max = GameManager.player.health.hp_max
 		value = hp / hp_max * max_value
 		
-		if value != old_value:
+		if value < old_value:
 			flash(0.7)
 			flash_timer.start()
 
