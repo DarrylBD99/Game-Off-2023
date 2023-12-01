@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://00f1epn3glca"]
+[gd_scene load_steps=26 format=3 uid="uid://00f1epn3glca"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Dasher/dasher.gd" id="1_118lk"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="2_0ntfv"]
@@ -13,6 +13,62 @@
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_ce0m1"]
 [ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="11_lal17"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_xsibn"]
+[ext_resource type="Texture2D" uid="uid://bdys8w58h36yt" path="res://Sprites/Character/Dasher.png" id="12_2ur7l"]
+
+[sub_resource type="Animation" id="Animation_6p6c6"]
+resource_name = "IDLE"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_vy6mr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_x736v"]
+resource_name = "DASH_BEG"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dvbrp"]
+_data = {
+"DASH_BEG": SubResource("Animation_x736v"),
+"IDLE": SubResource("Animation_6p6c6"),
+"RESET": SubResource("Animation_vy6mr")
+}
 
 [sub_resource type="Animation" id="Animation_70i01"]
 loop_mode = 2
@@ -29,18 +85,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_sbq52"]
 resource_name = "attack"
@@ -56,18 +100,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [true, false, false]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../MeleeAttack/Area2D/CollisionShape2D/Sprite2D2:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v3qyf"]
 _data = {
@@ -81,22 +113,8 @@ point_count = 3
 metadata/_snap_enabled = true
 metadata/_snap_count = 11
 
-[sub_resource type="Gradient" id="Gradient_hg6oj"]
-offsets = PackedFloat32Array(0, 0.968571, 1)
-colors = PackedColorArray(0.692381, 0.486593, 0.215174, 1, 0, 0.529511, 0.215468, 1, 0.537255, 0.301961, 0.164706, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_i2b74"]
-gradient = SubResource("Gradient_hg6oj")
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_216d3"]
 size = Vector2(32, 32)
-
-[sub_resource type="Gradient" id="Gradient_56idl"]
-offsets = PackedFloat32Array(0, 0.491686, 1)
-colors = PackedColorArray(1, 0, 0, 1, 1, 0.42449, 0.42449, 0.57551, 1, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ibwq8"]
-gradient = SubResource("Gradient_56idl")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oacef"]
 size = Vector2(32, 32)
@@ -124,6 +142,12 @@ script = ExtResource("2_0ntfv")
 [node name="HP" type="Node" parent="."]
 script = ExtResource("3_dvupq")
 
+[node name="AnimationPlayerSprite" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimationPlayer")
+libraries = {
+"": SubResource("AnimationLibrary_dvbrp")
+}
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Action Manager")
 libraries = {
@@ -141,16 +165,15 @@ next_state = NodePath("../MOVE")
 [node name="MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("5_tr12v")
 next_state = NodePath("../IDLE")
-target_range = 900.0
 
 [node name="Action Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("5_2d1y8")
 current_state = NodePath("IDLE")
 
-[node name="DASH" type="Node" parent="Action Manager" node_paths=PackedStringArray("DashMotion", "next_state", "animationPlayer", "melee_attack_node")]
+[node name="DASH" type="Node" parent="Action Manager" node_paths=PackedStringArray("DashMotion", "idle", "next_state", "animationPlayer", "melee_attack_node")]
 script = ExtResource("8_58ksj")
 DashMotion = NodePath("DASHER_MOTION")
-target_range = 500.0
+idle = NodePath("../IDLE")
 next_state = NodePath("../COOLDOWN")
 animationPlayer = NodePath("../../AnimationPlayer")
 melee_attack_node = NodePath("../../MeleeAttack")
@@ -166,9 +189,10 @@ script = ExtResource("9_t7nd1")
 next_state = NodePath("../IDLE")
 wait_time = 2.0
 
-[node name="IDLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state")]
+[node name="IDLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state", "animation_player")]
 script = ExtResource("5_bxs6h")
 next_state = NodePath("../DASH")
+animation_player = NodePath("../../AnimationPlayerSprite")
 
 [node name="Size State Manager" parent="." instance=ExtResource("10_ce0m1")]
 
@@ -178,9 +202,11 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 material = ExtResource("11_xsibn")
-scale = Vector2(0.5, 0.5)
-texture = SubResource("GradientTexture2D_i2b74")
+texture = ExtResource("12_2ur7l")
+hframes = 4
+vframes = 2
 
 [node name="HealthBar2" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_lal17")]
 offset_top = -22.0
@@ -197,11 +223,6 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttack/Area2D"]
 position = Vector2(-127, -3)
 shape = SubResource("RectangleShape2D_216d3")
-
-[node name="Sprite2D2" type="Sprite2D" parent="MeleeAttack/Area2D/CollisionShape2D"]
-modulate = Color(1, 1, 1, 0)
-scale = Vector2(0.125, 32)
-texture = SubResource("GradientTexture1D_ibwq8")
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_cb87j")]
 collision_layer = 18
