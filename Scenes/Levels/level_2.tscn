@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://0ids7lriob64"]
+[gd_scene load_steps=29 format=3 uid="uid://0ids7lriob64"]
 
 [ext_resource type="TileSet" uid="uid://d0hqjdyv35r24" path="res://tileset_1.tres" id="1_jj7hi"]
 [ext_resource type="Script" path="res://Scripts/Misc/LoopBGM.gd" id="1_yw5kg"]
@@ -10,7 +10,9 @@
 [ext_resource type="Script" path="res://Scripts/Misc/GridNavmesh.gd" id="6_ush2v"]
 [ext_resource type="PackedScene" uid="uid://500a2am16u13" path="res://Scenes/Objects/Entity/player.tscn" id="8_fl322"]
 [ext_resource type="Script" path="res://Scripts/Misc/MapTransfer.gd" id="9_2ddmb"]
+[ext_resource type="PackedScene" uid="uid://bu8v8w1dppnnn" path="res://Scenes/Objects/Entity/crate_tall.tscn" id="11_f6das"]
 [ext_resource type="Script" path="res://Scripts/GUI/GameUI.gd" id="11_py6ug"]
+[ext_resource type="PackedScene" uid="uid://dea1wxybwdv5l" path="res://Scenes/Objects/Entity/crate.tscn" id="12_0ndub"]
 [ext_resource type="PackedScene" uid="uid://c30vtkk6xyalv" path="res://Scenes/GUI/HUD.tscn" id="12_4ny0e"]
 [ext_resource type="Shader" path="res://Materials/Shaders/BlurBG.gdshader" id="13_mytdv"]
 [ext_resource type="PackedScene" uid="uid://c4h845ug0k7fc" path="res://Scenes/GUI/black_bars.tscn" id="14_jbm07"]
@@ -93,7 +95,7 @@ layer_1/tile_data = PackedInt32Array(-458748, 65537, 8, -393212, 65537, 8, -3276
 layer_2/name = "Doors"
 layer_2/tile_data = PackedInt32Array(852051, 2228226, 22, 852052, 2228226, 22, 1179723, 2228226, 22, 1179721, 2228226, 22, 1179736, 2228226, 21, 1179737, 2228226, 21, 1179738, 2228226, 22, 1245274, 2228226, 22, 1245273, 2228226, 21, 1245272, 2228226, 22, 118, 2031618, 15, 65654, 2031618, 16, 119, 2097154, 15, 65655, 2097154, 16)
 layer_3/name = "Decorations"
-layer_3/tile_data = PackedInt32Array(-196517, 2359298, 17, -196541, 2293762, 18, 1376323, 2293762, 536870930, 1376347, 2293762, 805306386, 262218, 2228226, 5, 327754, 2228226, 6, 262219, 2293762, 5, 327755, 2293762, 6, 262220, 2359298, 5, 327756, 2359298, 6, 84, 2228226, 5, 65620, 2228226, 6, 85, 2293762, 5, 65621, 2293762, 6, 86, 2359298, 5, 65622, 2359298, 6, 1114185, 2228226, 5, 1179721, 2228226, 6, 1114186, 2293762, 5, 1179722, 2293762, 6, 1114187, 2359298, 5, 1179723, 2359298, 6, 1114200, 2228226, 5, 1179736, 2228226, 6, 1114201, 2293762, 5, 1179737, 2293762, 6, 1114202, 2359298, 5, 1179738, 2359298, 6, 720979, 2097154, 7, 786515, 2097154, 8, 852051, 2097154, 9, 720980, 2162690, 7, 786516, 2162690, 8, 852052, 2162690, 9)
+layer_3/tile_data = PackedInt32Array(-196517, 2359298, 17, -196541, 2293762, 18, 262218, 2228226, 5, 327754, 2228226, 6, 262219, 2293762, 5, 327755, 2293762, 6, 262220, 2359298, 5, 327756, 2359298, 6, 84, 2228226, 5, 65620, 2228226, 6, 85, 2293762, 5, 65621, 2293762, 6, 86, 2359298, 5, 65622, 2359298, 6, 1114185, 2228226, 5, 1179721, 2228226, 6, 1114186, 2293762, 5, 1179722, 2293762, 6, 1114187, 2359298, 5, 1179723, 2359298, 6, 1114200, 2228226, 5, 1179736, 2228226, 6, 1114201, 2293762, 5, 1179737, 2293762, 6, 1114202, 2359298, 5, 1179738, 2359298, 6, 720979, 2097154, 7, 786515, 2097154, 8, 852051, 2097154, 9, 720980, 2162690, 7, 786516, 2162690, 8, 852052, 2162690, 9, -131005, 1376258, 17, -131004, 1441794, 17, -130982, 1507330, 17, -130981, 1572866, 17, 524320, 1507330, 17, 524321, 1572866, 17, 524318, 1376258, 17, 524319, 1441794, 17, 524339, 1376258, 17, 524340, 1441794, 17)
 layer_4/name = "Cameras"
 layer_4/tile_data = PackedInt32Array(1114185, 2162690, 10, 1114187, 2162690, 10, 1114200, 2293762, 11, 1179737, 2359298, 10, 262220, 2359298, 10, 85, 2359298, 10, 196682, 2162690, 12, 262218, 2162690, 13, -65450, 2359298, 12, 86, 2359298, 13, 327754, 2228226, 21, 327755, 2228226, 21, 393291, 2228226, 21, 1179736, 2359298, 22, 1245272, 2359298, 22, 1245273, 2359298, 22, 1245274, 2359298, 22, 1179738, 2359298, 22, 327756, 2359298, 22, 393292, 2359298, 22, 65621, 2359298, 22, -130988, 2293762, 21, -130987, 2359298, 21, 1179720, 1966082, 22, 720979, 2228226, 12, 786515, 2228226, 13, 720980, 2293762, 12, 786516, 2293762, 13)
 
@@ -138,6 +140,24 @@ script = ExtResource("9_2ddmb")
 position = Vector2(3808, 80)
 shape = SubResource("RectangleShape2D_x2b77")
 
+[node name="Crate" parent="Pausable" instance=ExtResource("11_f6das")]
+position = Vector2(1745, 396)
+
+[node name="Crate2" parent="Pausable" instance=ExtResource("12_0ndub")]
+position = Vector2(1123, 366)
+
+[node name="Crate3" parent="Pausable" instance=ExtResource("11_f6das")]
+position = Vector2(2815, 253)
+
+[node name="Crate4" parent="Pausable" instance=ExtResource("12_0ndub")]
+position = Vector2(2231, 341)
+
+[node name="Crate5" parent="Pausable" instance=ExtResource("12_0ndub")]
+position = Vector2(2710, 604)
+
+[node name="Crate6" parent="Pausable" instance=ExtResource("11_f6das")]
+position = Vector2(2383, 25)
+
 [node name="GUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("pause_menu", "animation_player")]
 script = ExtResource("11_py6ug")
 pause_menu = NodePath("PauseMenu")
@@ -177,5 +197,8 @@ stream = ExtResource("17_wqefa")
 libraries = {
 "": SubResource("AnimationLibrary_e80li")
 }
+
+[node name="turret" parent="." instance=ExtResource("2_j1h1y")]
+position = Vector2(2225, 394)
 
 [connection signal="finished" from="BGM" to="BGM" method="_on_finished"]
