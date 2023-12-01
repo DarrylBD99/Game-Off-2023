@@ -93,3 +93,8 @@ func spawn_dust_impact():
 	dust_impact = dust_impact_scene.instantiate()
 	add_child(dust_impact)
 	dust_impact.global_position = dust_origin.global_position
+
+func _notification(what):
+	if what == NOTIFICATION_PREDELETE:
+		GameManager.level = 1
+		Transition.change_scene("res://Scenes/GUI/EndOfDemo.tscn")
