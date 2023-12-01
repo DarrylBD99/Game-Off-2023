@@ -25,8 +25,11 @@ func on_hold():
 	var bullet2 : Vector2 = Vector2(cos(angle2), sin(angle2))
 	var bullet3 : Vector2 = Vector2(cos(angle3), sin(angle3))
 	
-	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.to_global(bullet1), 1, attack)
-	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.to_global(bullet2), 1, attack)
-	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.to_global(bullet3), 1, attack)
+	var atk : Attack = attack.duplicate()
+	atk.atk = atk.atk * GameManager.player.size_state_manager.current_state.attack_multiplier
+	
+	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.to_global(bullet1), 1, atk)
+	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.to_global(bullet2), 1, atk)
+	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.to_global(bullet3), 1, atk)
 	player.audio_player.set_stream(GameManager.bullet_sfx)
 	player.audio_player.play()

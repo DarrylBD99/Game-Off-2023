@@ -16,6 +16,9 @@ func _init():
 func on_hold():
 	var player : Player = GameManager.player
 	
-	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.get_global_mouse_position(), 1, attack)
+	var atk : Attack = attack.duplicate()
+	atk.atk = atk.atk * GameManager.player.size_state_manager.current_state.attack_multiplier
+	
+	player.shoot_bullet(bullet_scene, sprite.end_point.global_position, player.get_global_mouse_position(), 1, atk)
 	player.audio_player.set_stream(GameManager.bullet_2_sfx)
 	player.audio_player.play()
