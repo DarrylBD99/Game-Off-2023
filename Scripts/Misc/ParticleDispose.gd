@@ -1,7 +1,8 @@
 extends GPUParticles2D
 
-func _ready():
-	set_emitting(true)
+var alive_time : float
 
-func _on_timer_timeout():
-	queue_free()
+func _ready():
+	alive_time = lifetime
+	get_tree().create_timer(alive_time).timeout.connect(queue_free)
+	set_emitting(true)

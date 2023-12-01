@@ -1,10 +1,10 @@
 extends StaticBody2D
 
 @export var hit_particle_scene : PackedScene
+@export var bullet_speed : float = 1800
 
 var cursor_pos : Vector2
 var move_pos : Vector2
-var bullet_speed : float = 2000
 var entity_origin : Entity
 var bullet_pos_old : Vector2
 var hit : bool = false
