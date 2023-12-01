@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dwt50v3ktev6"]
+[gd_scene load_steps=35 format=3 uid="uid://dwt50v3ktev6"]
 
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="1_3kuj3"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Scientist/scientist.gd" id="2_7g6jp"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Scientist/States/STAGE 2.gd" id="14_h14qo"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Scientist/States/STAGE 3.gd" id="15_0eamg"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/COOLDOWN.gd" id="16_1k4sn"]
+[ext_resource type="AudioStream" uid="uid://72cjduqjt1kh" path="res://Audio/SE/Slam.mp3" id="16_au0vu"]
 
 [sub_resource type="Animation" id="Animation_1r3s6"]
 resource_name = "IDLE"
@@ -497,6 +498,7 @@ attack_amount = 3
 [node name="STAGE 3" type="Node" parent="ActionStateManager" node_paths=PackedStringArray("slam_area2d", "next_stage")]
 script = ExtResource("15_0eamg")
 slam_area2d = NodePath("../../SlamArea")
+slam = ExtResource("16_au0vu")
 next_stage = NodePath("../COOLDOWN")
 attack_amount = 3
 

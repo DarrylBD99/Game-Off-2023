@@ -8,3 +8,4 @@ func _ready():
 	
 func area_melee_entered(area: Area2D):
 	area.damage(attack)
+

@@ -22,6 +22,7 @@ func spawn_acid():
 		acid.emitting = true
 
 func delete_bridge():
+	temp_tilemap.add_sibling(preload("res://Scenes/tile_map.tscn").instantiate())
 	temp_tilemap.queue_free()
 	
 	var wait_time : float = 0

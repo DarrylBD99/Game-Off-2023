@@ -5,5 +5,5 @@ func _ready():
 
 func next_level():
 	GameManager.level += 1
-	Transition.change_scene("res://Scenes/GUI/Level/level_" + str(GameManager.level) + ".tscn")
+	Transition.change_scene("res://Scenes/Levels/level_" + str(GameManager.level) + ".tscn")
 	

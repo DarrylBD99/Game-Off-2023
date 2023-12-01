@@ -17,6 +17,7 @@ func physics_process(_delta : float) -> State:
 		return next_state
 	
 	entity.velocity = entity.navigation_direction * entity.speed
+	entity.update_facing_dir(entity.velocity)
 	entity.move_and_slide()
 
 	return null

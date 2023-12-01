@@ -88,7 +88,6 @@ _data = {
 
 [node name="SplashScreen" type="Control"]
 modulate = Color(0, 0, 0, 1)
-texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -138,7 +137,7 @@ texture = ExtResource("3_kqddx")
 stretch_mode = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "load_animation"
 libraries = {
 "": SubResource("AnimationLibrary_7kl5w")
 }
+autoplay = "load_animation"

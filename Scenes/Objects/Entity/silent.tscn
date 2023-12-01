@@ -261,9 +261,10 @@ state_manager = NodePath("../Action Manager")
 script = ExtResource("5_22m7d")
 current_state = NodePath("IDLE")
 
-[node name="IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
+[node name="IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state", "animation_player")]
 script = ExtResource("6_vmuci")
 next_state = NodePath("../MOVE")
+animation_player = NodePath("../../AnimationPlayerIDLE")
 
 [node name="MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("7_810ap")

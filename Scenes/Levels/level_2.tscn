@@ -139,7 +139,6 @@ position = Vector2(3808, 80)
 shape = SubResource("RectangleShape2D_x2b77")
 
 [node name="GUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("pause_menu", "animation_player")]
-visible = false
 script = ExtResource("11_py6ug")
 pause_menu = NodePath("PauseMenu")
 animation_player = NodePath("../AnimationPlayer")
@@ -159,11 +158,10 @@ texture = SubResource("CanvasTexture_sv67y")
 
 [node name="BlackBars" parent="GUI" instance=ExtResource("14_jbm07")]
 
-[node name="PauseMenu" parent="GUI" node_paths=PackedStringArray("resume_button", "hover", "select") instance=ExtResource("15_53hke")]
+[node name="PauseMenu" parent="GUI" node_paths=PackedStringArray("hover", "select") instance=ExtResource("15_53hke")]
 modulate = Color(1, 1, 1, 0)
 offset_left = -240.0
 offset_right = -240.0
-resume_button = NodePath("../../../../../../../../../../@WindowWrapper@10774/@ScriptEditor@10773/@VBoxContainer@10015/@HSplitContainer@10018/@VBoxContainer@10040/@TabContainer@10042/@ScriptTextEditor@212814/@VSplitContainer@212816/@CodeTextEditor@212817/@HBoxContainer@212735/@Button@212741")
 hover = NodePath("../Hover")
 select = NodePath("../Select")
 

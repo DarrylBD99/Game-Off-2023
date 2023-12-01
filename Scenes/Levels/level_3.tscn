@@ -198,7 +198,6 @@ material = SubResource("ShaderMaterial_nlqsb")
 position = Vector2(5043, 404)
 
 [node name="GUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("pause_menu", "animation_player")]
-visible = false
 script = ExtResource("11_tnueq")
 pause_menu = NodePath("PauseMenu")
 animation_player = NodePath("../AnimationPlayer")

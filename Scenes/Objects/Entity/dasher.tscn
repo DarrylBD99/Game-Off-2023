@@ -15,6 +15,22 @@
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="11_xsibn"]
 [ext_resource type="Texture2D" uid="uid://bdys8w58h36yt" path="res://Sprites/Character/Dasher.png" id="12_2ur7l"]
 
+[sub_resource type="Animation" id="Animation_x736v"]
+resource_name = "DASH_BEG"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
+
 [sub_resource type="Animation" id="Animation_6p6c6"]
 resource_name = "IDLE"
 length = 0.8
@@ -45,22 +61,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_x736v"]
-resource_name = "DASH_BEG"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [4, 5, 6]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dvbrp"]
@@ -158,9 +158,10 @@ libraries = {
 script = ExtResource("5_2d1y8")
 current_state = NodePath("IDLE")
 
-[node name="IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
+[node name="IDLE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state", "animation_player")]
 script = ExtResource("5_bxs6h")
 next_state = NodePath("../MOVE")
+animation_player = NodePath("../../AnimationPlayerSprite")
 
 [node name="MOVE" type="Node" parent="State Manager" node_paths=PackedStringArray("next_state")]
 script = ExtResource("5_tr12v")

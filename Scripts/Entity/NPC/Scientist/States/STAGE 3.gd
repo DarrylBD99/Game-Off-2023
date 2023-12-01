@@ -1,7 +1,7 @@
 extends StageState
 
 @export var slam_area2d : Area2D
-
+@export var slam : AudioStream
 var attack_finished : bool = false
 
 func physics_process(delta : float) -> State:
@@ -66,5 +66,5 @@ func drop():
 	entity.animation_player.play("drop")
 
 func slam_sfx():
-	entity.audio_player.set_stream(preload("res://Audio/SE/Slam.mp3").instantiate())
+	entity.audio_player.set_stream(slam)
 	entity.audio_player.play()

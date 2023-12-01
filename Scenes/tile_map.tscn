@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjohhju1m247m"]
+
+[ext_resource type="TileSet" uid="uid://d0hqjdyv35r24" path="res://tileset_1.tres" id="1_55xhq"]
+
+[node name="TileMap" type="TileMap"]
+tile_set = ExtResource("1_55xhq")
+format = 2
+layer_0/name = "Level"
+layer_0/tile_data = PackedInt32Array(262168, 2293761, 3, 196632, 2293761, 3, 131096, 2293761, 3, 131095, 2293761, 3, 131094, 2293761, 3, 196630, 2293761, 3, 262166, 2293761, 3, 262167, 2293761, 3, 196631, 2293761, 3, 327702, 2293761, 3, 327703, 2293761, 3, 327704, 2293761, 3)
+layer_1/name = "Addons"
+layer_1/tile_data = PackedInt32Array()
