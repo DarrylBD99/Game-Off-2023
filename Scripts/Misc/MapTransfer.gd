@@ -1,9 +1,5 @@
 extends Area2D
 
-func _ready():
-	area_entered.connect(next_level)
-
-func next_level():
+func _on_area_entered(area):
 	GameManager.level += 1
 	Transition.change_scene("res://Scenes/Levels/level_" + str(GameManager.level) + ".tscn")
-	

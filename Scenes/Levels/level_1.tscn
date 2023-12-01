@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://00f1epn3glca" path="res://Scenes/Objects/Entity/dasher.tscn" id="7_cn4sp"]
 [ext_resource type="PackedScene" uid="uid://dea1wxybwdv5l" path="res://Scenes/Objects/Entity/crate.tscn" id="8_hygum"]
 [ext_resource type="PackedScene" uid="uid://500a2am16u13" path="res://Scenes/Objects/Entity/player.tscn" id="9_gj1w2"]
-[ext_resource type="Script" path="res://Scripts/Misc/MapTransfer.gd" id="10_ntgxw"]
+[ext_resource type="PackedScene" uid="uid://fmemvhjrq3h4" path="res://Scenes/Objects/NextLevel.tscn" id="10_0awk0"]
 [ext_resource type="Script" path="res://Scripts/GUI/GameUI.gd" id="11_yuc5q"]
 [ext_resource type="PackedScene" uid="uid://c30vtkk6xyalv" path="res://Scenes/GUI/HUD.tscn" id="12_uhwri"]
 [ext_resource type="Shader" path="res://Materials/Shaders/BlurBG.gdshader" id="13_osqno"]
@@ -41,7 +41,7 @@ auto_exposure_enabled = true
 dof_blur_far_enabled = true
 dof_blur_near_enabled = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a4nod"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2y3xy"]
 size = Vector2(64, 32)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xqblw"]
@@ -93,7 +93,7 @@ layer_1/tile_data = PackedInt32Array(-131072, 327681, 10, -65536, 327681, 11, -1
 layer_2/name = "Decoration"
 layer_2/tile_data = PackedInt32Array(-1245135, 524290, 0, -327610, 2228226, 18, -393163, 2359298, 18, -1048530, 2293762, 5, -982994, 2293762, 6, -1048529, 2293762, 5, -982993, 2293762, 6, -1048528, 2359298, 5, -982992, 2359298, 6, -1048532, 2228226, 5, -982996, 2228226, 6, -1048531, 2293762, 5, -982995, 2293762, 6, -327640, 262146, 12, -327637, 393218, 12)
 layer_3/name = "camera "
-layer_3/tile_data = PackedInt32Array(-393158, 2293762, 18, -1114068, 1966082, 20, -1048532, 1966082, 21, -1114066, 1966082, 20, -1048530, 1966082, 21, -1048528, 1966082, 21, -1245136, 1507330, 17, -1114064, 1966082, 20, -1179614, 1572866, 268435473, -1179613, 1507330, 268435473, -327627, 1572866, 17, -327628, 1507330, 17, 458795, 1376258, 17, 458796, 1441794, 17)
+layer_3/tile_data = PackedInt32Array(-393158, 2293762, 18, -1114068, 1966082, 20, -1048532, 1966082, 21, -1114066, 1966082, 20, -1048530, 1966082, 21, -1048528, 1966082, 21, -1114064, 1966082, 20)
 layer_4/name = "door"
 layer_4/tile_data = PackedInt32Array(-524217, 2031618, 15, -458681, 2031618, 16, -524216, 2097154, 15, -458680, 2097154, 16)
 
@@ -131,12 +131,47 @@ position = Vector2(46, 41)
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Pausable/Player"]
 remote_path = NodePath("../../../Camera2D")
 
-[node name="Area2D" type="Area2D" parent="Pausable"]
-script = ExtResource("10_ntgxw")
+[node name="NextLevel" parent="Pausable" instance=ExtResource("10_0awk0")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pausable/Area2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Pausable/NextLevel"]
 position = Vector2(2304, -176)
-shape = SubResource("RectangleShape2D_a4nod")
+shape = SubResource("RectangleShape2D_2y3xy")
+
+[node name="Crate2" parent="Pausable" instance=ExtResource("19_w631l")]
+position = Vector2(1262, 80)
+
+[node name="Crate3" parent="Pausable" instance=ExtResource("19_w631l")]
+position = Vector2(1546, 113)
+
+[node name="Crate4" parent="Pausable" instance=ExtResource("19_w631l")]
+position = Vector2(1609, -50)
+
+[node name="Crate5" parent="Pausable" instance=ExtResource("19_w631l")]
+position = Vector2(1434, 367)
+
+[node name="Crate6" parent="Pausable" instance=ExtResource("19_w631l")]
+position = Vector2(1670, 305)
+
+[node name="Crate7" parent="Pausable" instance=ExtResource("19_w631l")]
+position = Vector2(1643, 431)
+
+[node name="Crate8" parent="Pausable" instance=ExtResource("8_hygum")]
+position = Vector2(1208, -273)
+
+[node name="Crate9" parent="Pausable" instance=ExtResource("8_hygum")]
+position = Vector2(1132, -498)
+
+[node name="Crate10" parent="Pausable" instance=ExtResource("8_hygum")]
+position = Vector2(1390, -522)
+
+[node name="Crate11" parent="Pausable" instance=ExtResource("8_hygum")]
+position = Vector2(1546, -269)
+
+[node name="Crate12" parent="Pausable" instance=ExtResource("19_w631l")]
+position = Vector2(1960, -32)
+
+[node name="Crate13" parent="Pausable" instance=ExtResource("19_w631l")]
+position = Vector2(2204, 117)
 
 [node name="GUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("pause_menu", "animation_player")]
 script = ExtResource("11_yuc5q")
@@ -177,41 +212,5 @@ stream = ExtResource("17_7hc7e")
 libraries = {
 "": SubResource("AnimationLibrary_e80li")
 }
-
-[node name="Crate" parent="." instance=ExtResource("19_w631l")]
-position = Vector2(1262, 80)
-
-[node name="Crate2" parent="." instance=ExtResource("19_w631l")]
-position = Vector2(1546, 113)
-
-[node name="Crate3" parent="." instance=ExtResource("19_w631l")]
-position = Vector2(1609, -50)
-
-[node name="Crate4" parent="." instance=ExtResource("19_w631l")]
-position = Vector2(1434, 367)
-
-[node name="Crate5" parent="." instance=ExtResource("19_w631l")]
-position = Vector2(1670, 305)
-
-[node name="Crate6" parent="." instance=ExtResource("19_w631l")]
-position = Vector2(1643, 431)
-
-[node name="Crate7" parent="." instance=ExtResource("8_hygum")]
-position = Vector2(1208, -273)
-
-[node name="Crate8" parent="." instance=ExtResource("8_hygum")]
-position = Vector2(1132, -498)
-
-[node name="Crate9" parent="." instance=ExtResource("8_hygum")]
-position = Vector2(1390, -522)
-
-[node name="Crate10" parent="." instance=ExtResource("8_hygum")]
-position = Vector2(1546, -269)
-
-[node name="Crate11" parent="." instance=ExtResource("19_w631l")]
-position = Vector2(1960, -32)
-
-[node name="Crate12" parent="." instance=ExtResource("19_w631l")]
-position = Vector2(2204, 117)
 
 [connection signal="finished" from="BGM" to="BGM" method="_on_finished"]
