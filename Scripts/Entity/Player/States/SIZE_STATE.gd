@@ -11,6 +11,9 @@ func physics_process(delta : float) -> State:
 	if entity.energy.energy <= 0:
 		return medium
 	
+	if GameManager.block_input:
+		return medium
+	
 	return null
 
 func input(event : InputEvent) -> State:

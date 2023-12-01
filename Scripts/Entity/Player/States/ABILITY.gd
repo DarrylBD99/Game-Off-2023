@@ -4,20 +4,20 @@ extends State
 @export var base : State
 
 func physics_process(_delta : float) -> State:
-	if not base.scroll_cooldown:
-		if Input.is_action_just_pressed("weapon_up"):
-			entity.change_ability(-1)
-			entity.get_current_ability().select()
-			
-			base.scroll_cooldown = true
-			get_tree().create_timer(base.scroll_rate).timeout.connect(base.scroll_timeout)
-			
-		elif Input.is_action_just_pressed("weapon_down"):
-			entity.change_ability(1)
-			entity.get_current_ability().select()
-			
-			base.scroll_cooldown = true
-			get_tree().create_timer(base.scroll_rate).timeout.connect(base.scroll_timeout)
+	if not (GameManager.block_input or base.scroll_cooldown):
+			if Input.is_action_just_pressed("weapon_up"):
+				entity.change_ability(-1)
+				entity.get_current_ability().select()
+				
+				base.scroll_cooldown = true
+				get_tree().create_timer(base.scroll_rate).timeout.connect(base.scroll_timeout)
+				
+			elif Input.is_action_just_pressed("weapon_down"):
+				entity.change_ability(1)
+				entity.get_current_ability().select()
+				
+				base.scroll_cooldown = true
+				get_tree().create_timer(base.scroll_rate).timeout.connect(base.scroll_timeout)
 	
 	return null
 

@@ -68,17 +68,18 @@ func _physics_process(delta):
 		size_state_manager.change_state(states[states.find(normal_size)])
 	
 func _input(event):
-	# Base State Machine
-	if state_manager:
-		state_manager.input(event)
-	
-	# Action State Machine
-	if action_state_manager:
-		action_state_manager.input(event)
-	
-	# Size State Machine
-	if size_state_manager:
-		size_state_manager.input(event)
+	if not GameManager.block_input:
+		# Base State Machine
+		if state_manager:
+			state_manager.input(event)
+		
+		# Action State Machine
+		if action_state_manager:
+			action_state_manager.input(event)
+		
+		# Size State Machine
+		if size_state_manager:
+			size_state_manager.input(event)
 
 func shoot_bullet(bullet_scene : PackedScene, pos_origin : Vector2, pos_end : Vector2, shake : float = 0, atk : Attack = null):
 	GameManager.camera.shake(shake)
@@ -89,7 +90,10 @@ func shoot_bullet(bullet_scene : PackedScene, pos_origin : Vector2, pos_end : Ve
 	var bullet : StaticBody2D = bullet_scene.instantiate()
 	bullet.attack = atk
 	bullet.global_position = pos_origin
-	bullet.look_at(pos_end)
+	
+	var pos : Vector2 = to_local(pos_end)
+	var rotate_to : float = atan2(pos.y, pos.x)
+	bullet.rotation = rotate_to
 	bullet.move_pos = global_position.direction_to(pos_end)
 	bullet.entity_origin = self
 	
@@ -110,7 +114,7 @@ func set_ghost_sprite(ghost : Sprite2D) -> Sprite2D:
 
 func flash():
 	if $Sprite2D.material and flash_timer:
-		$Sprite2D.material.set_shader_parameter("flash_alpha", 1)
+		$Sprite2D.material.set_shader_parameter("flash_alpha", 0.8)
 		flash_timer.start()
 
 func _on_flash_finish():
