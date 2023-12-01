@@ -350,17 +350,19 @@ theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 text = "[right]	Mounir Tohami
 Pupkin
-VladPenn"
+VladPenn
+spoonsweet"
 fit_content = true
 
-[node name="Job" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Assets/HBoxContainer"]
+[node name="Asset_Plugin" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Assets/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 text = "[left]MinimalPixel Font
 Tech Dungeon Roguelite Tileset
-Weapon Pack"
+Weapon Pack
+Turret Pixel Asset"
 fit_content = true
 
 [node name="Help" type="Panel" parent="."]
@@ -384,7 +386,7 @@ libraries = {
 }
 
 [node name="MainMenu" type="AnimationPlayer" parent="."]
-autoplay = "main_menu"
 libraries = {
 "": SubResource("AnimationLibrary_ruyfg")
 }
+autoplay = "main_menu"
