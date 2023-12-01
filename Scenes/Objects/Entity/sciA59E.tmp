@@ -1,0 +1,339 @@
+[gd_scene load_steps=31 format=3 uid="uid://dwt50v3ktev6"]
+
+[ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="1_3kuj3"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Scientist/scientist.gd" id="2_7g6jp"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="3_febmc"]
+[ext_resource type="PackedScene" uid="uid://jxrt5kvtwsyg" path="res://Scenes/Particles/DustUp.tscn" id="3_wet5g"]
+[ext_resource type="PackedScene" uid="uid://cd4ctbcax7e7y" path="res://Scenes/Particles/DustImpact.tscn" id="4_2od3d"]
+[ext_resource type="Script" path="res://Scripts/Entity/Stats/Health.gd" id="4_4mque"]
+[ext_resource type="AudioStream" uid="uid://cc2rgl2enyhdj" path="res://Audio/SE/Laugh.wav" id="5_iun5c"]
+[ext_resource type="PackedScene" uid="uid://rf1kc3l23ffk" path="res://Scenes/Component/hitbox.tscn" id="5_obgkc"]
+[ext_resource type="Script" path="res://Scripts/Debug/StateLabel.gd" id="6_3cy4k"]
+[ext_resource type="AudioStream" uid="uid://3hrgmolxjw03" path="res://Audio/SE/ShipDown.wav" id="6_xa18d"]
+[ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="7_eqq54"]
+[ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_hjy0j"]
+[ext_resource type="Texture2D" uid="uid://dhq84myad0tkx" path="res://Sprites/Character/Scientist_1.png" id="11_d06vm"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Scientist/States/IDLE.gd" id="12_agkyl"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Scientist/States/STAGE 1.gd" id="13_h3ch6"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Scientist/States/STAGE 2.gd" id="14_h14qo"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Scientist/States/STAGE 3.gd" id="15_0eamg"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/SharedStates/COOLDOWN.gd" id="16_1k4sn"]
+
+[sub_resource type="Animation" id="Animation_1r3s6"]
+resource_name = "IDLE"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_jbm04"]
+resource_name = "Laugh"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_70i01"]
+loop_mode = 2
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(3, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8sv4r"]
+resource_name = "cooldown_start"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(3, 0), Vector2i(2, 0), Vector2i(1, 0), Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_w3j22"]
+resource_name = "cooldown_end"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 5), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v3qyf"]
+_data = {
+"IDLE": SubResource("Animation_1r3s6"),
+"Laugh": SubResource("Animation_jbm04"),
+"RESET": SubResource("Animation_70i01"),
+"cooldown_end": SubResource("Animation_w3j22"),
+"cooldown_start": SubResource("Animation_8sv4r")
+}
+
+[sub_resource type="Animation" id="Animation_qot6c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_u12at"]
+resource_name = "ship_end"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -80.0]
+}
+
+[sub_resource type="Animation" id="Animation_40yba"]
+resource_name = "ship_start"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bctp5"]
+_data = {
+"RESET": SubResource("Animation_qot6c"),
+"ship_end": SubResource("Animation_u12at"),
+"ship_start": SubResource("Animation_40yba")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8bigt"]
+radius = 15.0
+height = 54.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohae8"]
+size = Vector2(37, 22)
+
+[node name="scientist" type="CharacterBody2D" node_paths=PackedStringArray("animation_player", "animation_player_2", "dust_origin", "action_state_manager", "size_state_manager", "health", "attack", "hitbox", "size_time_limit", "audio_player")]
+material = ExtResource("1_3kuj3")
+collision_layer = 18
+collision_mask = 24
+script = ExtResource("2_7g6jp")
+animation_player = NodePath("AnimationPlayer")
+animation_player_2 = NodePath("SFX")
+dust_scene = ExtResource("3_wet5g")
+dust_impact_scene = ExtResource("4_2od3d")
+dust_origin = NodePath("DustOrigin")
+laugh_sfx = ExtResource("5_iun5c")
+ship_sfx = ExtResource("6_xa18d")
+aggro_range = 0.0
+action_state_manager = NodePath("ActionStateManager")
+size_state_manager = NodePath("Size State Manager")
+health = NodePath("HP")
+attack = NodePath("ATK")
+hitbox = NodePath("Hitbox")
+size_time_limit = NodePath("SizeTimeLimit")
+audio_player = NodePath("AudioStreamPlayer2D")
+
+[node name="ATK" type="Node" parent="."]
+script = ExtResource("3_febmc")
+
+[node name="HP" type="Node" parent="."]
+script = ExtResource("4_4mque")
+hp_max = 200.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v3qyf")
+}
+
+[node name="SFX" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bctp5")
+}
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_obgkc")]
+collision_layer = 18
+collision_mask = 20
+health = NodePath("../HP")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 5)
+shape = SubResource("CapsuleShape2D_8bigt")
+
+[node name="StateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
+visible = false
+offset_left = -20.0
+offset_top = 31.0
+offset_right = 20.0
+offset_bottom = 54.0
+script = ExtResource("6_3cy4k")
+state_manager = NodePath("../ActionStateManager")
+
+[node name="ActionStateManager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("7_eqq54")
+current_state = NodePath("IDLE")
+
+[node name="IDLE" type="Node" parent="ActionStateManager" node_paths=PackedStringArray("stage_1")]
+script = ExtResource("12_agkyl")
+stage_1 = NodePath("../STAGE 1")
+
+[node name="STAGE 1" type="Node" parent="ActionStateManager" node_paths=PackedStringArray("barrel", "barrel_end", "next_stage")]
+script = ExtResource("13_h3ch6")
+fire_rate = 0.1
+rotation_diff = 5
+barrel = NodePath("../../Barrel")
+barrel_end = NodePath("../../Barrel/BarrelEnd")
+next_stage = NodePath("../COOLDOWN")
+attack_amount = 6
+
+[node name="STAGE 2" type="Node" parent="ActionStateManager" node_paths=PackedStringArray("next_stage")]
+script = ExtResource("14_h14qo")
+next_stage = NodePath("../STAGE 3")
+
+[node name="STAGE 3" type="Node" parent="ActionStateManager" node_paths=PackedStringArray("next_stage")]
+script = ExtResource("15_0eamg")
+next_stage = NodePath("../COOLDOWN")
+
+[node name="COOLDOWN" type="Node" parent="ActionStateManager" node_paths=PackedStringArray("next_state")]
+script = ExtResource("16_1k4sn")
+cooldown_time = 15.0
+next_state = NodePath("../STAGE 1")
+
+[node name="Size State Manager" parent="." instance=ExtResource("10_hjy0j")]
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 20)
+shape = SubResource("RectangleShape2D_ohae8")
+
+[node name="Barrel" type="Node2D" parent="."]
+position = Vector2(0, 9)
+
+[node name="BarrelEnd" type="Node2D" parent="Barrel"]
+position = Vector2(18, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+material = ExtResource("1_3kuj3")
+position = Vector2(1, 0)
+texture = ExtResource("11_d06vm")
+hframes = 6
+vframes = 2
+frame = 3
+
+[node name="SizeTimeLimit" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+autoplay = true
+bus = &"SFX"
+
+[node name="DustOrigin" type="Node2D" parent="."]
+position = Vector2(0, 32)
