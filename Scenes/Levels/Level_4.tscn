@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dlmthso8fe5ks"]
+[gd_scene load_steps=40 format=3 uid="uid://dlmthso8fe5ks"]
 
 [ext_resource type="Script" path="res://Scripts/Misc/LoopBGM.gd" id="1_uarr2"]
 [ext_resource type="TileSet" uid="uid://d0hqjdyv35r24" path="res://tileset_1.tres" id="1_yia21"]
@@ -20,7 +20,9 @@
 [ext_resource type="PackedScene" uid="uid://4gfydxpmlpyf" path="res://Scenes/GUI/PauseMenu.tscn" id="14_ubv7r"]
 [ext_resource type="AudioStream" uid="uid://corrlpfkrmsud" path="res://Audio/SE/Hover.wav" id="15_y4m1p"]
 [ext_resource type="AudioStream" uid="uid://dvtvkthdfikvb" path="res://Audio/SE/Select.wav" id="16_nn0ry"]
+[ext_resource type="PackedScene" uid="uid://bsr5fcv36hof3" path="res://Scenes/GUI/death.tscn" id="17_4dh2u"]
 [ext_resource type="Animation" uid="uid://bpi7iwxud64vh" path="res://PauseMenuAnim.res" id="17_n80l2"]
+[ext_resource type="Animation" uid="uid://brkpii1xbbp3g" path="res://dead.res" id="22_htky0"]
 
 [sub_resource type="Gradient" id="Gradient_6144e"]
 
@@ -137,7 +139,8 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e80li"]
 _data = {
 "PauseMenuAnim": ExtResource("17_n80l2"),
-"RESET": SubResource("Animation_g1gf6")
+"RESET": SubResource("Animation_g1gf6"),
+"dead": ExtResource("22_htky0")
 }
 
 [node name="Level_4" type="Node2D"]
@@ -163,6 +166,7 @@ script = ExtResource("4_o4wfk")
 
 [node name="Pausable" type="Node2D" parent="."]
 process_mode = 1
+y_sort_enabled = true
 
 [node name="GridNavmesh" type="Node" parent="Pausable" node_paths=PackedStringArray("tile_map")]
 script = ExtResource("2_4k28c")
@@ -296,13 +300,17 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_1trsq")
 
+[node name="Death" parent="GUI" node_paths=PackedStringArray("animation_player") instance=ExtResource("17_4dh2u")]
+modulate = Color(1, 1, 1, 0)
+animation_player = NodePath("../../AnimationPlayer")
+
 [node name="BlackBars" parent="GUI" instance=ExtResource("13_jne1g")]
 
 [node name="PauseMenu" parent="GUI" node_paths=PackedStringArray("hover", "select") instance=ExtResource("14_ubv7r")]
 modulate = Color(1, 1, 1, 0)
 offset_left = -240.0
-offset_right = 2320.0
-offset_bottom = 1440.0
+offset_right = 2960.0
+offset_bottom = 1800.0
 hover = NodePath("../Hover")
 select = NodePath("../Select")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://uneunlqn2e7k"]
+[gd_scene load_steps=39 format=3 uid="uid://uneunlqn2e7k"]
 
 [ext_resource type="TileSet" uid="uid://d0hqjdyv35r24" path="res://tileset_1.tres" id="1_02hfk"]
 [ext_resource type="Script" path="res://Scripts/Misc/LoopBGM.gd" id="1_nx53p"]
@@ -19,9 +19,11 @@
 [ext_resource type="PackedScene" uid="uid://4gfydxpmlpyf" path="res://Scenes/GUI/PauseMenu.tscn" id="15_qfsid"]
 [ext_resource type="AudioStream" uid="uid://corrlpfkrmsud" path="res://Audio/SE/Hover.wav" id="16_50vev"]
 [ext_resource type="AudioStream" uid="uid://dvtvkthdfikvb" path="res://Audio/SE/Select.wav" id="17_4itm4"]
+[ext_resource type="PackedScene" uid="uid://bsr5fcv36hof3" path="res://Scenes/GUI/death.tscn" id="18_e5pf2"]
 [ext_resource type="Animation" uid="uid://bpi7iwxud64vh" path="res://PauseMenuAnim.res" id="18_ufw5p"]
 [ext_resource type="PackedScene" uid="uid://bu8v8w1dppnnn" path="res://Scenes/Objects/Entity/crate_tall.tscn" id="19_1m1kn"]
 [ext_resource type="PackedScene" uid="uid://dea1wxybwdv5l" path="res://Scenes/Objects/Entity/crate.tscn" id="20_okw1r"]
+[ext_resource type="Animation" uid="uid://brkpii1xbbp3g" path="res://dead.res" id="23_iwisi"]
 
 [sub_resource type="Gradient" id="Gradient_prms4"]
 
@@ -92,7 +94,8 @@ shader_parameter/size_y = 0.008
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e80li"]
 _data = {
-"PauseMenuAnim": ExtResource("18_ufw5p")
+"PauseMenuAnim": ExtResource("18_ufw5p"),
+"dead": ExtResource("23_iwisi")
 }
 
 [node name="Level 3" type="Node2D"]
@@ -118,6 +121,7 @@ script = ExtResource("4_t0cj6")
 
 [node name="Pausable" type="Node2D" parent="."]
 process_mode = 1
+y_sort_enabled = true
 
 [node name="GridNavmesh" type="Node" parent="Pausable" node_paths=PackedStringArray("tile_map")]
 script = ExtResource("2_quxnn")
@@ -320,6 +324,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_exwiq")
+
+[node name="Death" parent="GUI" node_paths=PackedStringArray("animation_player") instance=ExtResource("18_e5pf2")]
+modulate = Color(1, 1, 1, 0)
+animation_player = NodePath("../../AnimationPlayer")
 
 [node name="BlackBars" parent="GUI" instance=ExtResource("14_bqj4j")]
 

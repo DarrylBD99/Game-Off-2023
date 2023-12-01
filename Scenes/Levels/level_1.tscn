@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://mb3exl0b4ovi"]
+[gd_scene load_steps=31 format=3 uid="uid://mb3exl0b4ovi"]
 
 [ext_resource type="Script" path="res://Scripts/Misc/LoopBGM.gd" id="1_iuwse"]
 [ext_resource type="AudioStream" uid="uid://c4eyqib0vyysf" path="res://Audio/BGM/Level_Intro.mp3" id="2_2s06r"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://fmemvhjrq3h4" path="res://Scenes/Objects/NextLevel.tscn" id="10_0awk0"]
 [ext_resource type="Script" path="res://Scripts/GUI/GameUI.gd" id="11_yuc5q"]
 [ext_resource type="PackedScene" uid="uid://c30vtkk6xyalv" path="res://Scenes/GUI/HUD.tscn" id="12_uhwri"]
+[ext_resource type="PackedScene" uid="uid://bsr5fcv36hof3" path="res://Scenes/GUI/death.tscn" id="13_irdwx"]
 [ext_resource type="Shader" path="res://Materials/Shaders/BlurBG.gdshader" id="13_osqno"]
 [ext_resource type="PackedScene" uid="uid://c4h845ug0k7fc" path="res://Scenes/GUI/black_bars.tscn" id="14_ql3po"]
 [ext_resource type="PackedScene" uid="uid://4gfydxpmlpyf" path="res://Scenes/GUI/PauseMenu.tscn" id="15_2byfp"]
@@ -19,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://dvtvkthdfikvb" path="res://Audio/SE/Select.wav" id="17_7hc7e"]
 [ext_resource type="Animation" uid="uid://bpi7iwxud64vh" path="res://PauseMenuAnim.res" id="18_iedpo"]
 [ext_resource type="PackedScene" uid="uid://bu8v8w1dppnnn" path="res://Scenes/Objects/Entity/crate_tall.tscn" id="19_w631l"]
+[ext_resource type="Animation" uid="uid://brkpii1xbbp3g" path="res://dead.res" id="21_t3mdo"]
 
 [sub_resource type="Gradient" id="Gradient_w4a1b"]
 
@@ -53,11 +55,48 @@ shader_parameter/size_y = 0.008
 
 [sub_resource type="Animation" id="Animation_2rrec"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GUI/Death:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GUI/Death:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BGM:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e80li"]
 _data = {
 "PauseMenuAnim": ExtResource("18_iedpo"),
-"RESET": SubResource("Animation_2rrec")
+"RESET": SubResource("Animation_2rrec"),
+"dead": ExtResource("21_t3mdo")
 }
 
 [node name="level 1" type="Node2D"]
@@ -195,12 +234,19 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_3e4pm")
 
+[node name="Death" parent="GUI" node_paths=PackedStringArray("animation_player") instance=ExtResource("13_irdwx")]
+visible = false
+modulate = Color(1, 1, 1, 0)
+y_sort_enabled = true
+animation_player = NodePath("../../AnimationPlayer")
+
 [node name="BlackBars" parent="GUI" instance=ExtResource("14_ql3po")]
 
 [node name="PauseMenu" parent="GUI" node_paths=PackedStringArray("hover", "select") instance=ExtResource("15_2byfp")]
 modulate = Color(1, 1, 1, 0)
 offset_left = -240.0
-offset_right = -240.0
+offset_right = 1680.0
+offset_bottom = 1080.0
 hover = NodePath("../Hover")
 select = NodePath("../Select")
 

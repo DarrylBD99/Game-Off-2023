@@ -27,8 +27,8 @@ var grid_navmesh : GridNavmesh
 var changing_size : bool = false
 var cursor_type_str : String
 
-var save_file_path : StringName = "res://save/"
-var save_file_name : StringName = "PlayerSave.tres"
+var save_file_path : StringName = "user://"
+var save_file_name : StringName = "save.tres"
 
 # Player Saves
 
@@ -49,7 +49,9 @@ func _ready():
 		weapon_slot = save_data.get_weapon_slot()
 		ability_slot = save_data.get_ability_slot()
 		game_beaten = save_data.get_beaten_bool()
-		
+	else:
+		ResourceSaver.save(save_data, save_file_path + save_file_name)
+	
 	set_default()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 

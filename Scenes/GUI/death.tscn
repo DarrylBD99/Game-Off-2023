@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsr5fcv36hof3"]
+
+[ext_resource type="Theme" uid="uid://bykrtyls412vb" path="res://Theme.tres" id="1_lm5du"]
+[ext_resource type="Script" path="res://Scenes/Levels/Death.gd" id="2_ae7rq"]
+[ext_resource type="AudioStream" uid="uid://corrlpfkrmsud" path="res://Audio/SE/Hover.wav" id="3_yshqc"]
+[ext_resource type="AudioStream" uid="uid://dvtvkthdfikvb" path="res://Audio/SE/Select.wav" id="4_vtqb4"]
+
+[node name="Death" type="Panel" node_paths=PackedStringArray("hover", "select", "retry_button", "main_menu_button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lm5du")
+script = ExtResource("2_ae7rq")
+hover = NodePath("Hover")
+select = NodePath("Select")
+retry_button = NodePath("MarginContainer/Buttons/Retry")
+main_menu_button = NodePath("MarginContainer/Buttons/Main Menu")
+
+[node name="Hover" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(48, 472)
+stream = ExtResource("3_yshqc")
+
+[node name="Select" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(24, 236)
+stream = ExtResource("4_vtqb4")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 48
+
+[node name="Title" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/default_color = Color(0.631373, 0, 0.054902, 1)
+theme_override_colors/font_shadow_color = Color(0.4, 0.0156863, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]You Died"
+fit_content = true
+text_direction = 1
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Retry" type="Button" parent="MarginContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Retry"
+
+[node name="Main Menu" type="Button" parent="MarginContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Main Menu"

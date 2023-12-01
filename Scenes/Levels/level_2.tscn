@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://0ids7lriob64"]
+[gd_scene load_steps=31 format=3 uid="uid://0ids7lriob64"]
 
 [ext_resource type="TileSet" uid="uid://d0hqjdyv35r24" path="res://tileset_1.tres" id="1_jj7hi"]
 [ext_resource type="Script" path="res://Scripts/Misc/LoopBGM.gd" id="1_yw5kg"]
@@ -15,11 +15,13 @@
 [ext_resource type="PackedScene" uid="uid://dea1wxybwdv5l" path="res://Scenes/Objects/Entity/crate.tscn" id="12_0ndub"]
 [ext_resource type="PackedScene" uid="uid://c30vtkk6xyalv" path="res://Scenes/GUI/HUD.tscn" id="12_4ny0e"]
 [ext_resource type="Shader" path="res://Materials/Shaders/BlurBG.gdshader" id="13_mytdv"]
+[ext_resource type="PackedScene" uid="uid://bsr5fcv36hof3" path="res://Scenes/GUI/death.tscn" id="14_bbwfx"]
 [ext_resource type="PackedScene" uid="uid://c4h845ug0k7fc" path="res://Scenes/GUI/black_bars.tscn" id="14_jbm07"]
 [ext_resource type="PackedScene" uid="uid://4gfydxpmlpyf" path="res://Scenes/GUI/PauseMenu.tscn" id="15_53hke"]
 [ext_resource type="AudioStream" uid="uid://corrlpfkrmsud" path="res://Audio/SE/Hover.wav" id="16_0mnkw"]
 [ext_resource type="AudioStream" uid="uid://dvtvkthdfikvb" path="res://Audio/SE/Select.wav" id="17_wqefa"]
 [ext_resource type="Animation" uid="uid://bpi7iwxud64vh" path="res://PauseMenuAnim.res" id="18_3vihg"]
+[ext_resource type="Animation" uid="uid://brkpii1xbbp3g" path="res://dead.res" id="22_087d0"]
 
 [sub_resource type="Gradient" id="Gradient_is6ky"]
 
@@ -54,7 +56,8 @@ shader_parameter/size_y = 0.008
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e80li"]
 _data = {
-"PauseMenuAnim": ExtResource("18_3vihg")
+"PauseMenuAnim": ExtResource("18_3vihg"),
+"dead": ExtResource("22_087d0")
 }
 
 [node name="Level 2" type="Node2D"]
@@ -83,6 +86,7 @@ script = ExtResource("4_v06f1")
 
 [node name="Pausable" type="Node2D" parent="."]
 process_mode = 1
+y_sort_enabled = true
 
 [node name="TileMap" type="TileMap" parent="Pausable"]
 tile_set = ExtResource("1_jj7hi")
@@ -177,6 +181,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_sv67y")
+
+[node name="Death" parent="GUI" node_paths=PackedStringArray("animation_player") instance=ExtResource("14_bbwfx")]
+modulate = Color(1, 1, 1, 0)
+animation_player = NodePath("../../AnimationPlayer")
 
 [node name="BlackBars" parent="GUI" instance=ExtResource("14_jbm07")]
 
