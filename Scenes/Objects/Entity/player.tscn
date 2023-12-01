@@ -140,14 +140,14 @@ transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransi
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_okhtf"]
 size = Vector2(18, 43)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "energy", "torch", "weapon", "state_manager", "action_state_manager", "size_state_manager", "health", "hitbox", "animation_tree", "audio_player")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "energy", "torch", "weapon_pos", "state_manager", "action_state_manager", "size_state_manager", "health", "hitbox", "animation_tree", "audio_player")]
 collision_layer = 17
 collision_mask = 24
 script = ExtResource("1_hxueb")
 AimRayCast = NodePath("Hitbox/AimRayCast")
 energy = NodePath("Energy")
 torch = NodePath("Torch")
-weapon = NodePath("Weapon")
+weapon_pos = NodePath("Weapon")
 speed = 200.0
 state_manager = NodePath("State Manager")
 action_state_manager = NodePath("Action State Manager")
@@ -161,6 +161,7 @@ audio_player = NodePath("AudioStreamPlayer2D")
 script = ExtResource("2_a01hl")
 hp_max = 6.0
 shake_screen = true
+passive_rate = 1.0
 
 [node name="Energy" type="Node" parent="."]
 script = ExtResource("4_3ltgy")
@@ -284,14 +285,17 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kvl2y")
+}
 tree_root = SubResource("AnimationNodeStateMachine_mqyfh")
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/conditions/dash_bool = false
 "parameters/conditions/normal bool" = true
 parameters/Movement/blend_position = 0.0
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_7hj3n")]
+visible = false
 collision_layer = 17
 collision_mask = 20
 health = NodePath("../HP")
@@ -316,6 +320,7 @@ vframes = 2
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 position = Vector2(0, -18)
+current = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"

@@ -48,6 +48,7 @@ _data = {
 [node name="Bullet" type="StaticBody2D"]
 modulate = Color(10, 1.5, 1, 1)
 self_modulate = Color(15, 1, 1, 1)
+scale = Vector2(2, 2)
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_rh3jk")
@@ -85,10 +86,10 @@ frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 process_mode = 3
-autoplay = "bullet"
 libraries = {
 "": SubResource("AnimationLibrary_02wux")
 }
+autoplay = "bullet"
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
