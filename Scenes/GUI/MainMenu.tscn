@@ -251,6 +251,7 @@ size_flags_horizontal = 4
 text = "Quit"
 
 [node name="Credits" type="Panel" parent="."]
+visible = false
 texture_filter = 1
 clip_contents = true
 layout_mode = 1
@@ -376,7 +377,6 @@ A few SFX"
 fit_content = true
 
 [node name="Help" type="Panel" parent="."]
-visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -416,9 +416,9 @@ fit_content = true
 
 [node name="DescControls" type="RichTextLabel" parent="Help/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "WASD - To move
-Mouse Scroll - to change the weapon
-Left click - to shoot/use ability
+text = "WASD - Move Player Character
+Mouse Scroll - to change Weapon/Ability
+Left click - Shoot/Sse Ability
 Q - Abilities
 Escape - Pause/Resume Game"
 fit_content = true
@@ -476,7 +476,7 @@ texture = ExtResource("13_acu37")
 
 [node name="Label" type="Label" parent="Help/MarginContainer/VBoxContainer/Dash"]
 layout_mode = 2
-text = "Dashes the player towards the corsshair"
+text = "Dashes the player towards the corsshair (it can also deal damage)"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
