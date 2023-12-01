@@ -5,41 +5,39 @@ class_name Player
 @export var AimRayCast : RayCast2D
 @export var energy : Energy
 @export var torch : Torch
-@export var weapon : Node2D
+@export var weapon_pos : Node2D
 
 var dash_bool : bool = false
 
 var inventory : Array[Weapon]
-var inventory_slot : int = 0
 
 var ability_list : Array[Ability]
-var ability_select : int = 0
 
 func add_weapon(new_weapon : Weapon): 
 	inventory.push_back(new_weapon)
 
 func change_slot(delta : int):
-	inventory_slot += delta
-	inventory_slot = inventory_slot % inventory.size()
+	GameManager.weapon_slot += delta
+	GameManager.weapon_slot = GameManager.weapon_slot % inventory.size()
 
 func get_current_weapon() -> Weapon:
-	if inventory.size() <= inventory_slot:
+	if inventory.size() <= GameManager.weapon_slot:
 		return null
 
-	return inventory[inventory_slot]
+	return inventory[GameManager.weapon_slot]
 
 func add_ability(new_ability : Ability): 
 	ability_list.push_back(new_ability)
 
 func change_ability(delta : int):
-	ability_select += delta
-	ability_select = ability_select % ability_list.size()
+	GameManager.ability_slot += delta
+	GameManager.ability_slot = GameManager.ability_slot % ability_list.size()
 
 func get_current_ability() -> Ability:
-	if ability_list.size() <= ability_select:
+	if ability_list.size() <= GameManager.ability_slot:
 		return null
 	
-	return ability_list[ability_select]
+	return ability_list[GameManager.ability_slot]
 
 func _ready():
 	GameManager.player = self
@@ -63,3 +61,9 @@ func _physics_process(delta):
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
 		GameManager.player = null
+
+func move_sprite():
+	animation_tree.set("parameters/Movement/blend_position", 1)
+
+func idle_sprite():
+	animation_tree.set("parameters/Movement/blend_position", 0)
