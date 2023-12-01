@@ -1,6 +1,7 @@
 extends IDLE_State
 
 var random_rotate : float
+@export var animationPlayer : AnimationPlayer
 
 func physics_process(delta : float) -> State:
 	if entity.rotate_timer.is_stopped():
@@ -14,4 +15,10 @@ func physics_process(delta : float) -> State:
 
 func start():
 	random_rotate = entity.barrel.rotation
+	await animationPlayer.animation_finished
+	animationPlayer.play("to_idle")
+	await animationPlayer.animation_finished
 	entity.rotate_timer.start()
+
+func end():
+	entity.rotate_timer.stop()

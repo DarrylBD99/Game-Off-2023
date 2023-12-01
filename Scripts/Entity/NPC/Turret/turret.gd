@@ -17,7 +17,7 @@ func flash():
 	var barrel_sprite : Sprite2D = barrel.get_node_or_null("Sprite2D")
 	
 	if barrel_sprite and barrel_sprite.material:
-		barrel_sprite.material.set_shader_parameter("flash_alpha", 1)
+		barrel_sprite.material.set_shader_parameter("flash_alpha", 0.8)
 		
 	super.flash()
 

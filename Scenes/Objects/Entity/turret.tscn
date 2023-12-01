@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dqsfy4abhyii8"]
+[gd_scene load_steps=24 format=3 uid="uid://dqsfy4abhyii8"]
 
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/turret.gd" id="1_6oxya"]
 [ext_resource type="Script" path="res://Scripts/Entity/Stats/Attack.gd" id="1_8a73g"]
@@ -8,10 +8,13 @@
 [ext_resource type="Script" path="res://Scripts/Misc/State Machine/State Manager.gd" id="5_ubp2a"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/States/ATTACK.gd" id="6_dl3d1"]
 [ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/States/IDLE.gd" id="7_6xs1i"]
-[ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/States/COOLDOWN.gd" id="9_uuwv6"]
+[ext_resource type="Script" path="res://Scripts/Entity/NPC/Turret/States/BASE.gd" id="9_0entb"]
+[ext_resource type="Script" path="res://Scripts/Debug/StateLabel.gd" id="10_aidwb"]
 [ext_resource type="Material" uid="uid://cqm1ticuoegkp" path="res://Materials/Shaders/entity_shader.tres" id="10_er5s1"]
 [ext_resource type="PackedScene" uid="uid://drjc1gi1ohtja" path="res://Scenes/Component/size_state_manager.tscn" id="10_miysp"]
 [ext_resource type="PackedScene" uid="uid://ck7up650h05ob" path="res://Scenes/GUI/HealthBar.tscn" id="11_l428o"]
+[ext_resource type="Texture2D" uid="uid://b4mgi8o1vjjg8" path="res://Sprites/Character/turret_BASE.png" id="12_l27bc"]
+[ext_resource type="Texture2D" uid="uid://1mwl2pxa1hap" path="res://Sprites/Character/turret_FACE.png" id="14_cjjhy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wna73"]
 shader = ExtResource("1_haffl")
@@ -22,22 +25,95 @@ shader_parameter/flash_alpha = 0.0
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ngyq7"]
-size = Vector2(32, 16)
+size = Vector2(32, 32)
 
-[sub_resource type="Gradient" id="Gradient_hg6oj"]
-offsets = PackedFloat32Array(0, 0.968571, 1)
-colors = PackedColorArray(0.83123, 0.37771, 0.227217, 1, 0.822975, 0, 0.146082, 1, 0.537255, 0.301961, 0.164706, 1)
+[sub_resource type="Animation" id="Animation_vsf5o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barrel/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2n1jh"]
-gradient = SubResource("Gradient_hg6oj")
+[sub_resource type="Animation" id="Animation_5kb8m"]
+resource_name = "attack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barrel/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Action Manager/ATTACK")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire"
+}]
+}
 
-[sub_resource type="Gradient" id="Gradient_fgbrv"]
-colors = PackedColorArray(0.125884, 0.594167, 0.96818, 1, 0, 0.626025, 0.506191, 1)
+[sub_resource type="Animation" id="Animation_oqoq7"]
+resource_name = "load"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barrel/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_y31fm"]
-gradient = SubResource("Gradient_fgbrv")
+[sub_resource type="Animation" id="Animation_bbh6t"]
+resource_name = "to_idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barrel/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tikuk"]
+_data = {
+"RESET": SubResource("Animation_vsf5o"),
+"attack": SubResource("Animation_5kb8m"),
+"load": SubResource("Animation_oqoq7"),
+"to_idle": SubResource("Animation_bbh6t")
+}
 
 [node name="turret" type="CharacterBody2D" node_paths=PackedStringArray("AimRayCast", "barrel", "barrel_end", "rotate_timer", "action_state_manager", "size_state_manager", "health", "attack", "hitbox", "size_time_limit", "audio_player")]
+texture_filter = 1
 material = SubResource("ShaderMaterial_wna73")
 collision_layer = 18
 collision_mask = 24
@@ -46,6 +122,7 @@ AimRayCast = NodePath("AimRayCast")
 barrel = NodePath("Barrel")
 barrel_end = NodePath("Barrel/BarrelEnd")
 rotate_timer = NodePath("RotateTimer")
+aggro_range = 200.0
 action_state_manager = NodePath("Action Manager")
 size_state_manager = NodePath("Size State Manager")
 health = NodePath("HP")
@@ -71,33 +148,40 @@ shape = SubResource("RectangleShape2D_glblf")
 
 [node name="Action Manager" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("5_ubp2a")
-current_state = NodePath("IDLE")
+current_state = NodePath("BASE")
 
-[node name="ATTACK" type="Node" parent="Action Manager" node_paths=PackedStringArray("idle")]
+[node name="ATTACK" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state", "animationPlayer")]
 script = ExtResource("6_dl3d1")
-target_range = 200.0
-idle = NodePath("../IDLE")
+next_state = NodePath("../BASE")
+animationPlayer = NodePath("../../AnimationPlayer")
 
-[node name="IDLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("next_state")]
+[node name="IDLE" type="Node" parent="Action Manager" node_paths=PackedStringArray("animationPlayer", "next_state")]
 script = ExtResource("7_6xs1i")
+animationPlayer = NodePath("../../AnimationPlayer")
 next_state = NodePath("../ATTACK")
 
-[node name="COOLDOWN" type="Node" parent="Action Manager" node_paths=PackedStringArray("idle", "attack")]
-script = ExtResource("9_uuwv6")
-cooldown = 2.0
+[node name="BASE" type="Node" parent="Action Manager" node_paths=PackedStringArray("idle", "attack")]
+script = ExtResource("9_0entb")
 idle = NodePath("../IDLE")
 attack = NodePath("../ATTACK")
 
 [node name="Size State Manager" parent="." instance=ExtResource("10_miysp")]
 
+[node name="StateLabel" type="Label" parent="." node_paths=PackedStringArray("state_manager")]
+visible = false
+offset_left = -20.0
+offset_top = 16.0
+offset_right = 20.0
+offset_bottom = 39.0
+script = ExtResource("10_aidwb")
+state_manager = NodePath("../Action Manager")
+
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_ngyq7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = ExtResource("10_er5s1")
-scale = Vector2(0.5, 0.5)
-texture = SubResource("GradientTexture2D_2n1jh")
+texture = ExtResource("12_l27bc")
 
 [node name="SizeTimeLimit" type="Timer" parent="."]
 process_callback = 0
@@ -105,7 +189,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="HealthBar" parent="." node_paths=PackedStringArray("health") instance=ExtResource("11_l428o")]
-offset_top = -22.0
+offset_top = -26.0
 offset_bottom = -20.0
 health = NodePath("../HP")
 
@@ -113,12 +197,12 @@ health = NodePath("../HP")
 
 [node name="Sprite2D" type="Sprite2D" parent="Barrel"]
 material = ExtResource("10_er5s1")
-position = Vector2(16, 0)
-scale = Vector2(0.125, 4)
-texture = SubResource("GradientTexture1D_y31fm")
+position = Vector2(9, 0)
+texture = ExtResource("14_cjjhy")
+vframes = 7
 
 [node name="BarrelEnd" type="Node2D" parent="Barrel"]
-position = Vector2(32, 0)
+position = Vector2(15, 0)
 
 [node name="AimRayCast" type="RayCast2D" parent="."]
 collision_mask = 10
@@ -132,3 +216,8 @@ one_shot = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tikuk")
+}
