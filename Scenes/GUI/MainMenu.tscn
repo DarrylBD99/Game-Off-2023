@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cut2j7yqbjxwk"]
+[gd_scene load_steps=21 format=3 uid="uid://cut2j7yqbjxwk"]
 
 [ext_resource type="Theme" uid="uid://bykrtyls412vb" path="res://Theme.tres" id="1_3k5vl"]
 [ext_resource type="Script" path="res://Scripts/GUI/MainMenu.gd" id="1_15mux"]
@@ -8,6 +8,11 @@
 [ext_resource type="AudioStream" uid="uid://corrlpfkrmsud" path="res://Audio/SE/Hover.wav" id="4_1ckvq"]
 [ext_resource type="Texture2D" uid="uid://bvwl4v002pkb2" path="res://Godot Screenshot 2023.11.29 - 17.25.45.83.png" id="4_n76f7"]
 [ext_resource type="AudioStream" uid="uid://dvtvkthdfikvb" path="res://Audio/SE/Select.wav" id="4_tdyo5"]
+[ext_resource type="Script" path="res://Scripts/GUI/HelpMenu.gd" id="9_kolmr"]
+[ext_resource type="Texture2D" uid="uid://bo1owlrycyvjk" path="res://Sprites/GUI/HUD/Ability/enemy_small.png" id="10_1ilel"]
+[ext_resource type="Texture2D" uid="uid://ck6qccrqjs8yb" path="res://Sprites/GUI/HUD/Ability/maximize.png" id="11_x3s8s"]
+[ext_resource type="Texture2D" uid="uid://c7igsn4vpfvoi" path="res://Sprites/GUI/HUD/Ability/minimize.png" id="12_8mjln"]
+[ext_resource type="Texture2D" uid="uid://da65dhwmc80qh" path="res://Sprites/GUI/HUD/Ability/dash.png" id="13_acu37"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5epfw"]
 
@@ -195,6 +200,7 @@ scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_n76f7")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -232,7 +238,7 @@ text = "Play"
 [node name="Help" type="Button" parent="Title/MarginContainer/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Help"
+text = "Guide"
 
 [node name="Credits" type="Button" parent="Title/MarginContainer/Buttons"]
 layout_mode = 2
@@ -245,7 +251,7 @@ size_flags_horizontal = 4
 text = "Quit"
 
 [node name="Credits" type="Panel" parent="."]
-visible = false
+texture_filter = 1
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -351,7 +357,9 @@ bbcode_enabled = true
 text = "[right]	Mounir Tohami
 Pupkin
 VladPenn
-spoonsweet"
+spoonsweet
+Nanakisan (Freesound.org)
+JSFXR"
 fit_content = true
 
 [node name="Asset_Plugin" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Assets/HBoxContainer"]
@@ -362,11 +370,14 @@ bbcode_enabled = true
 text = "[left]MinimalPixel Font
 Tech Dungeon Roguelite Tileset
 Weapon Pack
-Turret Pixel Asset"
+Turret Pixel Asset
+Evil Laughs 8
+A few SFX"
 fit_content = true
 
 [node name="Help" type="Panel" parent="."]
 visible = false
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -379,6 +390,93 @@ offset_right = 312.0
 offset_bottom = 172.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("9_kolmr")
+
+[node name="MarginContainer" type="MarginContainer" parent="Help"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Help/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleControls" type="RichTextLabel" parent="Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "[center][b]Controls"
+fit_content = true
+
+[node name="DescControls" type="RichTextLabel" parent="Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "WASD - To move
+Mouse Scroll - to change the weapon
+Left click - to shoot/use ability
+Q - Abilities
+Escape - Pause/Resume Game"
+fit_content = true
+
+[node name="TitleAbility" type="RichTextLabel" parent="Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "[center][b]Ability"
+fit_content = true
+
+[node name="EnSmallen" type="HBoxContainer" parent="Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Help/MarginContainer/VBoxContainer/EnSmallen"]
+layout_mode = 2
+texture = ExtResource("10_1ilel")
+
+[node name="Label" type="Label" parent="Help/MarginContainer/VBoxContainer/EnSmallen"]
+layout_mode = 2
+text = "Scales DOWN any Enemies/Crates for a short time"
+
+[node name="Maximize" type="HBoxContainer" parent="Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Help/MarginContainer/VBoxContainer/Maximize"]
+layout_mode = 2
+texture = ExtResource("11_x3s8s")
+
+[node name="Label" type="Label" parent="Help/MarginContainer/VBoxContainer/Maximize"]
+layout_mode = 2
+text = "Scales UP the size of the playey"
+
+[node name="Minimize" type="HBoxContainer" parent="Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Help/MarginContainer/VBoxContainer/Minimize"]
+layout_mode = 2
+texture = ExtResource("12_8mjln")
+
+[node name="Label" type="Label" parent="Help/MarginContainer/VBoxContainer/Minimize"]
+layout_mode = 2
+text = "Scales DOWN the size of the playey"
+
+[node name="Dash" type="HBoxContainer" parent="Help/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Help/MarginContainer/VBoxContainer/Dash"]
+layout_mode = 2
+texture = ExtResource("13_acu37")
+
+[node name="Label" type="Label" parent="Help/MarginContainer/VBoxContainer/Dash"]
+layout_mode = 2
+text = "Dashes the player towards the corsshair"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
