@@ -49,7 +49,7 @@ func _process(_delta):
 
 func play_game():
 	$Select.play()
-	Transition.change_scene("res://Scenes/Levels/LevelTest.tscn")
+	Transition.change_scene("res://Scenes/GUI/Level/level_" + str(GameManager.level) + ".tscn")
 
 func help_menu():
 	if help_panel:

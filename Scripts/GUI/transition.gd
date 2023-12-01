@@ -18,4 +18,5 @@ func change_scene_packed(target : PackedScene):
 func quit():
 	$AnimationPlayer.play("transition")
 	await $AnimationPlayer.animation_finished
+	GameManager.save_progress()
 	get_tree().quit()

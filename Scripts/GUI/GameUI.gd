@@ -11,7 +11,7 @@ func set_game_pause():
 	get_tree().paused = paused
 
 func _input(event):
-	if event.is_action_pressed("ui_cancel"):
+	if not GameManager.block_input and event.is_action_pressed("ui_cancel"):
 		pause_resume()
 
 func pause_resume():
@@ -21,9 +21,9 @@ func pause_resume():
 		cursor_type = GameManager.cursor_type_str
 		GameManager.set_default()
 		
-		animation_player.play("PauseMenu")
+		animation_player.play("PauseMenuAnim")
 		await animation_player.animation_finished
 	else:
 		GameManager.set_cursor(cursor_type)
-		animation_player.play_backwards("PauseMenu")
+		animation_player.play_backwards("PauseMenuAnim")
 		await animation_player.animation_finished
