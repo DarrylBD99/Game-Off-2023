@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://corrlpfkrmsud"
-path="res://.godot/imported/Hover.wav-d9b709ce77ebd4a1126055b44c3eb111.sample"
+uid="uid://cc2rgl2enyhdj"
+path="res://.godot/imported/Laugh.wav-602a53c284b53909ffb340b2108acbf6.sample"
 
 [deps]
 
-source_file="res://Audio/SE/Hover.wav"
-dest_files=["res://.godot/imported/Hover.wav-d9b709ce77ebd4a1126055b44c3eb111.sample"]
+source_file="res://Audio/SE/Laugh.wav"
+dest_files=["res://.godot/imported/Laugh.wav-602a53c284b53909ffb340b2108acbf6.sample"]
 
 [params]
 
