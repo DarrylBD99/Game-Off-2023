@@ -25,9 +25,13 @@ func end():
 func physics_process(_delta : float) -> State:
 	if (melee_attack_node and entity.target):
 		melee_attack_node.look_at(entity.target.global_position)
-		
+	
+	if not entity.target:
+		return next_state
+	
 	if (isAnimationComplete):
 		return next_state
+	
 	return null
 
 func _on_animation_finished(_anim_name: StringName) :
