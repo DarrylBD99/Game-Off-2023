@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://crnc1e16ygt68"]
+[gd_scene load_steps=34 format=3 uid="uid://crnc1e16ygt68"]
 
 [ext_resource type="Script" path="res://Scripts/Misc/LoopBGM.gd" id="1_w6muq"]
 [ext_resource type="AudioStream" uid="uid://c4eyqib0vyysf" path="res://Audio/BGM/Level_Intro.mp3" id="2_xw5j0"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://4gfydxpmlpyf" path="res://Scenes/GUI/PauseMenu.tscn" id="16_u0aj6"]
 [ext_resource type="AudioStream" uid="uid://corrlpfkrmsud" path="res://Audio/SE/Hover.wav" id="17_27vi5"]
 [ext_resource type="AudioStream" uid="uid://dvtvkthdfikvb" path="res://Audio/SE/Select.wav" id="18_rvfvi"]
+[ext_resource type="Script" path="res://Scripts/GUI/BossHealth.gd" id="19_w4sh2"]
 [ext_resource type="Animation" uid="uid://cwenjmwebfiqw" path="res://BossBattleAnim.res" id="20_2wb0l"]
 
 [sub_resource type="Gradient" id="Gradient_dksjs"]
@@ -56,6 +57,20 @@ shader_parameter/size_x = 0.008
 shader_parameter/size_y = 0.008
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_0ylog"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqjgp"]
+bg_color = Color(0.6, 0.6, 0.6, 0.396078)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jicm"]
+bg_color = Color(0.733333, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="Animation" id="Animation_kvh1e"]
 resource_name = "PauseMenuAnim_2"
@@ -305,6 +320,30 @@ tracks/14/keys = {
 "update": 1,
 "values": [ExtResource("3_jcje7")]
 }
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("ProgressBar:rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("ProgressBar:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(234, -28)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7aead"]
 _data = {
@@ -414,6 +453,9 @@ remote_path = NodePath("../../../Camera2D")
 material = SubResource("ShaderMaterial_u0yi0")
 position = Vector2(1184, -272)
 dust_origin_2 = NodePath("../BossEvent/BossSpawn")
+aggro_range = 300.0
+debug_path = false
+speed = 100.0
 
 [node name="BossEvent" type="Area2D" parent="Pausable" node_paths=PackedStringArray("animation_player", "boss_spawn", "temp_tilemap", "acid_particle_node", "acid_sfx")]
 collision_layer = 0
@@ -470,6 +512,37 @@ stream = ExtResource("17_27vi5")
 [node name="Select" type="AudioStreamPlayer2D" parent="GUI"]
 position = Vector2(24, 236)
 stream = ExtResource("18_rvfvi")
+
+[node name="ProgressBar" type="ProgressBar" parent="GUI" node_paths=PackedStringArray("boss")]
+anchors_preset = -1
+anchor_bottom = 0.028
+offset_left = 234.0
+offset_top = -28.0
+offset_right = 571.0
+offset_bottom = -7.99998
+theme_override_styles/background = SubResource("StyleBoxFlat_kqjgp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1jicm")
+value = 100.0
+show_percentage = false
+script = ExtResource("19_w4sh2")
+boss = NodePath("../../Pausable/scientist")
+
+[node name="Label" type="Label" parent="GUI/ProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -30.0
+offset_right = 35.5
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.341176, 0.541176, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.0705882, 0.0666667, 0.478431, 1)
+text = "Scientist"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../GUI")
