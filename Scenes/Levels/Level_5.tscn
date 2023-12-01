@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://crnc1e16ygt68"]
+[gd_scene load_steps=33 format=3 uid="uid://crnc1e16ygt68"]
 
 [ext_resource type="Script" path="res://Scripts/Misc/LoopBGM.gd" id="1_w6muq"]
 [ext_resource type="AudioStream" uid="uid://c4eyqib0vyysf" path="res://Audio/BGM/Level_Intro.mp3" id="2_xw5j0"]
@@ -18,7 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://4gfydxpmlpyf" path="res://Scenes/GUI/PauseMenu.tscn" id="16_u0aj6"]
 [ext_resource type="AudioStream" uid="uid://corrlpfkrmsud" path="res://Audio/SE/Hover.wav" id="17_27vi5"]
 [ext_resource type="AudioStream" uid="uid://dvtvkthdfikvb" path="res://Audio/SE/Select.wav" id="18_rvfvi"]
-[ext_resource type="Animation" uid="uid://cwenjmwebfiqw" path="res://BossBattleAnim.res" id="20_2wb0l"]
+[ext_resource type="AudioStream" uid="uid://cyt0h4k7hsvuc" path="res://Audio/BGM/BossBattle_Intro.mp3" id="19_x1g58"]
+[ext_resource type="AudioStream" uid="uid://t2qlv5thpe4f" path="res://Audio/BGM/BossBattle_loop.mp3" id="20_istvc"]
 
 [sub_resource type="Gradient" id="Gradient_dksjs"]
 
@@ -306,9 +307,283 @@ tracks/14/keys = {
 "values": [ExtResource("3_jcje7")]
 }
 
+[sub_resource type="Animation" id="Animation_3m02b"]
+resource_name = "BossBattle"
+length = 14.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackBars")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 13.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"show_bars"
+}, {
+"args": [],
+"method": &"hide_bars"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlackBars:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 14.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Pausable/Player/RemoteTransform2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3, 14.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HUD")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 13.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"hide_hud"
+}, {
+"args": [],
+"method": &"show_hud"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Camera2D:drag_left_margin")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1, 13.5, 14.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.3, 0.0, 0.0, 0.3]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Camera2D:drag_top_margin")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1, 13.5, 14.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.2, 0.0, 0.0, 0.2]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../Camera2D:drag_right_margin")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1, 13.5, 14.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.3, 0.0, 0.0, 0.3]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../Camera2D:drag_bottom_margin")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1, 13.5, 14.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.2, 0.0, 0.0, 0.2]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../Pausable/scientist:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(5, 7),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1184, -272), Vector2(1184, 96)]
+}
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../Pausable/scientist")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(4, 6.3, 8.4, 8.6, 10, 14.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"ship_sfx_start"
+}, {
+"args": [],
+"method": &"dust_particles_on_2"
+}, {
+"args": [],
+"method": &"stop_sfx"
+}, {
+"args": [],
+"method": &"dust_particles_off"
+}, {
+"args": [],
+"method": &"laugh"
+}, {
+"args": [],
+"method": &"enable_hostile"
+}]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../BGM:volume_db")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 2, 5.3, 5.4),
+"transitions": PackedFloat32Array(2, 1, 1, 1),
+"update": 0,
+"values": [0.0, -80.0, -80.0, 0.0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../BGM:loop_strat")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(5, 5.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_xw5j0"), ExtResource("19_x1g58")]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../BGM:loop")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(5, 5.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("3_jcje7"), ExtResource("20_istvc")]
+}
+tracks/13/type = "method"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../BGM")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(5.3, 5.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_ready"
+}, {
+"args": [],
+"method": &"_ready"
+}]
+}
+tracks/14/type = "method"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../Pausable/Player")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"move_sprite"
+}, {
+"args": [],
+"method": &"idle_sprite"
+}]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("../Pausable/Player:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/16/type = "method"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("../Pausable/BossEvent")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"spawn_acid"
+}, {
+"args": [],
+"method": &"delete_bridge"
+}]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("ProgressBar:rotation")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("ProgressBar:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(13.5, 14.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(234, -28), Vector2(234, 28)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7aead"]
 _data = {
-"BossBattle": ExtResource("20_2wb0l"),
+"BossBattle": SubResource("Animation_3m02b"),
 "PauseMenuAnim": SubResource("Animation_kvh1e"),
 "RESET": SubResource("Animation_56crc")
 }

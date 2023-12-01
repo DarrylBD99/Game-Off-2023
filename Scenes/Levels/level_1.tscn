@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://mb3exl0b4ovi"]
+[gd_scene load_steps=29 format=3 uid="uid://mb3exl0b4ovi"]
 
 [ext_resource type="Script" path="res://Scripts/Misc/LoopBGM.gd" id="1_iuwse"]
 [ext_resource type="AudioStream" uid="uid://c4eyqib0vyysf" path="res://Audio/BGM/Level_Intro.mp3" id="2_2s06r"]
@@ -51,9 +51,13 @@ shader_parameter/size_y = 0.008
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_3e4pm"]
 
+[sub_resource type="Animation" id="Animation_2rrec"]
+length = 0.001
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e80li"]
 _data = {
-"PauseMenuAnim": ExtResource("18_iedpo")
+"PauseMenuAnim": ExtResource("18_iedpo"),
+"RESET": SubResource("Animation_2rrec")
 }
 
 [node name="level 1" type="Node2D"]
