@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://jxrt5kvtwsyg"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tyt0b"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 50.0
+initial_velocity_min = 133.33
+initial_velocity_max = 244.44
+gravity = Vector3(0, 400, 0)
+scale_min = 2.0
+scale_max = 5.0
+color = Color(0.643137, 0.643137, 0.643137, 1)
+
+[node name="DustUp" type="GPUParticles2D"]
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_tyt0b")
+
+[node name="Timer" type="Timer" parent="."]
