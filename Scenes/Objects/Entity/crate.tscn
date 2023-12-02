@@ -14,11 +14,12 @@ size = Vector2(32, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdxhc"]
 size = Vector2(32, 32)
 
-[node name="Crate" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "size_time_limit", "audio_player")]
+[node name="Crate" type="CharacterBody2D" node_paths=PackedStringArray("size_state_manager", "health", "hitbox", "size_time_limit", "audio_player")]
 collision_layer = 16
 collision_mask = 16
 script = ExtResource("1_j8x8s")
 speed = 0.0
+size_state_manager = NodePath("Size State Manager")
 health = NodePath("HP")
 hitbox = NodePath("Hitbox")
 size_time_limit = NodePath("SizeTimeLimit")
