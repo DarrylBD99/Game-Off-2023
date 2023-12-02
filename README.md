@@ -1,16 +1,33 @@
-# motion-blur-godot-4.0
-A motion blur plugin created by Bauxitedev, ported to Godot 4.0
+# Scalar
 
-To use this plugin in your game, do the following:
-1) Copy the motion-blur folder to your project directory.
-2) Select the camera you want to apply motion blur to, and click the 'link' button above the scene tree to instance a scene.
-3) Select the 'motion_blur.tscn' file, and click Open.
+## Controls
 
-If you want to customize the blur:
-1) Select the motion_blur node
-2) Click 'Surface Material Override' in the inspector under MeshInstance3D.
-3) Click 'Shader Parameters'
-4) Mess with the Intensity, Iteration Count, and Start Radius until you have the effect you'd like.
+WASD - Move Player Character
 
-Original plugin by Bauxitedev for Godot 3:
-https://godotengine.org/asset-library/asset/211
+Mouse Scroll - to change Weapon/Ability
+
+Left click - Shoot/Sse Ability
+
+Q - Abilities
+
+Escape - Pause/Resume Game
+
+## Abilities
+
+Shrinker: Scales DOWN any Enemy/Crate for a short time
+
+Maximize: Scales UP the size of the player, boosting his attack but lowering his speed
+
+Maximize: Scales DOWN the size of the player, increasing his speed but weakens his attack
+
+Dash: Dashes the Player through Enemies/Crates and damaging them
+
+## Changelog
+
+### v0.2
+- Fixed TrashBoat's name in credits
+- Fixed Death Screen Button uninteractable
+- Fixed Boss Health Bar not showing
+- Fixed Map Tilesets
+- Fixed Blurry Tilemaps
+- Fixed Crate Size Down not working
