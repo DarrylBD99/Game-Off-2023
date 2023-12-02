@@ -316,7 +316,7 @@ Oncur
 LolHank
 Eduardo Arantes
 The Cool Treecko
-TrashBot"
+TrashBoat"
 fit_content = true
 
 [node name="Job" type="RichTextLabel" parent="Credits/MarginContainer/VBoxContainer/Developers/HBoxContainer"]
