@@ -3,18 +3,19 @@ extends Control
 @export var resume_button : Button
 @export var main_menu_button : Button
 
-@export var hover : AudioStreamPlayer2D
-@export var select : AudioStreamPlayer2D
+@export var bgm : AudioStreamPlayer
 
 var hovering : bool = false
 
 var buttons : Array[Button]
 
+@onready var animation_player : AnimationPlayer = $AnimationPlayer
+
 func _process(_delta):
 	for button in buttons:
 		if button.is_hovered():
 			if not hovering:
-				hover.play()
+				$Hover.play()
 				hovering = true
 				return
 			else:
@@ -22,6 +23,11 @@ func _process(_delta):
 	
 	hovering = false
 	
+	if bgm:
+		if get_parent().paused:
+			bgm.volume_db = -10
+		else:
+			bgm.volume_db = 0
 
 func _ready():
 	if resume_button:
@@ -33,10 +39,10 @@ func _ready():
 		main_menu_button.pressed.connect(main_menu)
 
 func resume():
-	select.play()
+	$Select.play()
 	get_parent().pause_resume()
 
 func main_menu():
-	select.play()
+	$Select.play()
 	Transition.change_scene("res://Scenes/GUI/MainMenu.tscn")
 	get_tree().paused = false

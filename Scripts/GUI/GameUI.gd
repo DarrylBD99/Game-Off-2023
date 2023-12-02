@@ -1,7 +1,6 @@
 extends CanvasLayer
 
 @export var pause_menu : Control
-@export var animation_player : AnimationPlayer
 
 @onready var cursor_type : String = GameManager.cursor_type_str
 
@@ -18,12 +17,14 @@ func pause_resume():
 	paused = not get_tree().paused
 	
 	if paused:
+		set_game_pause()
 		cursor_type = GameManager.cursor_type_str
 		GameManager.set_default()
 		
-		animation_player.play("PauseMenuAnim")
-		await animation_player.animation_finished
+		pause_menu.animation_player.play("PauseMenuAnim")
+		await pause_menu.animation_player.animation_finished
 	else:
 		GameManager.set_cursor(cursor_type)
-		animation_player.play_backwards("PauseMenuAnim")
-		await animation_player.animation_finished
+		pause_menu.animation_player.play_backwards("PauseMenuAnim")
+		await pause_menu.animation_player.animation_finished
+		set_game_pause()

@@ -1,12 +1,9 @@
 extends Panel
 
-@export var animation_player : AnimationPlayer
-
-@export var hover : AudioStreamPlayer2D
-@export var select : AudioStreamPlayer2D
-
 @export var retry_button : Button
 @export var main_menu_button : Button
+
+@export var bgm : AudioStreamPlayer
 
 var buttons : Array[Button]
 
@@ -14,17 +11,23 @@ var hovering : bool = false
 
 func _process(delta):
 	if not GameManager.player and not visible:
-		animation_player.play("dead")
+		$AnimationPlayer.play("dead")
 		GameManager.set_default()
 	
 	for button in buttons:
 		if button.is_hovered():
 			if not hovering:
-				hover.play()
+				$Hover.play()
 				hovering = true
 				return
 			else:
 				return
+	
+	if visible and bgm:
+		bgm.volume_db -= 40 * delta
+		
+		if bgm.volume_db < -40:
+			bgm.volume_db = -40
 	
 	hovering = false
 
@@ -38,11 +41,11 @@ func _ready():
 		main_menu_button.pressed.connect(main_menu)
 
 func retry():
-	select.play()
+	$Select.play()
 	Transition.change_scene("res://Scenes/Levels/level_" + str(GameManager.level) + ".tscn")
 
 func main_menu():
-	select.play()
+	$Select.play()
 	Transition.change_scene("res://Scenes/GUI/MainMenu.tscn")
 
 func _input(event):
