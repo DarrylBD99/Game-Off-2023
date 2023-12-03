@@ -4,3 +4,4 @@ extends Entity
 
 func _ready():
 	$Sprite2D.frame = sprite_var
+	super._ready()
